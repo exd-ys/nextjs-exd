@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    font-family: 'Nunito Sans', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap');
+    font-size: 14px;
+  }
+
+  :root {
+    --colors-primary-blue-blue-dark: 193 100% 38%;
+    --colors-primary-blue-blue-darker: 193 100% 29%;
+    --colors-primary-blue-blue-default: 195 100% 50%;
+    --colors-primary-blue-blue-light: 193 92% 68%;
+    --colors-primary-blue-blue-lighter: 193 94% 88%;
+
+    --colors-secondary-black-black-default: 0 0 26%;
+    --colors-secondary-gray-gray-dark: 150 1% 40%;
+    --colors-secondary-gray-gray-darker: 150 1% 30%;
+    --colors-secondary-gray-gray-default: 140 1% 50%;
+    --colors-secondary-gray-gray-light: 150 1% 70%;
+    --colors-secondary-gray-gray-lighter: 120 2% 90%;
+    --colors-secondary-white-white-default: 0 0 100%;
+
+    --colors-accent-green-green-dark: 116 40% 43%;
+    --colors-accent-green-green-darker: 116 41% 32%;
+    --colors-accent-green-green-default: 116 47% 54%;
+    --colors-accent-green-green-light: 116 48% 72%;
+    --colors-accent-green-green-lighter: 115 49% 91%;
+
+    --colors-accent-red-red-dark: 0 65% 47%;
+    --colors-accent-red-red-darker: 0 66% 35%;
+    --colors-accent-red-red-default: 0 92% 59%;
+    --colors-accent-red-red-light: 0 92% 75%;
+    --colors-accent-red-red-lighter: 0 91% 92%;
+
+    --colors-accent-yellow-yellow-dark: 48 65% 47%;
+    --colors-accent-yellow-yellow-darker: 48 66% 35%;
+    --colors-accent-yellow-yellow-default: 48 92% 59%;
+    --colors-accent-yellow-yellow-light: 48 92% 75%;
+    --colors-accent-yellow-yellow-lighter: 49 91% 92%;
+  }
+
+  /* dark mode variables */
+  :root[data-theme='dark'] {
+    --colors-primary-blue-blue-dark: 193 100% 38%;
+    --colors-primary-blue-blue-darker: 193 100% 29%;
+    --colors-primary-blue-blue-default: 195 100% 50%;
+    --colors-primary-blue-blue-light: 193 92% 68%;
+    --colors-primary-blue-blue-lighter: 193 94% 88%;
+
+    --colors-secondary-black-black-default: 0 0 26%;
+    --colors-secondary-gray-gray-dark: 150 1% 40%;
+    --colors-secondary-gray-gray-darker: 150 1% 30%;
+    --colors-secondary-gray-gray-default: 140 1% 50%;
+    --colors-secondary-gray-gray-light: 150 1% 70%;
+    --colors-secondary-gray-gray-lighter: 120 2% 90%;
+    --colors-secondary-white-white-default: 0 0 100%;
+
+    --colors-accent-green-green-dark: 116 40% 43%;
+    --colors-accent-green-green-darker: 116 41% 32%;
+    --colors-accent-green-green-default: 116 47% 54%;
+    --colors-accent-green-green-light: 116 48% 72%;
+    --colors-accent-green-green-lighter: 115 49% 91%;
+
+    --colors-accent-red-red-dark: 0 65% 47%;
+    --colors-accent-red-red-darker: 0 66% 35%;
+    --colors-accent-red-red-default: 0 92% 59%;
+    --colors-accent-red-red-light: 0 92% 75%;
+    --colors-accent-red-red-lighter: 0 91% 92%;
+
+    --colors-accent-yellow-yellow-dark: 48 65% 47%;
+    --colors-accent-yellow-yellow-darker: 48 66% 35%;
+    --colors-accent-yellow-yellow-default: 48 92% 59%;
+    --colors-accent-yellow-yellow-light: 48 92% 75%;
+    --colors-accent-yellow-yellow-lighter: 49 91% 92%;
+  }
+}
