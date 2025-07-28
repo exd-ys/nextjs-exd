@@ -37,14 +37,3 @@ next-env.d.ts
 
 # Security - Prevent secrets
 .vscode/mcp.json
-.env*
-*.key
-*.pem
-*token*
-*secret*
-
-# VS Code settings that might contain secrets
-.vscode/settings.json
-
-# MCP configurations (may contain API keys)
-.vscode/mcp.json
