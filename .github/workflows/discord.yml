@@ -1,0 +1,16 @@
+name: Notify Discord
+
+on:
+  pull_request:
+    types: [opened, closed, reopened]
+  push:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send to Discord
+        uses: Ilshidur/action-discord@master
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          args: '🔔 Event: ${{ github.event_name }} in ${{ github.repository }} by ${{ github.actor }}'
