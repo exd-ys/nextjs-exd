@@ -33,14 +33,14 @@ const validate = (values: any) => {
   ValidationHelper.validate(values, validationSchema)
 }
 
-interface Props { }
+interface Props {}
 
 const loginFormInitialValue = {
   email: '',
   password: '',
 }
 
-const Login: NextPage<Props> = ({ }) => {
+const Login: NextPage<Props> = ({}) => {
   // const authService = container.get<IAuthService>(
   //   CONTAINER_IDENTIFIER.IAUTH_SERVICE
   // );
@@ -122,7 +122,7 @@ const Login: NextPage<Props> = ({ }) => {
           <div className='section-right animate__animated animate__slideInRight px-0 sm:w-full sm:px-8  md:w-6/12 md:px-16'>
             <div className=' grid-row-2 grid h-full w-full rounded-lg bg-secondary-white bg-opacity-60 p-12 shadow-lg sm:w-11/12	'>
               <h1 className='mb-3 text-h2 font-semibold text-secondary-black'>
-                Get started
+                Get startedss
               </h1>
               <div className='flex-1'>
                 <Formik
@@ -145,8 +145,9 @@ const Login: NextPage<Props> = ({ }) => {
                           Email Address
                         </FormLabel>
                         <FormField
-                          theme={`${touched.email && errors.email ? 'error' : 'default'
-                            }`}
+                          theme={`${
+                            touched.email && errors.email ? 'error' : 'default'
+                          }`}
                           errorMessage={errors.email ? errors.email : ''}
                           placeholder='Enter email address...'
                           fieldtype='email'
@@ -163,10 +164,11 @@ const Login: NextPage<Props> = ({ }) => {
                           Password
                         </FormLabel>
                         <FormField
-                          theme={`${touched.password && errors.password
-                            ? 'error'
-                            : 'default'
-                            }`}
+                          theme={`${
+                            touched.password && errors.password
+                              ? 'error'
+                              : 'default'
+                          }`}
                           errorMessage={errors.password ? errors.password : ''}
                           placeholder='Enter password...'
                           fieldtype='password'
