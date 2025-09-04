@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Send to Discord
         uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
           args: '🔔 Event: ${{ github.event_name }} in ${{ github.repository }} by ${{ github.actor }}'
