@@ -68,7 +68,7 @@ const menuVariants = cva('', {
 })
 
 const menuButtonsVariants = cva(
-  'flex gap-2  items-center rounded-md outline-none text-base sm:leading-6',
+  'flex gap-2  items-center rounded-md outline-hidden text-base sm:leading-6',
   {
     variants: {
       theme: {

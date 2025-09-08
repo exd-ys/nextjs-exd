@@ -41,7 +41,7 @@ const textfieldVariants = cva(
 )
 
 const textfieldInputVariants = cva(
-  'group w-full outline-none text-secondary bg-secondary-white placeholder:text-secondary text-base sm:leading-6',
+  'group w-full outline-hidden text-secondary bg-secondary-white placeholder:text-secondary text-base sm:leading-6',
   {
     variants: {
       theme: {
