@@ -72,7 +72,7 @@ const contentVariants = cva('relative', {
 })
 
 const textAreaVariants = cva(
-  'flex w-full outline-none items-center justify-between gap-2 rounded-md border py-3 px-4 text-secondary bg-secondary-white value:text-secondary-200 focus:ring-2 focus:ring-inset focus:ring-primary-300 text-base sm:leading-6',
+  'flex w-full outline-hidden items-center justify-between gap-2 rounded-md border py-3 px-4 text-secondary bg-secondary-white value:text-secondary-200 focus:ring-2 focus:ring-inset focus:ring-primary-300 text-base sm:leading-6',
   {
     variants: {
       theme: {

@@ -9,7 +9,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 const alertVariants = cva('', {
   variants: {
     theme: {
-      alert: '!bg-[transparent] !border-none !text-[#000000]',
+      alert: 'bg-transparent! border-none! text-[#000000]!',
       inline: 'py-3 flex justify-center w-full',
     },
     type: {

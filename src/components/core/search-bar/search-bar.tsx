@@ -93,7 +93,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 onChange()
               }}
               disabled={disabled}
-              className='placeholder-secondary-300 max-w-full shrink grow text-base font-normal leading-tight text-secondary outline-none'
+              className='placeholder-secondary-300 max-w-full shrink grow text-base font-normal leading-tight text-secondary outline-hidden'
               placeholder={value}
             />
             {!!rightIcon && (

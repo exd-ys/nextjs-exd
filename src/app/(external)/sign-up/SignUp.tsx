@@ -162,7 +162,7 @@ const SignUp: NextPage<Props> = () => {
 
   return (
     <>
-      <div className='from-primary-50 to-primary-50 my-auto flex items-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] via-primary-100 sm:h-screen'>
+      <div className='from-primary-50 to-primary-50 my-auto flex items-center bg-[radial-gradient(ellipse_at_top_left,var(--tw-gradient-stops))] via-primary-100 sm:h-screen'>
         <div className='flex h-full w-screen flex-col items-center justify-between gap-16 p-8 sm:gap-0 sm:p-16'>
           <header className='header w-full text-left'>
             <img
