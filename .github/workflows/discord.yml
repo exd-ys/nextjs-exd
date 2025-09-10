@@ -35,6 +35,14 @@ jobs:
             {% for reviewer in github.event.pull_request.requested_reviewers %}
             {{ reviewer.login }}
             {% endfor %}
-            {% else %}
-            🔔 Event: ${{ github.event_name }} in ${{ github.repository }} by ${{ github.actor }}
-            {% endif %}
+            args: |
+              Event: ${{ github.event_name }}
+              Repo: ${{ github.repository }}
+              Actor: ${{ github.actor }}
+              PR #: ${{ github.event.pull_request.number }}
+              PR Title: ${{ github.event.pull_request.title }}
+              PR Description: ${{ github.event.pull_request.body }}
+              Source: ${{ github.event.pull_request.head.ref }}
+              Target: ${{ github.event.pull_request.base.ref }}
+              Status: ${{ github.event.pull_request.state }}
+              Merged: ${{ github.event.pull_request.merged }}
