@@ -144,108 +144,43 @@ const Login: NextPage<Props> = ({}) => {
     // Implement Apple OAuth here
   }
 
-  return (
-    <div className='grid min-h-svh lg:grid-cols-2'>
-      <div className='flex flex-col gap-4 p-6 md:p-10'>
-        <div className='flex justify-center gap-2 md:justify-start'>
-          <a href='#' className='flex items-center gap-2 font-medium'>
-            <div className='bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md'>
-              <img alt='Logo' className='size-4' src={imgIcon} />
-            </div>
-            You_Source
-          </a>
-        </div>
-        <div className='flex flex-1 items-center justify-center'>
-          <div className='w-full max-w-xs'>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                const formData = new FormData(e.currentTarget)
-                const values = {
-                  email: formData.get('email') as string,
-                  password: formData.get('password') as string,
-                  rememberMe: formData.get('rememberMe') === 'on',
-                }
-                handleSubmit(values)
-              }}
-              className='flex flex-col gap-6'
-            >
-              <div className='flex flex-col items-center gap-2 text-center'>
-                <h1 className='text-2xl font-bold'>Login to your account</h1>
-                <p className='text-muted-foreground text-sm text-balance'>
-                  Enter your email below to login to your account
-                </p>
+    return (
+      <div className="grid min-h-svh lg:grid-cols-2 font-['Inter',sans-serif]">
+        <div className="flex flex-col gap-4 p-6 md:p-10">
+          <div className="flex flex-1 items-center justify-center">
+            <div className="w-full max-w-md">
+              {/* Logo at top center */}
+              <div className="flex flex-col items-center mb-6">
+                <img src="/images/ys-new-logo.png" alt="logo" className="h-[45px] w-auto mb-2" />
               </div>
-              <div className='grid gap-6'>
-                <div className='grid gap-3'>
-                  <Label htmlFor='email'>Email</Label>
-                  <Input
-                    id='email'
-                    name='email'
-                    type='email'
-                    placeholder='m@example.com'
-                    required
-                  />
-                </div>
-                <div className='grid gap-3'>
-                  <div className='flex items-center'>
-                    <Label htmlFor='password'>Password</Label>
-                    <button
-                      type='button'
-                      className='ml-auto text-sm underline-offset-4 hover:underline'
-                    >
-                      Forgot your password?
-                    </button>
-                  </div>
-                  <div className='relative'>
-                    <Input
-                      id='password'
-                      name='password'
-                      type={showPassword ? 'text' : 'password'}
-                      required
-                    />
-                    <button
-                      type='button'
-                      className='absolute right-3 top-1/2 -translate-y-1/2'
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      <EyeSlash />
-                    </button>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget as HTMLFormElement;
+                  const formData = new FormData(form);
+                  const values = {
+                    email: formData.get('email') as string,
+                    password: formData.get('password') as string,
+                    rememberMe: formData.get('rememberMe') === 'on',
+                  };
+                  handleSubmit(values);
+                }}
+                className="flex flex-col gap-6"
+              >
+                {/* Log In heading and sublabel at top, below logo */}
+                <div className="flex flex-col gap-1 items-start mb-6">
+                  <h1 className="text-[18px] font-semibold text-[#363636]">Log In</h1>
+                  <div className="text-[14px] text-[#868686] font-normal">
+                    Welcome back! Please log in to continue.
                   </div>
                 </div>
-
-                {/* Remember Me Checkbox */}
-                <div className='flex items-center space-x-2'>
-                  <input
-                    type='checkbox'
-                    id='rememberMe'
-                    name='rememberMe'
-                    className='rounded border-gray-300 text-primary focus:ring-primary'
-                  />
-                  <Label htmlFor='rememberMe' className='text-sm'>
-                    Remember me
-                  </Label>
-                </div>
-
-                {/* Error Alert */}
-                {isError && <Alert variant='destructive'>{alertMessage}</Alert>}
-
-                <Button type='submit' className='w-full' disabled={isLoading}>
-                  {isLoading ? 'Logging in...' : 'Login'}
-                </Button>
-
-                <div className='after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t'>
-                  <span className='bg-background text-muted-foreground relative z-10 px-2'>
-                    Or continue with
-                  </span>
-                </div>
-
-                <div className='grid gap-3'>
+                {/* SSO Buttons */}
+                <div className="flex flex-col gap-3 mb-4 w-full">
                   <Button
                     variant='outline'
                     type='button'
                     onClick={handleGoogleLogin}
-                    className='w-full'
+                    className='w-full flex items-center justify-center border border-[#e5e5e5] bg-white text-[#363636] font-semibold h-[42px]'
                   >
                     <img alt='Google' className='mr-2 h-4 w-4' src={imgLogo} />
                     Login with Google
@@ -254,46 +189,104 @@ const Login: NextPage<Props> = ({}) => {
                     variant='outline'
                     type='button'
                     onClick={handleAppleLogin}
-                    className='w-full'
+                    className='w-full flex items-center justify-center border border-[#e5e5e5] bg-[#18181b] text-white font-semibold h-[42px]'
                   >
                     <img alt='Apple' className='mr-2 h-4 w-4' src={imgLogo1} />
                     Login with Apple
                   </Button>
                 </div>
-              </div>
-              <div className='text-center text-sm'>
-                Don&apos;t have an account?{' '}
-                <button
-                  type='button'
-                  onClick={navigateToSignUp}
-                  className='underline underline-offset-4'
-                >
-                  Sign up
-                </button>
-              </div>
-            </form>
+                {/* Divider */}
+                <div className="flex items-center w-full my-2">
+                  <div className="flex-1 h-px bg-[#e5e5e5]" />
+                  <span className="mx-3 text-xs text-[#868686]">OR</span>
+                  <div className="flex-1 h-px bg-[#e5e5e5]" />
+                </div>
+                {/* Email Address */}
+                <div className="flex flex-col gap-1 w-full">
+                  <Label htmlFor="email" className="text-[14px] font-semibold text-[#868686]">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="name@email.com"
+                    required
+                    className="w-full h-[42px] px-[16px] rounded-[6px] border border-[#d9d9d9] !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal"
+                  />
+                </div>
+                {/* Password and Checkbox Group */}
+                <div className="flex flex-col gap-1 w-full">
+                  {/* Password */}
+                  <div className="flex flex-col gap-1 w-full">
+                    <Label htmlFor="password" className="text-[14px] font-semibold text-[#868686]">Password</Label>
+                    <div className="relative w-full">
+                      <Input
+                        id="password"
+                        name="password"
+                        type={showPassword ? 'text' : 'password'}
+                        required
+                        className="w-full h-[42px] px-[16px] pr-10 rounded-[6px] border border-[#d9d9d9] !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal"
+                      />
+                      <button
+                        type="button"
+                        className="absolute right-3 top-1/2 -translate-y-1/2"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        <EyeSlash />
+                      </button>
+                    </div>
+                  </div>
+                  {/* Remember Me and Forgot Password Row */}
+                  <div className="flex items-center justify-between w-full mt-1 mb-2">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id="rememberMe"
+                        name="rememberMe"
+                        className="accent-[#383ad8] w-4 h-4 rounded-[4px] border border-[#d9d9d9]"
+                      />
+                      <Label htmlFor="rememberMe" className="text-[14px] text-[#363636] font-normal ml-2">Remember me</Label>
+                    </div>
+                    <button
+                      type="button"
+                      className="text-[14px] text-[#383ad8] font-semibold underline-offset-4 hover:underline"
+                    >
+                      Forgot Password?
+                    </button>
+                  </div>
+                </div>
+                {/* Error Alert */}
+                {isError && <Alert variant='destructive'>{alertMessage}</Alert>}
+                {/* Login Button and Sign Up Row Group */}
+                <div className="flex flex-col gap-2 w-full">
+                  <button type="submit" className="w-full h-[42px] bg-[#383ad8] text-[white] text-[14px] font-semibold rounded-[6px]" disabled={isLoading}>
+                    {isLoading ? 'Logging in...' : 'Login'}
+                  </button>
+                  <div className="text-left text-[14px] mt-2">
+                    Don't have an account?{' '}
+                    <a href="/sign-up" className="text-[#383ad8] font-semibold">Sign up</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="text-center text-sm text-muted-foreground">
+            © 2024 Powered by You_Source
           </div>
         </div>
-        <div className='text-center text-sm text-muted-foreground'>
-          © 2024 Powered by You_Source
+        <div className="bg-muted relative hidden lg:block">
+          <img
+            src="/images/bg-authentication.png"
+            alt="Login cover"
+            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          />
+          <div className="absolute bottom-[110px] left-1/2 -translate-x-1/2 text-center text-white w-[370px] z-10">
+            <div className="flex flex-col gap-1 items-center w-full text-[#363636] text-center">
+              <h2 className="font-['Inter',_sans-serif] text-[24px] font-semibold mb-1 leading-normal">Turn your idea to reality</h2>
+              <p className="font-['Inter',_sans-serif] text-[14px] font-normal leading-[1.5]">Consistent quality and experience across all platforms.</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div className='bg-muted relative hidden lg:block'>
-        <img
-          src='/images/2c6ae7c89bdbc6641fb9311200545a944eb70d4b.png'
-          alt='Login cover'
-          className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
-        />
-        <div className='absolute bottom-[110px] left-1/2 -translate-x-1/2 text-center text-white w-[370px] z-10'>
-          <h2 className='text-2xl font-semibold mb-2'>
-            Turn your idea to reality
-          </h2>
-          <p className='text-sm opacity-90'>
-            Consistent quality and experience across all platforms.
-          </p>
-        </div>
-      </div>
-    </div>
   )
 }
 
