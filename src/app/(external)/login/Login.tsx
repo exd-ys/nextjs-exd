@@ -8,30 +8,20 @@ import { ValidationHelper } from '@/_shared/helpers/validation.helper'
 import { IAuthService } from '@/_shared/interfaces/iauth.service'
 import container from '@/_shared/services/service-container'
 import { Alert } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { NextPage } from 'next'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import * as Yup from 'yup'
 
-// Asset constants from Figma
+// Asset constants
 const imgLogo = '/images/d5fb6718c343ea0851f29d6aa8bbc4cf69c005b6.svg'
 const imgLogo1 = '/images/5a2bb2f0ab7cc80d56e630d0ea5fbacf7e74371c.svg'
 const imgVector = '/images/0cca2f3112427e27afa237063c63d735f1f9f076.svg'
 const imgVector1 = '/images/c062ae23fc27c5fb724f17dabc7d8788e0c90930.svg'
-const img = '/images/71ca75ce582927c5fbb70db4af2336cbc6ec8484.svg'
 const imgIcon = '/images/52e6806586c6f2e4e63a3057cac6692fe4aca934.svg'
-const imgText = '/images/12c3423fa434e6fa2b7e592fe2b46f0216b962d5.svg'
-const imgDivider = '/images/fa0e42c767742b3a324e5155196c39a3aa2f9818.svg'
-const img1 = '/images/c985ece1d28c317b5ca673d203a6981022fcf389.svg'
-const img2 = '/images/445faf93f2954b052aa681a8ccde574a57697095.svg'
-const img3 = '/images/094578e5a55ba10128e2a1088428f8bf6fc70744.svg'
-const img4 = '/images/da68a8133750887af868c0e14ec44e82332cb564.svg'
-const img5 = '/images/5e78d9b855b371edf3699c3d3f25193b287fbf17.svg'
-const img6 = '/images/b8aac3be19cfc6fc0f611d1b1619fee7c37540c3.svg'
-const img7 = '/images/d4f239c23d56d3678752838200cd7d2d390d6d93.svg'
-const img8 = '/images/965839aa7167e96b495eeae16f45e7945e3486cf.svg'
-const img9 = '/images/199799e4f40c7d842fa7e020f9943c0e61d36290.svg'
-const imgIcon1 = '/images/ff251bb83ea0bbc843c095b44060309438e7a697.svg'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -53,67 +43,6 @@ const loginFormInitialValue = {
   email: '',
   password: '',
   rememberMe: false,
-}
-
-// Social login components
-interface ButtonSocialsProps {
-  label?: boolean
-  label1?: string
-  variant?:
-    | 'instagram'
-    | 'apple'
-    | 'facebook'
-    | 'google'
-    | 'linkedin'
-    | 'slack'
-    | 'github'
-  onClick?: () => void
-}
-
-function ButtonSocials({
-  label = true,
-  label1 = 'Login with Apple',
-  variant = 'apple',
-  onClick,
-}: ButtonSocialsProps) {
-  if (variant === 'google') {
-    return (
-      <button
-        onClick={onClick}
-        className='bg-white box-border content-stretch flex gap-2 items-center justify-center p-[16px] relative rounded-[8px] size-full border border-[#f4f4f4] hover:shadow-sm transition-shadow'
-      >
-        <div className='relative shrink-0 size-4'>
-          <img
-            alt='Google'
-            className='block max-w-none size-full'
-            src={imgLogo}
-          />
-        </div>
-        <div className="font-['Inter'] font-semibold text-[#363636] text-[14px] text-nowrap">
-          Login with Google
-        </div>
-      </button>
-    )
-  }
-  return (
-    <button
-      onClick={onClick}
-      className='bg-black box-border content-stretch flex gap-2 items-center justify-center p-[16px] relative rounded-[8px] size-full hover:bg-gray-800 transition-colors'
-    >
-      <div className='h-4 relative shrink-0 w-[13.477px]'>
-        <img
-          alt='Apple'
-          className='block max-w-none size-full'
-          src={imgLogo1}
-        />
-      </div>
-      {label && (
-        <div className="font-['Inter'] font-semibold text-[14px] text-nowrap text-white">
-          {label1}
-        </div>
-      )}
-    </button>
-  )
 }
 
 // Eye slash icon component
@@ -216,282 +145,153 @@ const Login: NextPage<Props> = ({}) => {
   }
 
   return (
-    <div className='bg-[#edf3ff] content-stretch flex items-center justify-start relative size-full min-h-screen'>
-      <div className='basis-0 bg-white box-border content-stretch flex flex-col grow h-full min-h-[982px] items-center justify-between max-w-[750px] min-w-px overflow-clip px-[100px] py-16 relative shrink-0'>
-        <div className='content-stretch flex flex-col gap-16 items-center justify-start relative shrink-0'>
-          <div className='content-stretch flex flex-col gap-[6.437px] h-[45px] items-center justify-center relative shrink-0 w-[143.372px]'>
-            <div className='h-[45px] overflow-clip relative shrink-0 w-[143.372px]'>
-              <div className='absolute bottom-[0.13%] left-[76.39%] right-[0.1%] top-0'>
-                <img
-                  alt=''
-                  className='block max-w-none size-full'
-                  src={imgIcon}
-                />
-              </div>
-              <div className='absolute bottom-[21.63%] left-0 right-[19.36%] top-[35.85%]'>
-                <img
-                  alt=''
-                  className='block max-w-none size-full'
-                  src={imgText}
-                />
-              </div>
+    <div className='grid min-h-svh lg:grid-cols-2'>
+      <div className='flex flex-col gap-4 p-6 md:p-10'>
+        <div className='flex justify-center gap-2 md:justify-start'>
+          <a href='#' className='flex items-center gap-2 font-medium'>
+            <div className='bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md'>
+              <img alt='Logo' className='size-4' src={imgIcon} />
             </div>
-          </div>
-          <div className='content-stretch flex flex-col gap-6 items-start justify-start relative shrink-0'>
-            <div className='content-stretch flex flex-col gap-1 items-start justify-start leading-[0] not-italic relative shrink-0 w-[500px]'>
-              <div className="font-['Inter'] font-semibold relative shrink-0 text-[#363636] text-[18px] w-full">
-                <p className='leading-[1.5]'>Log In</p>
-              </div>
-              <div className="font-['Inter'] font-normal relative shrink-0 text-[#868686] text-[14px] w-full">
-                <p className='leading-[1.5]'>
-                  Welcome back! Please log in to continue.
+            You_Source
+          </a>
+        </div>
+        <div className='flex flex-1 items-center justify-center'>
+          <div className='w-full max-w-xs'>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                const formData = new FormData(e.currentTarget)
+                const values = {
+                  email: formData.get('email') as string,
+                  password: formData.get('password') as string,
+                  rememberMe: formData.get('rememberMe') === 'on',
+                }
+                handleSubmit(values)
+              }}
+              className='flex flex-col gap-6'
+            >
+              <div className='flex flex-col items-center gap-2 text-center'>
+                <h1 className='text-2xl font-bold'>Login to your account</h1>
+                <p className='text-muted-foreground text-sm text-balance'>
+                  Enter your email below to login to your account
                 </p>
               </div>
-            </div>
-            <div className='content-stretch flex flex-col gap-6 items-start justify-start relative shrink-0 w-[500px]'>
-              <div className='content-stretch flex flex-col gap-4 items-start justify-start relative shrink-0 w-full'>
-                <ButtonSocials variant='google' onClick={handleGoogleLogin} />
-                <ButtonSocials onClick={handleAppleLogin} />
-              </div>
-              <div className='content-stretch flex gap-2.5 items-center justify-center relative shrink-0 w-full'>
-                <div className='basis-0 grow h-0 min-h-px min-w-px relative shrink-0'>
-                  <div className='absolute bottom-0 left-0 right-0 top-[-1px]'>
-                    <img
-                      alt=''
-                      className='block max-w-none size-full'
-                      src={imgDivider}
-                    />
-                  </div>
+              <div className='grid gap-6'>
+                <div className='grid gap-3'>
+                  <Label htmlFor='email'>Email</Label>
+                  <Input
+                    id='email'
+                    name='email'
+                    type='email'
+                    placeholder='m@example.com'
+                    required
+                  />
                 </div>
-                <div className="font-['Inter'] font-normal text-[#868686] text-[14px] text-nowrap">
-                  <p className='leading-[1.5] whitespace-pre'>OR</p>
-                </div>
-                <div className='basis-0 grow h-0 min-h-px min-w-px relative shrink-0'>
-                  <div className='absolute bottom-0 left-0 right-0 top-[-1px]'>
-                    <img
-                      alt=''
-                      className='block max-w-none size-full'
-                      src={imgDivider}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  const formData = new FormData(e.currentTarget)
-                  const values = {
-                    email: formData.get('email') as string,
-                    password: formData.get('password') as string,
-                    rememberMe: formData.get('rememberMe') === 'on',
-                  }
-                  handleSubmit(values)
-                }}
-                className='content-stretch flex flex-col gap-4 items-start justify-start relative shrink-0 w-full'
-              >
-                {/* Email Field */}
-                <div className='content-stretch flex flex-col items-start justify-start relative shrink-0 w-full'>
-                  <div className='content-stretch flex flex-col gap-1 items-start justify-start relative shrink-0 w-full'>
-                    <div className='box-border content-stretch flex items-center justify-center px-2 py-0 relative shrink-0 w-full'>
-                      <div className="basis-0 font-['Inter'] font-semibold grow text-[#868686] text-[14px] text-nowrap">
-                        <p className='leading-[1.5] overflow-ellipsis overflow-hidden'>
-                          Email
-                        </p>
-                      </div>
-                    </div>
-                    <div className='bg-white box-border content-stretch flex gap-14 h-[42px] items-center justify-start p-[16px] relative rounded-[6px] shrink-0 w-full border border-[#d9d9d9] focus-within:border-[#383ad8] transition-colors'>
-                      <div className='basis-0 content-stretch flex gap-2 grow items-center justify-start min-h-px min-w-px relative shrink-0'>
-                        <input
-                          name='email'
-                          type='email'
-                          placeholder='name@email.com'
-                          required
-                          className="basis-0 font-['Inter'] font-normal grow text-[#363636] text-[16px] bg-transparent border-none outline-none placeholder-[#d9d9d9]"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Password Field */}
-                <div className='content-stretch flex flex-col gap-2 items-start justify-start relative shrink-0 w-full'>
-                  <div className='content-stretch flex flex-col items-start justify-start relative shrink-0 w-full'>
-                    <div className='content-stretch flex flex-col gap-1 items-start justify-start relative shrink-0 w-full'>
-                      <div className='box-border content-stretch flex items-center justify-center px-2 py-0 relative shrink-0 w-full'>
-                        <div className="basis-0 font-['Inter'] font-semibold grow text-[#868686] text-[14px] text-nowrap">
-                          <p className='leading-[1.5] overflow-ellipsis overflow-hidden'>
-                            Password
-                          </p>
-                        </div>
-                      </div>
-                      <div className='bg-white box-border content-stretch flex gap-14 h-[42px] items-center justify-start p-[16px] relative rounded-[6px] shrink-0 w-full border border-[#d9d9d9] focus-within:border-[#383ad8] transition-colors'>
-                        <div className='basis-0 content-stretch flex gap-2 grow items-center justify-start min-h-px min-w-px relative shrink-0'>
-                          <input
-                            name='password'
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder='Enter password'
-                            required
-                            className="basis-0 font-['Inter'] font-normal grow text-[#363636] text-[16px] bg-transparent border-none outline-none placeholder-[#d9d9d9]"
-                          />
-                          <div
-                            className='relative shrink-0 size-[18px] cursor-pointer'
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            <EyeSlash />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='content-stretch flex items-center justify-between relative shrink-0 w-full'>
-                    <div className='basis-0 content-stretch flex grow items-start justify-start min-h-px min-w-px relative shrink-0'>
-                      <div className='basis-0 content-stretch flex gap-2 grow items-center justify-start min-h-px min-w-px relative shrink-0'>
-                        <div className='relative shrink-0 size-4'>
-                          <input
-                            type='checkbox'
-                            name='rememberMe'
-                            className='size-4 rounded border-[#d9d9d9] text-[#383ad8] focus:ring-[#383ad8]'
-                          />
-                        </div>
-                        <div className="basis-0 font-['Inter'] font-normal grow text-[#363636] text-[16px]">
-                          <p className='leading-[1.5]'>Remember me</p>
-                        </div>
-                      </div>
-                    </div>
+                <div className='grid gap-3'>
+                  <div className='flex items-center'>
+                    <Label htmlFor='password'>Password</Label>
                     <button
                       type='button'
-                      className="font-['Inter'] font-semibold text-[#383ad8] text-[14px] text-nowrap hover:underline"
+                      className='ml-auto text-sm underline-offset-4 hover:underline'
                     >
-                      <p className='leading-[1.5] whitespace-pre'>
-                        Forgot Password?
-                      </p>
+                      Forgot your password?
+                    </button>
+                  </div>
+                  <div className='relative'>
+                    <Input
+                      id='password'
+                      name='password'
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                    />
+                    <button
+                      type='button'
+                      className='absolute right-3 top-1/2 -translate-y-1/2'
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      <EyeSlash />
                     </button>
                   </div>
                 </div>
 
-                {/* Error Alert */}
-                {isError && (
-                  <div className='w-full'>
-                    <Alert variant='destructive'>{alertMessage}</Alert>
-                  </div>
-                )}
-
-                {/* Login Button and Sign Up Link */}
-                <div className='content-stretch flex flex-col gap-4 items-start justify-start relative shrink-0 w-full'>
-                  <button
-                    type='submit'
-                    disabled={isLoading}
-                    className='bg-[#383ad8] box-border content-stretch flex h-[42px] items-center justify-center p-[16px] relative rounded-[6px] shrink-0 w-full hover:bg-[#2f32c4] disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
-                  >
-                    <div className="font-['Inter'] font-semibold text-white text-[14px] text-nowrap">
-                      {isLoading ? 'Logging in...' : 'Login'}
-                    </div>
-                  </button>
-                  <div className='content-stretch flex gap-1 items-start justify-start relative shrink-0'>
-                    <div className="font-['Inter'] font-normal text-[#868686] text-[14px] text-nowrap">
-                      <p className='leading-[1.5]'>
-                        <span>Don't have an account? </span>
-                        <button
-                          type='button'
-                          onClick={navigateToSignUp}
-                          className="font-['Inter'] font-semibold text-[#383ad8] hover:underline"
-                        >
-                          Sign up
-                        </button>
-                      </p>
-                    </div>
-                  </div>
+                {/* Remember Me Checkbox */}
+                <div className='flex items-center space-x-2'>
+                  <input
+                    type='checkbox'
+                    id='rememberMe'
+                    name='rememberMe'
+                    className='rounded border-gray-300 text-primary focus:ring-primary'
+                  />
+                  <Label htmlFor='rememberMe' className='text-sm'>
+                    Remember me
+                  </Label>
                 </div>
-              </form>
-            </div>
+
+                {/* Error Alert */}
+                {isError && <Alert variant='destructive'>{alertMessage}</Alert>}
+
+                <Button type='submit' className='w-full' disabled={isLoading}>
+                  {isLoading ? 'Logging in...' : 'Login'}
+                </Button>
+
+                <div className='after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t'>
+                  <span className='bg-background text-muted-foreground relative z-10 px-2'>
+                    Or continue with
+                  </span>
+                </div>
+
+                <div className='grid gap-3'>
+                  <Button
+                    variant='outline'
+                    type='button'
+                    onClick={handleGoogleLogin}
+                    className='w-full'
+                  >
+                    <img alt='Google' className='mr-2 h-4 w-4' src={imgLogo} />
+                    Login with Google
+                  </Button>
+                  <Button
+                    variant='outline'
+                    type='button'
+                    onClick={handleAppleLogin}
+                    className='w-full'
+                  >
+                    <img alt='Apple' className='mr-2 h-4 w-4' src={imgLogo1} />
+                    Login with Apple
+                  </Button>
+                </div>
+              </div>
+              <div className='text-center text-sm'>
+                Don&apos;t have an account?{' '}
+                <button
+                  type='button'
+                  onClick={navigateToSignUp}
+                  className='underline underline-offset-4'
+                >
+                  Sign up
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-        <div className='content-stretch flex flex-col gap-2 items-center justify-center relative shrink-0 w-full'>
-          <div className="font-['Inter'] font-normal text-[#868686] text-[14px] text-nowrap">
-            <p className='leading-[1.5] whitespace-pre'>
-              © 2024 Powered by You_Source
-            </p>
-          </div>
+        <div className='text-center text-sm text-muted-foreground'>
+          © 2024 Powered by You_Source
         </div>
       </div>
-
-      {/* Right side decorative panel */}
-      <div className='content-stretch flex gap-2.5 h-full min-h-[982px] isolate items-center justify-start overflow-clip relative shrink-0 w-[762px]'>
-        <div className='absolute bottom-[110px] content-stretch flex flex-col gap-1 items-start justify-start left-1/2 text-[#363636] text-center translate-x-[-50%] w-[370px] z-[4]'>
-          <div className="font-['Inter'] font-semibold relative shrink-0 text-[24px] w-full">
-            <p className='leading-[normal]'>Turn your idea to reality</p>
-          </div>
-          <div className="font-['Inter'] font-normal relative shrink-0 text-[14px] w-full">
-            <p className='leading-[1.5]'>
-              Consistent quality and experience across all platforms.
-            </p>
-          </div>
+      <div className='bg-muted relative hidden lg:block'>
+        <img
+          src='/images/2c6ae7c89bdbc6641fb9311200545a944eb70d4b.png'
+          alt='Login cover'
+          className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
+        />
+        <div className='absolute bottom-[110px] left-1/2 -translate-x-1/2 text-center text-white w-[370px] z-10'>
+          <h2 className='text-2xl font-semibold mb-2'>
+            Turn your idea to reality
+          </h2>
+          <p className='text-sm opacity-90'>
+            Consistent quality and experience across all platforms.
+          </p>
         </div>
-
-        {/* Chart components - simplified for now */}
-        <div className='absolute contents inset-[19.49%_8.14%_30.3%_8.01%] z-[3]'>
-          <div className='absolute bg-white box-border content-stretch flex flex-col gap-[16.599px] inset-[38.72%_8.14%_30.3%_32.41%] isolate items-start justify-start p-[16.598px] rounded-[8.299px] shadow-[0px_4px_24px_0px_rgba(0,1,116,0.08)]'>
-            <div className='content-stretch flex items-start justify-between relative shrink-0 w-full z-[3]'>
-              <div className='content-stretch flex flex-col gap-[2.766px] items-start justify-start relative shrink-0 text-nowrap'>
-                <div className="font-['Inter'] font-semibold relative shrink-0 text-[#363636] text-[12.45px]">
-                  <p className='leading-[1.5] text-nowrap whitespace-pre'>
-                    Summary
-                  </p>
-                </div>
-                <div className="font-['Inter'] font-normal relative shrink-0 text-[#868686] text-[9.68px]">
-                  <p className='leading-[1.5] text-nowrap whitespace-pre'>
-                    Rewards
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className='h-[230px] relative shrink-0 w-full z-[2]'>
-              <img
-                alt='Chart'
-                className='block max-w-none size-full object-contain'
-                src={img6}
-              />
-            </div>
-          </div>
-          <div className='absolute bg-white box-border content-stretch flex flex-col gap-[16.599px] inset-[19.49%_32.55%_49.52%_8.01%] isolate items-start justify-start p-[16.598px] rounded-[8.299px] shadow-[0px_4px_24px_0px_rgba(0,1,116,0.08)]'>
-            <div className='content-stretch flex items-start justify-between relative shrink-0 w-full z-[3]'>
-              <div className='content-stretch flex flex-col gap-[2.766px] items-start justify-start relative shrink-0 text-nowrap'>
-                <div className="font-['Inter'] font-semibold relative shrink-0 text-[#363636] text-[12.45px]">
-                  <p className='leading-[1.5] text-nowrap whitespace-pre'>
-                    Summary
-                  </p>
-                </div>
-                <div className="font-['Inter'] font-normal relative shrink-0 text-[#868686] text-[9.68px]">
-                  <p className='leading-[1.5] text-nowrap whitespace-pre'>
-                    Rewards
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className='h-[230px] relative shrink-0 w-full z-[2]'>
-              <img
-                alt='Chart'
-                className='block max-w-none size-full object-contain'
-                src={img9}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Background decorative element */}
-        <div className='absolute flex inset-[-27.61%_-24.13%_-36.52%_-68.37%] items-center justify-center z-[2]'>
-          <div className='flex-none h-[1309.72px] rotate-[26.763deg] w-[982.31px]'>
-            <div className='relative size-full'>
-              <img
-                alt=''
-                className='block max-w-none size-full'
-                src={imgIcon1}
-              />
-            </div>
-          </div>
-        </div>
-        <div className='basis-0 grow h-full min-h-px min-w-px shrink-0 z-[1]' />
       </div>
     </div>
   )
