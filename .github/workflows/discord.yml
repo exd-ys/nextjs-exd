@@ -14,4 +14,27 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          args: '🔔 Event: ${{ github.event_name }} in ${{ github.repository }} by ${{ github.actor }}'
+          args: |
+            {% if github.event_name == 'pull_request' %}
+            {{ github.event.pull_request.user.login }} created pull request #{{ github.event.pull_request.number }} ({{ github.event.pull_request.title }}) in {{ github.repository }}
+            Source
+            {{ github.event.pull_request.head.ref }}
+            Target
+            {{ github.event.pull_request.base.ref }}
+            Status
+            {{ github.event.pull_request.state }}
+            Merge status
+            {% if github.event.pull_request.merged %}succeeded{% else %}not merged{% endif %}
+            Description
+            {{ github.event.pull_request.body }}
+            # Checklist
+            {% for label in github.event.pull_request.labels %}
+            [x] {{ label.name }}
+            {% endfor %}
+            Reviewers
+            {% for reviewer in github.event.pull_request.requested_reviewers %}
+            {{ reviewer.login }}
+            {% endfor %}
+            {% else %}
+            🔔 Event: ${{ github.event_name }} in ${{ github.repository }} by ${{ github.actor }}
+            {% endif %}
