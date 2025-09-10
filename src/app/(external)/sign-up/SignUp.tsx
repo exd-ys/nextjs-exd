@@ -13,11 +13,10 @@ import {
 } from '@/_shared/constants/validations/password-validation.constant'
 import { PasswordRequirement } from '@/_shared/enums/validations'
 import { ValidationHelper } from '@/_shared/helpers/validation.helper'
-import Alert from '@/components/core/alert/alert'
-import Button from '@/components/core/button/button'
-import FormField from '@/components/core/forms/form-fields/form-field'
-import FormGroup from '@/components/core/forms/form-group/form-group'
-import FormLabel from '@/components/core/forms/form-label/form-label'
+import { Alert } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   LockClosedIcon,
   UserCircleIcon,
@@ -193,19 +192,22 @@ const SignUp: NextPage<Props> = () => {
                 <div className=''>
                   <div hidden={!isError}>
                     <div className='flex h-full w-full flex-col justify-center gap-12'>
-                      <Alert theme='alert' showalert={isError} type={alertType}>
+                      <Alert
+                        variant={
+                          alertType === 'error' ? 'destructive' : 'default'
+                        }
+                      >
                         {alertMessage}
                       </Alert>
                       <div className='flex justify-center'>
                         <Button
-                          buttontype='button'
-                          theme='primary'
-                          label={alertButton}
-                          leftIcon
-                          size='md'
+                          type='button'
+                          variant='default'
+                          size='default'
                           onClick={navigateFromAlert}
                         >
-                          <ArrowLeftIcon />
+                          <ArrowLeftIcon className='mr-2 h-4 w-4' />
+                          {alertButton}
                         </Button>
                       </div>
                     </div>
@@ -227,138 +229,147 @@ const SignUp: NextPage<Props> = () => {
                         errors,
                         touched,
                         handleChange,
+                        handleBlur,
                         isSubmitting,
                       }) => (
                         <Form noValidate>
                           {/* Full Name */}
-                          <FormGroup theme='primary'>
-                            <FormLabel
-                              fontbold
-                              for='fullName'
-                              theme='secondary'
+                          <div className='mb-6'>
+                            <Label
+                              htmlFor='fullName'
+                              className='block text-sm mb-2 font-bold text-secondary'
                             >
                               Full Name
-                            </FormLabel>
-                            <FormField
-                              theme={`${
-                                touched.fullName && errors.fullName
-                                  ? 'error'
-                                  : 'default'
-                              }`}
-                              errorMessage={
-                                errors.fullName ? errors.fullName : ''
-                              }
-                              placeholder='Enter full name...'
-                              fieldtype='text'
-                              name='fullName'
-                              fullWidth
-                              leftIcon
-                              lefticonblock={<UserIcon />}
-                            />
-                          </FormGroup>
+                            </Label>
+                            <div className='relative'>
+                              <UserIcon className='absolute left-3 top-3 h-4 w-4 text-secondary' />
+                              <Input
+                                id='fullName'
+                                name='fullName'
+                                placeholder='Enter full name...'
+                                className='pl-10'
+                                value={values.fullName}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </div>
+                            {touched.fullName && errors.fullName && (
+                              <p className='text-sm text-destructive mt-1'>
+                                {errors.fullName}
+                              </p>
+                            )}
+                          </div>
 
                           {/* Email Address */}
-                          <FormGroup theme='primary'>
-                            <FormLabel fontbold for='email' theme='secondary'>
+                          <div className='mb-6'>
+                            <Label
+                              htmlFor='email'
+                              className='block text-sm mb-2 font-bold text-secondary'
+                            >
                               Email Address
-                            </FormLabel>
-                            <FormField
-                              theme={`${
-                                touched.email && errors.email
-                                  ? 'error'
-                                  : 'default'
-                              }`}
-                              errorMessage={errors.email ? errors.email : ''}
-                              placeholder='Enter email address...'
-                              fieldtype='email'
-                              name='email'
-                              fullWidth
-                              leftIcon
-                              lefticonblock={<UserCircleIcon />}
-                            />
-                          </FormGroup>
+                            </Label>
+                            <div className='relative'>
+                              <UserCircleIcon className='absolute left-3 top-3 h-4 w-4 text-secondary' />
+                              <Input
+                                id='email'
+                                name='email'
+                                type='email'
+                                placeholder='Enter email address...'
+                                className='pl-10'
+                                value={values.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </div>
+                            {touched.email && errors.email && (
+                              <p className='text-sm text-destructive mt-1'>
+                                {errors.email}
+                              </p>
+                            )}
+                          </div>
 
                           {/* Password */}
-                          <FormGroup theme='primary'>
-                            <FormLabel
-                              fontbold
-                              for='password'
-                              theme='secondary'
+                          <div className='mb-6'>
+                            <Label
+                              htmlFor='password'
+                              className='block text-sm mb-2 font-bold text-secondary'
                             >
                               Password
-                            </FormLabel>
-                            <FormField
-                              theme={`${
-                                touched.password && errors.password
-                                  ? 'error'
-                                  : 'default'
-                              }`}
-                              errorMessage={
-                                errors.password ? errors.password : ''
-                              }
-                              placeholder='Enter password...'
-                              fieldtype='password'
-                              name='password'
-                              fullWidth
-                              leftIcon
-                              lefticonblock={<LockClosedIcon />}
-                            />
-                          </FormGroup>
+                            </Label>
+                            <div className='relative'>
+                              <LockClosedIcon className='absolute left-3 top-3 h-4 w-4 text-secondary' />
+                              <Input
+                                id='password'
+                                name='password'
+                                type='password'
+                                placeholder='Enter password...'
+                                className='pl-10'
+                                value={values.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </div>
+                            {touched.password && errors.password && (
+                              <p className='text-sm text-destructive mt-1'>
+                                {errors.password}
+                              </p>
+                            )}
+                          </div>
 
                           {/* Confirm Password */}
-                          <FormGroup theme='primary'>
-                            <FormLabel
-                              fontbold
-                              for='confirmPassword'
-                              theme='secondary'
+                          <div className='mb-6'>
+                            <Label
+                              htmlFor='confirmPassword'
+                              className='block text-sm mb-2 font-bold text-secondary'
                             >
                               Confirm Password
-                            </FormLabel>
-                            <FormField
-                              theme={`${
-                                touched.confirmPassword &&
-                                errors.confirmPassword
-                                  ? 'error'
-                                  : 'default'
-                              }`}
-                              errorMessage={
-                                errors.confirmPassword
-                                  ? errors.confirmPassword
-                                  : ''
-                              }
-                              placeholder='Enter password...'
-                              fieldtype='password'
-                              name='confirmPassword'
-                              fullWidth
-                              leftIcon
-                              lefticonblock={<LockClosedIcon />}
-                            />
-                          </FormGroup>
+                            </Label>
+                            <div className='relative'>
+                              <LockClosedIcon className='absolute left-3 top-3 h-4 w-4 text-secondary' />
+                              <Input
+                                id='confirmPassword'
+                                name='confirmPassword'
+                                type='password'
+                                placeholder='Enter password...'
+                                className='pl-10'
+                                value={values.confirmPassword}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </div>
+                            {touched.confirmPassword &&
+                              errors.confirmPassword && (
+                                <p className='text-sm text-destructive mt-1'>
+                                  {errors.confirmPassword}
+                                </p>
+                              )}
+                          </div>
 
                           {/* Sign Up Button */}
-                          <FormGroup theme='primary'>
+                          <div className='mb-6'>
                             <Button
-                              fullWidth
-                              isLoading={isLoading}
-                              buttontype='submit'
-                              theme='primary'
-                              label='Sign Up'
+                              type='submit'
+                              variant='default'
                               size='lg'
-                            ></Button>
-                          </FormGroup>
+                              className='w-full'
+                              disabled={isLoading}
+                            >
+                              {isLoading ? 'Signing Up...' : 'Sign Up'}
+                            </Button>
+                          </div>
                         </Form>
                       )}
                     </Formik>
                     <div className='flex w-full items-center justify-center text-secondary '>
                       <label htmlFor=''>Already a member?</label>
                       <Button
-                        buttontype='button'
-                        theme='link'
-                        label='Login here'
-                        size='md'
+                        type='button'
+                        variant='link'
+                        size='default'
                         onClick={() => navigateToLogin()}
                       >
-                        <ArrowLeftIcon />
+                        <ArrowLeftIcon className='mr-2 h-4 w-4' />
+                        Login here
                       </Button>
                     </div>
                   </div>

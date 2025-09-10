@@ -13,12 +13,16 @@ import {
 import { injectable } from 'inversify'
 import 'reflect-metadata'
 
-const auth = getAuth(firebase_app)
+const auth = firebase_app ? getAuth(firebase_app) : null
 
 @injectable()
 export class AuthService implements IAuthService {
   async signUp(request: SignUpRequest): Promise<Response<void>> {
     try {
+      if (!auth) {
+        return { errorCode: ERRORS.unexpectedError }
+      }
+
       const result = await createUserWithEmailAndPassword(
         auth,
         request.email,
@@ -35,6 +39,10 @@ export class AuthService implements IAuthService {
     request: PasswordSignInRequest
   ): Promise<Response<void>> {
     try {
+      if (!auth) {
+        return { errorCode: ERRORS.unexpectedError }
+      }
+
       const result = await signInWithEmailAndPassword(
         auth,
         request.email,
@@ -49,6 +57,10 @@ export class AuthService implements IAuthService {
 
   async logout(): Promise<Response<void>> {
     try {
+      if (!auth) {
+        return { errorCode: ERRORS.unexpectedError }
+      }
+
       await signOut(auth)
       return { success: true }
     } catch (e) {

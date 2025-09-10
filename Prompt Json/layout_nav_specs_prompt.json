@@ -1,0 +1,232 @@
+{
+  "project": "AdaptiveLayoutShell",
+  "intent": "implement layout with a main navigation that can render either as a left sidebar or a top bar, with collapsible behavior and mobile support.",
+  "tech_stack": {
+    "framework": "React",
+    "language": "TypeScript",
+    "styling": "TailwindCSS",
+    "icons": "lucide-react (optional)",
+    "ui_kit": "shadcn/ui (optional)"
+  },
+  "entities": {
+    "NavItem": {
+      "fields": {
+        "id": "string",
+        "label": "string",
+        "href": "string",
+        "icon": "string (optional lucide icon name)",
+        "badge": "string | number | null"
+      },
+      "example": [
+        {
+          "id": "dash",
+          "label": "Dashboard",
+          "href": "/"
+        },
+        {
+          "id": "billing",
+          "label": "Billing",
+          "href": "/billing"
+        },
+        {
+          "id": "profile",
+          "label": "Profile",
+          "href": "/profile"
+        },
+        {
+          "id": "settings",
+          "label": "Settings",
+          "href": "/settings"
+        },
+        {
+          "id": "admin",
+          "label": "Admin",
+          "href": "/admin"
+        }
+      ]
+    }
+  },
+  "components": {
+    "AppLayout": {
+      "description": "Top-level shell containing header, optional sidebar, and content region. It orchestrates MainNav position and responsive behaviors.",
+      "props": {
+        "position": {
+          "type": "\"side\" | \"top\"",
+          "default": "side",
+          "description": "Controls where the MainNav is rendered."
+        },
+        "collapsibleSidebar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enables collapse/expand behavior for sidebar width."
+        },
+        "initialSidebarOpen": {
+          "type": "boolean",
+          "default": true
+        },
+        "secondaryNavContent": {
+          "type": "ReactNode",
+          "description": "Rendered on the RIGHT side of the header when position is 'side'."
+        }
+      },
+      "structure": [
+        "Header (always visible, sticky)",
+        "If position === 'side': Left Sidebar (md+), Content below header; header right area hosts SecondaryTopNav",
+        "If position === 'top': No left rail; MainNav is horizontal in the header; Content below header",
+        "Mobile: hamburger opens drawer with vertical MainNav"
+      ]
+    },
+    "MainNav": {
+      "description": "Primary navigation that can lay out horizontally (top) or vertically (side).",
+      "props": {
+        "position": {
+          "type": "\"side\" | \"top\"",
+          "default": "side"
+        },
+        "items": {
+          "type": "NavItem[]",
+          "default_from": "entities.NavItem.example"
+        },
+        "compact": {
+          "type": "boolean",
+          "default": false,
+          "description": "When sidebar is collapsed, hide labels and keep icons."
+        },
+        "className": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "layout_rules": {
+        "top": "flex-row items-center gap-2",
+        "side": "flex-col items-stretch gap-1",
+        "item_base": "group flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+      }
+    },
+    "SecondaryTopNav": {
+      "description": "Actions shown on the RIGHT side of the header only when position === 'side'.",
+      "slots": ["createButton", "notificationsButton", "accountAvatar"]
+    },
+    "MobileDrawer": {
+      "description": "Full-height left sheet that shows MainNav (vertical) and any secondary actions on small screens.",
+      "actions": ["open", "close", "dismiss_on_backdrop"]
+    },
+    "ContentArea": {
+      "description": "Scrollable content region under the header (and to the right of sidebar in side mode).",
+      "notes": [
+        "Use padding responsive utilities (p-3 md:p-6)",
+        "Use min-h-[calc(100dvh-3.5rem)] so it fills below a 56px header"
+      ]
+    }
+  },
+  "responsive_rules": {
+    "breakpoints": {
+      "mobile": "< md",
+      "desktop": ">= md"
+    },
+    "behavior": [
+      "On mobile: prefer top layout for header; open MainNav via MobileDrawer (hamburger).",
+      "On desktop: if position === 'side', render left rail; if 'top', render horizontal nav in header."
+    ]
+  },
+  "interactions": [
+    {
+      "name": "toggleSidebar",
+      "when": "position === 'side' && desktop",
+      "effect": "Switch sidebar width between w-64 and w-16, and set MainNav.compact accordingly."
+    },
+    {
+      "name": "switchPosition",
+      "args": ["\"side\" | \"top\""],
+      "effect": "Re-render MainNav in side or top configuration and update header contents accordingly."
+    },
+    {
+      "name": "openMobileDrawer",
+      "when": "mobile",
+      "effect": "Show MobileDrawer with vertical MainNav."
+    },
+    {
+      "name": "closeMobileDrawer",
+      "when": "mobile",
+      "effect": "Hide MobileDrawer."
+    }
+  ],
+  "layout_constraints": [
+    "Header is sticky (top-0) with border-b and backdrop blur.",
+    "When position === 'side', secondary top nav MUST appear on the RIGHT side of the header.",
+    "Content area lives below header in both modes.",
+    "Sidebar scrolls independently; use sticky top matching header height."
+  ],
+  "a11y_requirements": [
+    "All interactive elements must have accessible names (aria-label or text).",
+    "MobileDrawer uses role='dialog' and aria-modal='true'.",
+    "Hamburger button should toggle aria-expanded; focus trap is recommended in drawer.",
+    "Color contrasts must meet WCAG AA."
+  ],
+  "tailwind_primitives": {
+    "header": "sticky top-0 z-40 h-14 border-b bg-white/80 backdrop-blur",
+    "container": "mx-auto max-w-7xl",
+    "sidebar_open": "w-64",
+    "sidebar_collapsed": "w-16",
+    "sidebar_panel": "sticky top-14 h-[calc(100dvh-3.5rem)] overflow-y-auto p-3",
+    "content": "min-h-[calc(100dvh-3.5rem)] p-3 md:p-6",
+    "grid_side_mode": "grid grid-cols-1 md:grid-cols-[auto,1fr] gap-0 md:gap-6"
+  },
+  "example_state": {
+    "position": "side",
+    "sidebarOpen": true,
+    "mobileDrawerOpen": false
+  },
+  "acceptance_criteria": [
+    "AC1: Toggling position to 'top' renders MainNav horizontally in the header; no left sidebar is present.",
+    "AC2: Toggling position to 'side' renders a left sidebar on md+; SecondaryTopNav shows on the RIGHT side of the header; content appears beneath the header.",
+    "AC3: On mobile (< md), the hamburger opens a drawer with vertical MainNav regardless of position.",
+    "AC4: Collapsing the sidebar reduces width to 64px -> 16px and hides item labels (compact mode).",
+    "AC5: Navigation works with keyboard; focus states are visible."
+  ],
+  "code_generation_instructions": {
+    "files": [
+      {
+        "path": "src/layout/AppLayout.tsx",
+        "must_export_default": true,
+        "responsibilities": [
+          "Holds header",
+          "Renders MainNav depending on position",
+          "Hosts SecondaryTopNav on header right in 'side' mode",
+          "Hosts MobileDrawer on mobile"
+        ]
+      },
+      {
+        "path": "src/layout/MainNav.tsx",
+        "must_export": ["MainNav"],
+        "responsibilities": [
+          "Map items to links",
+          "Render as vertical ('side') or horizontal ('top') based on prop",
+          "Support compact prop"
+        ]
+      },
+      {
+        "path": "src/layout/SecondaryTopNav.tsx",
+        "must_export": ["SecondaryTopNav"]
+      },
+      {
+        "path": "src/layout/MobileDrawer.tsx",
+        "must_export": ["MobileDrawer"]
+      }
+    ],
+    "preferred_apis": [
+      "React.useState",
+      "React.useEffect",
+      "Tailwind utility classes",
+      "Optional: Headless UI Dialog for focus management"
+    ]
+  },
+  "sample_usage": {
+    "description": "Demonstrates switching nav position and toggling sidebar.",
+    "tsx": "import { useState } from 'react';\\nimport AppLayout from './layout/AppLayout';\\n\\nexport default function Demo() {\\n  const [position, setPosition] = useState<'side' | 'top'>('side');\\n  return (\\n    <AppLayout position={position}>\\n      <div className='space-y-4'>\\n        <div className='flex gap-2'>\\n          <button className='border rounded-md px-3 h-9' onClick={() => setPosition('side')}>Side</button>\\n          <button className='border rounded-md px-3 h-9' onClick={() => setPosition('top')}>Top</button>\\n        </div>\\n        <div className='rounded-xl border bg-white p-4 shadow-sm'>Content goes here\u2026</div>\\n      </div>\\n    </AppLayout>\\n  );\\n}"
+  },
+  "notes": [
+    "You may replace buttons with shadcn/ui components for polish.",
+    "Consider storing 'position' in URL search params or user settings to persist preference."
+  ]
+}
