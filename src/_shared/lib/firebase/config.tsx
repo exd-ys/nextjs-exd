@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import envConfig from '@/_shared/models/environment-config.model'
-import { getApps, initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
+import { FirebaseApp, getApps, initializeApp } from 'firebase/app'
+import { Firestore, getFirestore } from 'firebase/firestore'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,10 +15,20 @@ const firebaseConfig = {
   appId: envConfig.FIREBASE_APP_ID,
 }
 
-// Initialize Firebase
-const firebase_app =
-  getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
+// Initialize Firebase only if we have valid configuration
+let firebase_app: FirebaseApp | null = null
+let db: Firestore | null = null
+
+if (typeof window !== 'undefined' && envConfig.FIREBASE_API_KEY) {
+  try {
+    firebase_app =
+      getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
+    db = getFirestore(firebase_app)
+  } catch (error) {
+    console.warn('Firebase initialization failed:', error)
+  }
+}
 
 export default firebase_app
 
-export const db = getFirestore(firebase_app)
+export { db }

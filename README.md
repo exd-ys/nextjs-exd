@@ -35,19 +35,16 @@ This project serves as a template for the `Next` plus `Tailwind` stack for You_S
 
 This section serves as a guide for developers in building their custom components using TailwindCSS and NextJS
 
-- We currently use the `kebab naming convention` for components
-- When creating components make sure you have `.stories.tsx` file to be rendered in storybook
-- When creating core components: `src/components/core/`
-  - `button.tsx`
-  - `button.stories.tsx`
-- When creating custom components: `src/components/custom/`
+- We use **shadcn/ui** as our primary component library
+- All UI components are located in `src/components/ui/` (managed by shadcn)
+- When creating custom components, place them in `src/components/custom/`
   - `custom-button.tsx`
   - `custom-button.stories.tsx`
 - When creating components with multiple children we can create subfolders within the components
-  - `/core/nav/side-nav/side-nav.tsx`
-  - `/core/nav/side-nav/side-nav.stories.tsx`
-  - `/core/nav/side-nav/nav-item/nav-item.tsx`
-  - `/core/nav/side-nav/nav-item/nav-item.stories.tsx`
+  - `/custom/nav/side-nav/side-nav.tsx`
+  - `/custom/nav/side-nav/side-nav.stories.tsx`
+  - `/custom/nav/side-nav/nav-item/nav-item.tsx`
+  - `/custom/nav/side-nav/nav-item/nav-item.stories.tsx`
 - The content of the .tsx file should follow the standard sequence.
   1.  **Variants**
   - `const buttonVariants = cva(''...`
@@ -58,7 +55,8 @@ This section serves as a guide for developers in building their custom component
 - All parts of the code that can individually be styled should have their own CVA variants
   - `<div className={ containerVariants({ intent })}...`
 - Stories should have the following title format to be foldered correctly.
-  - `title: 'Components/Core/Button'`
+  - `title: 'Components/Custom/Button'` (for custom components)
+  - `title: 'Components/UI/Button'` (for shadcn/ui components if needed)
 - `argTypes` section should consists of property that can be styled.
   - Ex. `intent, fullWidth, size, disabled, nolabel etc...`
 - `args` should be specified to set the default value on Storybook documentations
