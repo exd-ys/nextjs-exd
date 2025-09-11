@@ -1,27 +1,17 @@
 'use client'
 
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from '@tabler/icons-react'
+  ChartPie,
+  GearSix,
+  Headphones,
+  LockKey,
+  Money,
+  UserCircle,
+} from 'phosphor-react'
+
 import * as React from 'react'
 
-import { NavDocuments } from '@/components/nav-documents'
 import { NavMain } from '@/components/nav-main'
-import { NavSecondary } from '@/components/nav-secondary'
 import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
@@ -33,6 +23,8 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 
+import { Card, CardDescription, CardHeader } from '@/components/ui/card'
+
 const data = {
   user: {
     name: 'shadcn',
@@ -43,111 +35,116 @@ const data = {
     {
       title: 'Dashboard',
       url: '#',
-      icon: IconDashboard,
+      icon: ChartPie,
+      active: true,
     },
     {
-      title: 'Lifecycle',
+      title: 'Billing & Payments',
       url: '#',
-      icon: IconListDetails,
+      icon: Money,
+      active: false,
     },
     {
-      title: 'Analytics',
+      title: 'Profile',
       url: '#',
-      icon: IconChartBar,
+      icon: UserCircle,
+      active: false,
     },
-    {
-      title: 'Projects',
-      url: '#',
-      icon: IconFolder,
-    },
-    {
-      title: 'Team',
-      url: '#',
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
-      title: 'Capture',
-      icon: IconCamera,
-      isActive: true,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Proposal',
-      icon: IconFileDescription,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Prompts',
-      icon: IconFileAi,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-  ],
-  navSecondary: [
     {
       title: 'Settings',
       url: '#',
-      icon: IconSettings,
+      icon: GearSix,
+      active: false,
     },
     {
-      title: 'Get Help',
+      title: 'Admin',
       url: '#',
-      icon: IconHelp,
-    },
-    {
-      title: 'Search',
-      url: '#',
-      icon: IconSearch,
+      icon: LockKey,
+      active: false,
     },
   ],
-  documents: [
-    {
-      name: 'Data Library',
-      url: '#',
-      icon: IconDatabase,
-    },
-    {
-      name: 'Reports',
-      url: '#',
-      icon: IconReport,
-    },
-    {
-      name: 'Word Assistant',
-      url: '#',
-      icon: IconFileWord,
-    },
-  ],
+  // navClouds: [
+  //   {
+  //     title: 'Capture',
+  //     icon: IconCamera,
+  //     isActive: true,
+  //     url: '#',
+  //     items: [
+  //       {
+  //         title: 'Active Proposals',
+  //         url: '#',
+  //       },
+  //       {
+  //         title: 'Archived',
+  //         url: '#',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: 'Proposal',
+  //     icon: IconFileDescription,
+  //     url: '#',
+  //     items: [
+  //       {
+  //         title: 'Active Proposals',
+  //         url: '#',
+  //       },
+  //       {
+  //         title: 'Archived',
+  //         url: '#',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: 'Prompts',
+  //     icon: IconFileAi,
+  //     url: '#',
+  //     items: [
+  //       {
+  //         title: 'Active Proposals',
+  //         url: '#',
+  //       },
+  //       {
+  //         title: 'Archived',
+  //         url: '#',
+  //       },
+  //     ],
+  //   },
+  // ],
+  // navSecondary: [
+  //   {
+  //     title: 'Settings',
+  //     url: '#',
+  //     icon: IconSettings,
+  //   },
+  //   {
+  //     title: 'Get Help',
+  //     url: '#',
+  //     icon: IconHelp,
+  //   },
+  //   {
+  //     title: 'Search',
+  //     url: '#',
+  //     icon: IconSearch,
+  //   },
+  // ],
+  // documents: [
+  //   {
+  //     name: 'Data Library',
+  //     url: '#',
+  //     icon: IconDatabase,
+  //   },
+  //   {
+  //     name: 'Reports',
+  //     url: '#',
+  //     icon: IconReport,
+  //   },
+  //   {
+  //     name: 'Word Assistant',
+  //     url: '#',
+  //     icon: IconFileWord,
+  //   },
+  // ],
 }
 
 export function AppSidebar({
@@ -168,7 +165,7 @@ export function AppSidebar({
                   className='data-[slot=sidebar-menu-button]:!p-1.5'
                 >
                   <a href='#'>
-                    <IconInnerShadowTop className='!size-5' />
+                    {/* <IconInnerShadowTop className='!size-5' /> */}
                     <span className='text-base font-semibold'>Acme Inc.</span>
                   </a>
                 </SidebarMenuButton>
@@ -196,7 +193,7 @@ export function AppSidebar({
           {/* Right side - Documents, Settings, User */}
           <div className='flex items-center gap-4'>
             {/* Documents dropdown */}
-            <div className='flex items-center gap-1'>
+            {/* <div className='flex items-center gap-1'>
               {data.documents.map((item) => (
                 <SidebarMenu key={item.name}>
                   <SidebarMenuItem>
@@ -209,10 +206,10 @@ export function AppSidebar({
                   </SidebarMenuItem>
                 </SidebarMenu>
               ))}
-            </div>
+            </div> */}
 
             {/* Secondary nav */}
-            <div className='flex items-center gap-1'>
+            {/* <div className='flex items-center gap-1'>
               {data.navSecondary.map((item) => (
                 <SidebarMenu key={item.title}>
                   <SidebarMenuItem>
@@ -225,7 +222,7 @@ export function AppSidebar({
                   </SidebarMenuItem>
                 </SidebarMenu>
               ))}
-            </div>
+            </div> */}
 
             {/* User section */}
             <NavUser user={data.user} />
@@ -237,7 +234,7 @@ export function AppSidebar({
 
   // Default vertical layout for left/right positioning
   return (
-    <Sidebar collapsible='offcanvas' {...props}>
+    <Sidebar collapsible='offcanvas' className='px-2' {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -245,21 +242,51 @@ export function AppSidebar({
               asChild
               className='data-[slot=sidebar-menu-button]:!p-1.5'
             >
-              <a href='#'>
-                <IconInnerShadowTop className='!size-5' />
-                <span className='text-base font-semibold'>Acme Inc.</span>
-              </a>
+              <div className='flex flex-row items-center justify-center w-full'>
+                <img
+                  src='/images/ys-new-logo.png'
+                  alt='logo'
+                  className='h-[32px] w-auto'
+                />
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className='mt-auto' />
+      <SidebarContent className='padding-md'>
+        <NavMain
+          items={data.navMain.map((item) => ({
+            ...item,
+            // Render icon as React element, no props spread
+            icon: item.icon ? () => <item.icon /> : undefined,
+          }))}
+        />
+        {/* <NavDocuments items={data.documents} /> */}
+        {/* <NavSecondary items={data.navSecondary} className='mt-auto' /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {/* <NavUser user={data.user} /> */}
+        <Card className='@container/card shadow-none'>
+          <CardHeader>
+            <CardDescription>
+              <div className='text-sm font-semibold text-[#363636]'>
+                Need help?
+              </div>
+              <span className='hidden @[540px]/card:block'>
+                Total for the last 3 months
+              </span>
+              <span className='@[540px]/card:hidden text-sm text-[#363636]'>
+                Get answers or talk to support
+              </span>
+              <div className='mt-2 flex flex-row justify-center rounded-sm text-[#363636] bg-[#EDF3FF] border border-[#EDF3FF] hover:border-[#383AD8]  hover:text-primary-foreground active:text-primary-foreground min-w-8 duration-200 ease-linear'>
+                <div className='text-[#383AD8] font-semibold flex flex-row  items-center gap-2 p-2 text-sm'>
+                  {Headphones && <Headphones />}
+                  Contact Support
+                </div>
+              </div>
+            </CardDescription>
+          </CardHeader>
+        </Card>
       </SidebarFooter>
     </Sidebar>
   )
