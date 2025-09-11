@@ -165,7 +165,7 @@ export function AppSidebar({
                   className='data-[slot=sidebar-menu-button]:!p-1.5'
                 >
                   <a href='#'>
-                    <IconInnerShadowTop className='!size-5' />
+                    {/* <IconInnerShadowTop className='!size-5' /> */}
                     <span className='text-base font-semibold'>Acme Inc.</span>
                   </a>
                 </SidebarMenuButton>
@@ -254,7 +254,13 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className='padding-md'>
-        <NavMain items={data.navMain} />
+        <NavMain
+          items={data.navMain.map((item) => ({
+            ...item,
+            // Render icon as React element, no props spread
+            icon: item.icon ? () => <item.icon /> : undefined,
+          }))}
+        />
         {/* <NavDocuments items={data.documents} /> */}
         {/* <NavSecondary items={data.navSecondary} className='mt-auto' /> */}
       </SidebarContent>

@@ -50,7 +50,7 @@ export function NavMain({
                 className={
                   !item.active
                     ? 'py-3'
-                    : 'bg-[#EDF3FF] text-[#363636] hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear'
+                    : 'bg-[#EDF3FF] active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear hover:text-[#363636]'
                 }
                 tooltip={item.title}
               >
