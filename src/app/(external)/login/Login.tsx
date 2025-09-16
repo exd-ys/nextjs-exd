@@ -180,7 +180,7 @@ const Login: NextPage<Props> = ({}) => {
                     variant='outline'
                     type='button'
                     onClick={handleGoogleLogin}
-                    className='w-full flex items-center justify-center border border-[#e5e5e5] bg-white text-[#363636] font-semibold h-[42px]'
+                    className='w-full flex items-center justify-center border border-[#e5e5e5] bg-white text-[#363636] !text-[14px] font-semibold h-[42px] cursor-pointer'
                   >
                     <img alt='Google' className='mr-2 h-4 w-4' src={imgLogo} />
                     Login with Google
@@ -189,7 +189,7 @@ const Login: NextPage<Props> = ({}) => {
                     variant='outline'
                     type='button'
                     onClick={handleAppleLogin}
-                    className='w-full flex items-center justify-center border border-[#e5e5e5] bg-[#18181b] text-white font-semibold h-[42px]'
+                    className='w-full flex items-center justify-center border border-[#e5e5e5] bg-[#18181b] text-[white] !text-[14px] font-semibold h-[42px] cursor-pointer'
                   >
                     <img alt='Apple' className='mr-2 h-4 w-4' src={imgLogo1} />
                     Login with Apple
@@ -208,7 +208,7 @@ const Login: NextPage<Props> = ({}) => {
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="name@email.com"
+                    placeholder="Enter your email"
                     required
                     className="w-full h-[42px] px-[16px] rounded-[6px] border border-[#d9d9d9] !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal"
                   />
@@ -224,6 +224,7 @@ const Login: NextPage<Props> = ({}) => {
                         name="password"
                         type={showPassword ? 'text' : 'password'}
                         required
+                        placeholder='Enter your password'
                         className="w-full h-[42px] px-[16px] pr-10 rounded-[6px] border border-[#d9d9d9] !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal"
                       />
                       <button
@@ -246,24 +247,19 @@ const Login: NextPage<Props> = ({}) => {
                       />
                       <Label htmlFor="rememberMe" className="text-[14px] text-[#363636] font-normal ml-2">Remember me</Label>
                     </div>
-                    <button
-                      type="button"
-                      className="text-[14px] text-[#383ad8] font-semibold underline-offset-4 hover:underline"
-                    >
-                      Forgot Password?
-                    </button>
+                    <a href="/forgot-password" className="text-[#383ad8] font-semibold">Forgot Password?</a>
                   </div>
                 </div>
                 {/* Error Alert */}
                 {isError && <Alert variant='destructive'>{alertMessage}</Alert>}
                 {/* Login Button and Sign Up Row Group */}
                 <div className="flex flex-col gap-2 w-full">
-                  <button type="submit" className="w-full h-[42px] bg-[#383ad8] text-[white] text-[14px] font-semibold rounded-[6px]" disabled={isLoading}>
+                  <button type="submit" className="w-full h-[42px] bg-[#383ad8] text-[white] text-[14px] font-semibold rounded-[6px] cursor-pointer" disabled={isLoading}>
                     {isLoading ? 'Logging in...' : 'Login'}
                   </button>
                   <div className="text-left text-[14px] mt-2">
                     Don't have an account?{' '}
-                    <a href="/sign-up" className="text-[#383ad8] font-semibold">Sign up</a>
+                    <a href="/sign-up-options" className="text-[#383ad8] font-semibold">Sign up</a>
                   </div>
                 </div>
               </form>
