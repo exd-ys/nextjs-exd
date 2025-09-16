@@ -3,7 +3,9 @@
 import firebase_app from '@/_shared/lib/firebase/config'
 import { AppSidebar } from '@/components/app-sidebar'
 import { ChartAreaInteractive } from '@/components/chart-area-interactive'
-import { DataTable } from '@/components/data-table'
+import { ChartBarMultiple } from '@/components/chart-bar-multiple'
+import { ChartPieDonut } from '@/components/chart-pie-donut'
+import DataTableColumnsVisibilityDemo from '@/components/table-11'
 import { SectionCards } from '@/components/section-cards'
 import { SiteHeader } from '@/components/site-header'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
@@ -64,56 +66,42 @@ export default function Page() {
 
   return (
     <SidebarProvider
-      style={
-        {
-          '--sidebar-width': 'calc(var(--spacing) * 72)',
-          '--header-height': 'calc(var(--spacing) * 12)',
-        } as React.CSSProperties
-      }
+      style={{
+        '--sidebar-width': 'calc(var(--spacing) * 72)',
+        '--header-height': 'calc(var(--spacing) * 12)',
+      } as React.CSSProperties}
     >
       <AppSidebar variant='sidebar' side='left' />
       <SidebarInset>
         {/* Show SiteHeader for left and right sidebars, hide for top bar */}
         {sidebarSide !== 'top' && <SiteHeader />}
         <div className='flex flex-1 flex-col'>
-          {/* Sidebar Position Controls for testing purposes */}
-          {/* <div className='flex gap-2 p-4 border-b bg-gray-50'>
-            <span className='text-sm font-medium self-center'>
-              Sidebar Position:
-            </span>
-            <Button
-              variant={sidebarSide === 'left' ? 'default' : 'outline'}
-              size='sm'
-              onClick={() => setSidebarSide('left')}
-            >
-              Left
-            </Button>
-            <Button
-              variant={sidebarSide === 'right' ? 'default' : 'outline'}
-              size='sm'
-              onClick={() => setSidebarSide('right')}
-            >
-              Right
-            </Button>
-            <Button
-              variant={sidebarSide === 'top' ? 'default' : 'outline'}
-              size='sm'
-              onClick={() => setSidebarSide('top')}
-            >
-              Top
-            </Button>
-          </div> */}
           <div className='@container/main flex flex-1 flex-col gap-2'>
-            <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6'>
+            <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6 bg-[#EDF3FF]'>
               <SectionCards />
-              <div className='px-4 lg:px-6'>
-                <ChartAreaInteractive />
+              <div className="flex flex-col md:flex-row gap-6 px-4 lg:px-6">
+                <div className="flex-1 min-w-0">
+                  <ChartAreaInteractive variant="single" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <ChartAreaInteractive variant="double" />
+                </div>
               </div>
-              <DataTable data={data} />
+              <div className="flex flex-col md:flex-row gap-6 px-4 lg:px-6">
+                <div className="flex-1 min-w-0">
+                  <ChartBarMultiple />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <ChartPieDonut />
+                </div>
+              </div>
+              <div className="bg-white rounded-lg px-4 lg:px-6">
+                <DataTableColumnsVisibilityDemo />
+              </div>
             </div>
           </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }
