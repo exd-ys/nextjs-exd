@@ -34,31 +34,31 @@ const data = {
   navMain: [
     {
       title: 'Dashboard',
-      url: '#',
+      url: '/dashboard',
       icon: ChartPie,
       active: true,
     },
     {
       title: 'Billing & Payments',
-      url: '#',
+      url: '/billing-payments',
       icon: Money,
       active: false,
     },
     {
       title: 'Profile',
-      url: '#',
+      url: '/profile',
       icon: UserCircle,
       active: false,
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/settings',
       icon: GearSix,
       active: false,
     },
     {
       title: 'Admin',
-      url: '#',
+      url: '/admin',
       icon: LockKey,
       active: false,
     },
