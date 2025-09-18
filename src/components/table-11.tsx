@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   ColumnDef,
@@ -11,7 +11,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -19,11 +19,11 @@ import {
   MoreHorizontal,
   RefreshCcw,
   SearchIcon,
-} from "lucide-react";
-import * as React from "react";
+} from 'lucide-react'
+import * as React from 'react'
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -32,8 +32,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
 import {
   Table,
   TableBody,
@@ -41,124 +41,121 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 
 const data: Payment[] = [
   {
-    id: "m5gr84i9",
+    id: 'm5gr84i9',
     amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
+    status: 'success',
+    email: 'ken99@yahoo.com',
   },
   {
-    id: "3u1reuv4",
+    id: '3u1reuv4',
     amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
+    status: 'success',
+    email: 'Abe45@gmail.com',
   },
   {
-    id: "derv1ws0",
+    id: 'derv1ws0',
     amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
+    status: 'processing',
+    email: 'Monserrat44@gmail.com',
   },
   {
-    id: "5kma53ae",
+    id: '5kma53ae',
     amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
+    status: 'success',
+    email: 'Silas22@gmail.com',
   },
   {
-    id: "bhqecj4p",
+    id: 'bhqecj4p',
     amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
+    status: 'failed',
+    email: 'carmella@hotmail.com',
   },
-];
+]
 
 export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
+  id: string
+  amount: number
+  status: 'pending' | 'processing' | 'success' | 'failed'
+  email: string
+}
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label='Select all'
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label='Select row'
       />
     ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: 'status',
+    header: 'Status',
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className='capitalize'>{row.getValue('status')}</div>
     ),
   },
   {
-    accessorKey: "email",
+    accessorKey: 'email',
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
-          className="text-base font-medium"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant='ghost'
+          className='text-base font-medium'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Email
           <ArrowUpDown />
         </Button>
-      );
+      )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div className='lowercase'>{row.getValue('email')}</div>,
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: 'amount',
+    header: () => <div className='text-right'>Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
+      const amount = parseFloat(row.getValue('amount'))
       // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(amount)
+      return <div className='text-right font-medium'>{formatted}</div>
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
-
+      const payment = row.original
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
+            <Button variant='ghost' className='h-8 w-8 p-0'>
+              <span className='sr-only'>Open menu</span>
               <MoreHorizontal />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(payment.id)}
@@ -170,20 +167,26 @@ export const columns: ColumnDef<Payment>[] = [
             <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      );
+      )
     },
   },
-];
+]
 
-export default function DataTableColumnsVisibilityDemo() {
-  const [searchQuery, setSearchQuery] = React.useState<string>();
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+interface DataTableColumnsVisibilityDemoProps {
+  tableHeaders?: string[]
+}
+
+export default function DataTableColumnsVisibilityDemo({
+  tableHeaders,
+}: DataTableColumnsVisibilityDemoProps) {
+  const [searchQuery, setSearchQuery] = React.useState<string>()
+  const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  );
+  )
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+    React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
     data,
@@ -202,35 +205,35 @@ export default function DataTableColumnsVisibilityDemo() {
       columnVisibility,
       rowSelection,
     },
-  });
+  })
 
-    return (
-      <div className="w-full bg-[white] px-6 py-2 rounded-lg">
-      <div className="flex items-center gap-2 py-4">
+  return (
+    <div className='w-full bg-[white] px-6 py-2 rounded-lg'>
+      <div className='flex items-center gap-2 py-4'>
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder='Filter emails...'
+          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn('email')?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className='max-w-sm'
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              <Columns3 /> Columns <ChevronDown className="ml-3" />
+            <Button variant='outline' className='ml-auto'>
+              <Columns3 /> Columns <ChevronDown className='ml-3' />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <div className="relative">
+          <DropdownMenuContent align='end'>
+            <div className='relative'>
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8"
-                placeholder="Search"
+                className='pl-8'
+                placeholder='Search'
                 onKeyDown={(e) => e.stopPropagation()}
               />
-              <SearchIcon className="absolute inset-y-0 my-auto left-2 h-4 w-4" />
+              <SearchIcon className='absolute inset-y-0 my-auto left-2 h-4 w-4' />
             </div>
             <DropdownMenuSeparator />
             {table
@@ -241,13 +244,13 @@ export default function DataTableColumnsVisibilityDemo() {
                   searchQuery &&
                   !column.id.toLowerCase().includes(searchQuery.toLowerCase())
                 ) {
-                  return null;
+                  return null
                 }
 
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className='capitalize'
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
@@ -256,13 +259,13 @@ export default function DataTableColumnsVisibilityDemo() {
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                );
+                )
               })}
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
-                table.resetColumnVisibility();
-                setSearchQuery("");
+                table.resetColumnVisibility()
+                setSearchQuery('')
               }}
             >
               <RefreshCcw /> Reset
@@ -270,32 +273,40 @@ export default function DataTableColumnsVisibilityDemo() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className='rounded-md border'>
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+            {tableHeaders ? (
+              <TableRow>
+                {tableHeaders.map((header, idx) => (
+                  <TableHead key={idx}>{header}</TableHead>
+                ))}
               </TableRow>
-            ))}
+            ) : (
+              table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    )
+                  })}
+                </TableRow>
+              ))
+            )}
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -311,7 +322,7 @@ export default function DataTableColumnsVisibilityDemo() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   No results.
                 </TableCell>
@@ -320,23 +331,23 @@ export default function DataTableColumnsVisibilityDemo() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+      <div className='flex items-center justify-end space-x-2 py-4'>
+        <div className='flex-1 text-sm text-muted-foreground'>
+          {table.getFilteredSelectedRowModel().rows.length} of{' '}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="space-x-2">
+        <div className='space-x-2'>
           <Button
-            variant="outline"
-            size="sm"
+            variant='outline'
+            size='sm'
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             Previous
           </Button>
           <Button
-            variant="outline"
-            size="sm"
+            variant='outline'
+            size='sm'
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -345,5 +356,5 @@ export default function DataTableColumnsVisibilityDemo() {
         </div>
       </div>
     </div>
-  );
+  )
 }

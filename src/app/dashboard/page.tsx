@@ -59,9 +59,9 @@ export default function Page() {
   return (
     <div className='flex flex-1 flex-col'>
       <div className='@container/main flex flex-1 flex-col gap-2'>
-        <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6 bg-[#EDF3FF]'>
+        <div className='flex flex-col gap-4 md:gap-6 bg-[#EDF3FF]'>
           <SectionCards />
-          <div className='flex flex-col md:flex-row gap-6 px-4 lg:px-6'>
+          <div className='flex flex-col md:flex-row gap-6'>
             <div className='flex-1 min-w-0'>
               <ChartAreaInteractive variant='single' />
             </div>
@@ -69,7 +69,7 @@ export default function Page() {
               <ChartAreaInteractive variant='double' />
             </div>
           </div>
-          <div className='flex flex-col md:flex-row gap-6 px-4 lg:px-6'>
+          <div className='flex flex-col md:flex-row gap-6'>
             <div className='flex-1 min-w-0'>
               <ChartBarMultiple />
             </div>
@@ -77,7 +77,7 @@ export default function Page() {
               <ChartPieDonut />
             </div>
           </div>
-          <div className='bg-white rounded-lg px-4 lg:px-6'>
+          <div className='bg-white rounded-lg'>
             <DataTableColumnsVisibilityDemo />
           </div>
         </div>
