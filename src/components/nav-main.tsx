@@ -9,6 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import Link from 'next/link'
 
 export function NavMain({
   items,
@@ -46,17 +47,22 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                className={
-                  !item.active
-                    ? 'py-3'
-                    : 'bg-[#EDF3FF] active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear hover:text-[#363636]'
-                }
-                tooltip={item.title}
-              >
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
-              </SidebarMenuButton>
+              <Link href={item.url} passHref legacyBehavior>
+                <SidebarMenuButton
+                  asChild
+                  className={
+                    !item.active
+                      ? 'py-3'
+                      : 'bg-[#EDF3FF] active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear hover:text-[#363636]'
+                  }
+                  tooltip={item.title}
+                >
+                  <a>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                  </a>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
