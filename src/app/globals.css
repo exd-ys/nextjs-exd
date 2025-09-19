@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 /*
   ---break---
 */
@@ -9,83 +9,135 @@
 
 @theme {
   --color-*: initial;
-  --color-primary-100: hsl(var(--colors-primary-blue-blue-lighter));
-  --color-primary-200: hsl(var(--colors-primary-blue-blue-light));
-  --color-primary-400: hsl(var(--colors-primary-blue-blue-dark));
-  --color-primary-500: hsl(var(--colors-primary-blue-blue-darker));
-  --color-primary: hsl(var(--colors-primary-blue-blue-default));
 
-  --color-secondary-100: hsl(var(--colors-secondary-gray-gray-lighter));
-  --color-secondary-200: hsl(var(--colors-secondary-gray-gray-light));
-  --color-secondary-400: hsl(var(--colors-secondary-gray-gray-dark));
-  --color-secondary-500: hsl(var(--colors-secondary-gray-gray-darker));
-  --color-secondary-white: hsl(var(--colors-secondary-white-white-default));
-  --color-secondary: hsl(var(--colors-secondary-gray-gray-default));
-  --color-secondary-black: hsl(var(--colors-secondary-black-black-default));
+  /* Figma Color Primitives - Core Foundation */
+  /* Primary Brand */
+  --color-primary: #383ad8;
+  --color-primary-darker: #272bac;
+  --color-primary-light: #edf3ff;
+  --color-primary-border: #c3d4ff;
 
-  --color-danger-100: hsl(var(--colors-accent-red-red-lighter));
-  --color-danger-200: hsl(var(--colors-accent-red-red-light));
-  --color-danger-400: hsl(var(--colors-accent-red-red-dark));
-  --color-danger-500: hsl(var(--colors-accent-red-red-darker));
-  --color-danger: hsl(var(--colors-accent-red-red-default));
+  /* Neutral Grays */
+  --color-gray-dark: #363636;
+  --color-gray-medium: #868686;
+  --color-gray-base: #767676;
+  --color-gray-light: #d9d9d9;
+  --color-gray-lighter: #f4f4f4;
+  --color-gray-border: #e5e6e8;
 
-  --color-success-100: hsl(var(--colors-accent-green-green-lighter));
-  --color-success-200: hsl(var(--colors-accent-green-green-light));
-  --color-success-400: hsl(var(--colors-accent-green-green-dark));
-  --color-success-500: hsl(var(--colors-accent-green-green-darker));
-  --color-success: hsl(var(--colors-accent-green-green-default));
+  /* Pure Colors */
+  --color-white: #ffffff;
+  --color-black: #202049;
 
-  --color-warning-100: hsl(var(--colors-accent-yellow-yellow-lighter));
-  --color-warning-200: hsl(var(--colors-accent-yellow-yellow-light));
-  --color-warning-400: hsl(var(--colors-accent-yellow-yellow-dark));
-  --color-warning-500: hsl(var(--colors-accent-yellow-yellow-darker));
-  --color-warning: hsl(var(--colors-accent-yellow-yellow-default));
+  /* Semantic Colors */
+  --color-success: #28c700;
+  --color-success-light: #edfcf5;
+  --color-error: #f25d3b;
+  --color-error-light: #ffe6e3;
+  --color-warning: #fba300;
+
+  /* Figma Design System Colors */
+  /* Text Colors */
+  --color-text-base: var(--color-gray-dark);
+  --color-text-primary: var(--color-primary);
+  --color-text-secondary: var(--color-gray-medium);
+  --color-text-white: var(--color-white);
+  --color-text-black: var(--color-black);
+  --color-text-placeholder: var(--color-gray-light);
+  --color-text-success: var(--color-success);
+  --color-text-error: var(--color-error);
+
+  /* Background Colors */
+  --color-bg-white: var(--color-white);
+  --color-bg-primary: var(--color-primary);
+  --color-bg-primary-lighter: var(--color-primary-light);
+  --color-bg-secondary: var(--color-gray-medium);
+  --color-bg-success: var(--color-success);
+  --color-bg-success-light: var(--color-success-light);
+  --color-bg-warning: var(--color-warning);
+  --color-bg-error: var(--color-error);
+  --color-bg-error-light: var(--color-error-light);
+  --color-bg-gray-lightest: var(--color-gray-lighter);
+  --color-bg-gray-lighter: var(--color-gray-light);
+
+  /* Border Colors */
+  --color-border-base: var(--color-gray-light);
+  --color-border-secondary: var(--color-gray-lighter);
+  --color-border-secondary-lighter: var(--color-gray-border);
+  --color-border-white: var(--color-white);
+  --color-border-primary: var(--color-primary);
+  --color-border-primary-light: var(--color-primary-border);
+  --color-border-tertiary: var(--color-gray-border);
+  --color-border-accent: var(--color-error);
+
+  /* Icon Colors */
+  --color-icon-primary: var(--color-primary);
+  --color-icon-primary-darker: var(--color-primary-darker);
+  --color-icon-secondary: var(--color-gray-medium);
+  --color-icon-secondary-lighter: var(--color-gray-lighter);
+  --color-icon-base: var(--color-gray-base);
+  --color-icon-black: var(--color-gray-dark);
+  --color-icon-white: var(--color-white);
+  --color-icon-success: var(--color-success);
+  --color-icon-danger: var(--color-error);
 
   --text-*: initial;
-  --text-sm: 0.8rem;
-  --text-base: 1rem;
-  --text-h4: 1.25rem;
-  --text-h3: 1.44rem;
-  --text-h2: 1.73rem;
-  --text-h1: 2.07rem;
+
+  /* Figma Typography System */
+  /* Font Sizes */
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
+  /* Font Families */
+  --font-family-body: 'Inter', sans-serif;
+  --font-family-title: 'Inter', sans-serif;
 
   --breakpoint-*: initial;
   --breakpoint-sm: 768px;
   --breakpoint-md: 1040px;
   --breakpoint-lg: 1366px;
 
+  /* Figma Size System */
+  --size-none: 0px;
+  --size-half: 4px;
+  --size-xs: 4px;
+  --size-sm: 8px;
+  --size-md: 8px;
+  --size-1: 8px;
+  --size-2: 16px;
+  --size-lg: 24px;
+  --size-xl: 24px;
+  --size-3: 24px;
+  --size-2xl: 32px;
+  --size-4: 32px;
+  --size-3xl: 40px;
+  --size-5: 40px;
+  --size-4xl: 48px;
+  --size-6xl: 64px;
+  --size-7: 56px;
+
+  /* Figma Border Radius System */
   --radius-*: initial;
   --radius-none: 0px;
-  --radius-sm: 4px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
   --radius-md: 8px;
-  --radius-lg: 16px;
+  --radius-lg: 24px;
   --radius-xl: 24px;
-  --radius-full: 9999px;
+  --radius-full: 999px;
+  --radius-max: 999px;
 
   --shadow-*: initial;
   --shadow-sm: 0 4px 12px 0 rgba(10, 69, 87, 0.05);
   --shadow-md: 0 8px 24px 0 rgba(10, 69, 87, 0.05);
   --shadow-lg: 0 16px 48px 0 rgba(10, 69, 87, 0.05);
-
-  --animate-sideways: 3s linear infinite;
-
-  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
-  --background-image-gradient-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    var(--tw-gradient-stops)
-  );
-
-  @keyframes sideways {
-    0%,
-    100% {
-      left: 0;
-      top: 0;
-    }
-    50% {
-      left: 100px;
-      top: 0;
-    }
-  }
 }
 
 /*
@@ -108,78 +160,9 @@
 
 @layer base {
   * {
-    font-family: 'Nunito Sans', sans-serif;
-    src: url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap');
-    font-size: 14px;
-  }
-
-  :root {
-    --colors-primary-blue-blue-dark: 193 100% 38%;
-    --colors-primary-blue-blue-darker: 193 100% 29%;
-    --colors-primary-blue-blue-default: 195 100% 50%;
-    --colors-primary-blue-blue-light: 193 92% 68%;
-    --colors-primary-blue-blue-lighter: 193 94% 88%;
-
-    --colors-secondary-black-black-default: 0 0 26%;
-    --colors-secondary-gray-gray-dark: 150 1% 40%;
-    --colors-secondary-gray-gray-darker: 150 1% 30%;
-    --colors-secondary-gray-gray-default: 140 1% 50%;
-    --colors-secondary-gray-gray-light: 150 1% 70%;
-    --colors-secondary-gray-gray-lighter: 120 2% 90%;
-    --colors-secondary-white-white-default: 0 0 100%;
-
-    --colors-accent-green-green-dark: 116 40% 43%;
-    --colors-accent-green-green-darker: 116 41% 32%;
-    --colors-accent-green-green-default: 116 47% 54%;
-    --colors-accent-green-green-light: 116 48% 72%;
-    --colors-accent-green-green-lighter: 115 49% 91%;
-
-    --colors-accent-red-red-dark: 0 65% 47%;
-    --colors-accent-red-red-darker: 0 66% 35%;
-    --colors-accent-red-red-default: 0 92% 59%;
-    --colors-accent-red-red-light: 0 92% 75%;
-    --colors-accent-red-red-lighter: 0 91% 92%;
-
-    --colors-accent-yellow-yellow-dark: 48 65% 47%;
-    --colors-accent-yellow-yellow-darker: 48 66% 35%;
-    --colors-accent-yellow-yellow-default: 48 92% 59%;
-    --colors-accent-yellow-yellow-light: 48 92% 75%;
-    --colors-accent-yellow-yellow-lighter: 49 91% 92%;
-  }
-
-  /* dark mode variables */
-  :root[data-theme='dark'] {
-    --colors-primary-blue-blue-dark: 193 100% 38%;
-    --colors-primary-blue-blue-darker: 193 100% 29%;
-    --colors-primary-blue-blue-default: 195 100% 50%;
-    --colors-primary-blue-blue-light: 193 92% 68%;
-    --colors-primary-blue-blue-lighter: 193 94% 88%;
-
-    --colors-secondary-black-black-default: 0 0 26%;
-    --colors-secondary-gray-gray-dark: 150 1% 40%;
-    --colors-secondary-gray-gray-darker: 150 1% 30%;
-    --colors-secondary-gray-gray-default: 140 1% 50%;
-    --colors-secondary-gray-gray-light: 150 1% 70%;
-    --colors-secondary-gray-gray-lighter: 120 2% 90%;
-    --colors-secondary-white-white-default: 0 0 100%;
-
-    --colors-accent-green-green-dark: 116 40% 43%;
-    --colors-accent-green-green-darker: 116 41% 32%;
-    --colors-accent-green-green-default: 116 47% 54%;
-    --colors-accent-green-green-light: 116 48% 72%;
-    --colors-accent-green-green-lighter: 115 49% 91%;
-
-    --colors-accent-red-red-dark: 0 65% 47%;
-    --colors-accent-red-red-darker: 0 66% 35%;
-    --colors-accent-red-red-default: 0 92% 59%;
-    --colors-accent-red-red-light: 0 92% 75%;
-    --colors-accent-red-red-lighter: 0 91% 92%;
-
-    --colors-accent-yellow-yellow-dark: 48 65% 47%;
-    --colors-accent-yellow-yellow-darker: 48 66% 35%;
-    --colors-accent-yellow-yellow-default: 48 92% 59%;
-    --colors-accent-yellow-yellow-light: 48 92% 75%;
-    --colors-accent-yellow-yellow-lighter: 49 91% 92%;
+    font-family: var(--font-family-body, 'Inter'), 'Nunito Sans', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap');
+    font-size: var(--text-md, 16px);
   }
 }
 
@@ -187,119 +170,93 @@
   ---break---
 */
 
+/* Shadcn/UI Integration - Maps Figma primitives to Tailwind theme */
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  /* Radius System - Aligned with Figma */
+  --radius-sm: var(--radius-xs);
+  --radius-md: var(--radius-sm);
+  --radius-lg: var(--radius-md);
+  --radius-xl: var(--radius-lg);
+
+  /* Color System - Direct mapping to Figma primitives */
+  --color-background: var(--color-white);
+  --color-foreground: var(--color-gray-dark);
+  --color-card: var(--color-white);
+  --color-card-foreground: var(--color-gray-dark);
+  --color-popover: var(--color-white);
+  --color-popover-foreground: var(--color-gray-dark);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-white);
+  --color-secondary: var(--color-gray-medium);
+  --color-secondary-foreground: var(--color-gray-dark);
+  --color-muted: var(--color-gray-lighter);
+  --color-muted-foreground: var(--color-gray-medium);
+  --color-accent: var(--color-gray-lighter);
+  --color-accent-foreground: var(--color-gray-dark);
+  --color-destructive: var(--color-error);
+  --color-border: var(--color-gray-border);
+  --color-input: var(--color-gray-border);
+  --color-ring: var(--color-primary);
+
+  /* Chart Colors - Using Figma semantic colors */
+  --color-chart-1: var(--color-primary);
+  --color-chart-2: var(--color-success);
+  --color-chart-3: var(--color-warning);
+  --color-chart-4: var(--color-gray-medium);
+  --color-chart-5: var(--color-primary-darker);
+
+  /* Sidebar Colors - Using Figma primitives */
+  --color-sidebar: var(--color-gray-lighter);
+  --color-sidebar-foreground: var(--color-gray-dark);
+  --color-sidebar-primary: var(--color-primary);
+  --color-sidebar-primary-foreground: var(--color-white);
+  --color-sidebar-accent: var(--color-gray-lighter);
+  --color-sidebar-accent-foreground: var(--color-gray-dark);
+  --color-sidebar-border: var(--color-gray-border);
+  --color-sidebar-ring: var(--color-primary);
 }
 
 /*
   ---break---
 */
 
+/* Light Mode Theme - Overrides for light mode specific values */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* These override the @theme inline values for light mode */
+  --color-background: var(--color-white);
+  --color-foreground: var(--color-gray-dark);
+  --color-card: var(--color-white);
+  --color-card-foreground: var(--color-gray-dark);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-white);
+  --color-secondary: var(--color-gray-medium);
+  --color-secondary-foreground: var(--color-gray-dark);
+  --color-muted: var(--color-gray-lighter);
+  --color-muted-foreground: var(--color-gray-medium);
+  --color-destructive: var(--color-error);
 }
 
 /*
   ---break---
 */
 
+/* Dark Mode Theme - Overrides for dark mode specific values */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --color-background: var(--color-black);
+  --color-foreground: var(--color-white);
+  --color-card: var(--color-gray-dark);
+  --color-card-foreground: var(--color-white);
+  --color-primary: var(--color-primary-light);
+  --color-primary-foreground: var(--color-black);
+  --color-secondary: var(--color-gray-base);
+  --color-secondary-foreground: var(--color-white);
+  --color-muted: var(--color-gray-base);
+  --color-muted-foreground: var(--color-gray-light);
+  --color-destructive: var(--color-error-light);
+  --color-sidebar: var(--color-gray-dark);
+  --color-sidebar-foreground: var(--color-white);
+  --color-sidebar-accent: var(--color-gray-base);
+  --color-sidebar-accent-foreground: var(--color-white);
 }
 
 /*
@@ -313,4 +270,106 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Utility Classes - Leveraging the integrated theme system */
+@layer utilities {
+  /* Text utilities using Figma design system */
+  .text-brand {
+    @apply text-primary;
+  }
+  .text-muted {
+    @apply text-muted-foreground;
+  }
+  .text-success {
+    color: var(--color-success);
+  }
+  .text-error {
+    @apply text-destructive;
+  }
+  .text-warning {
+    color: var(--color-warning);
+  }
+
+  /* Background utilities using Figma design system */
+  .bg-brand {
+    @apply bg-primary;
+  }
+  .bg-muted {
+    @apply bg-muted;
+  }
+  .bg-success {
+    background-color: var(--color-success-light);
+  }
+  .bg-error {
+    background-color: var(--color-error-light);
+  }
+  .bg-warning {
+    background-color: var(--color-warning);
+  }
+
+  /* Border utilities using Figma design system */
+  .border-brand {
+    @apply border-primary;
+  }
+  .border-muted {
+    @apply border-border;
+  }
+  .border-success {
+    border-color: var(--color-success);
+  }
+  .border-error {
+    @apply border-destructive;
+  }
+
+  /* Spacing utilities using design system sizes */
+  .space-xs {
+    @apply space-x-1;
+  } /* 4px */
+  .space-sm {
+    @apply space-x-2;
+  } /* 8px */
+  .space-md {
+    @apply space-x-3;
+  } /* 12px */
+  .space-lg {
+    @apply space-x-6;
+  } /* 24px */
+  .space-xl {
+    @apply space-x-8;
+  } /* 32px */
+
+  /* Padding utilities using design system sizes */
+  .p-xs {
+    @apply p-1;
+  } /* 4px */
+  .p-sm {
+    @apply p-2;
+  } /* 8px */
+  .p-md {
+    @apply p-3;
+  } /* 12px */
+  .p-lg {
+    @apply p-6;
+  } /* 24px */
+  .p-xl {
+    @apply p-8;
+  } /* 32px */
+
+  /* Margin utilities using design system sizes */
+  .m-xs {
+    @apply m-1;
+  } /* 4px */
+  .m-sm {
+    @apply m-2;
+  } /* 8px */
+  .m-md {
+    @apply m-3;
+  } /* 12px */
+  .m-lg {
+    @apply m-6;
+  } /* 24px */
+  .m-xl {
+    @apply m-8;
+  } /* 32px */
 }
