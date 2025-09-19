@@ -1,8 +1,24 @@
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -10,6 +26,7 @@ import {
 import {
   ColumnDef,
   SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -17,6 +34,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { ChevronDown, ChevronUp } from 'lucide-react'
+// removed duplicate ChevronDown import
 import * as React from 'react'
 
 export type User = {
@@ -73,8 +92,52 @@ const users: User[] = [
 
 const columns: ColumnDef<User>[] = [
   {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label='Select all'
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label='Select row'
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
     accessorKey: 'name',
-    header: 'Name',
+    header: ({ column }) => (
+      <Button
+        type='button'
+        variant='ghost'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-semibold font-sans whitespace-nowrap'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Name
+        <span className='flex flex-col ml-1'>
+          <ChevronUp
+            className={`w-4 h-4 ${
+              column.getIsSorted() === 'asc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+          <ChevronDown
+            className={`w-4 h-4 -mt-1 ${
+              column.getIsSorted() === 'desc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+        </span>
+      </Button>
+    ),
     cell: ({ row }) => (
       <span className='text-[#363636] text-[14px] font-semibold font-sans whitespace-nowrap'>
         {row.getValue('name')}
@@ -83,7 +146,32 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'email',
-    header: 'Email',
+    header: ({ column }) => (
+      <Button
+        type='button'
+        variant='ghost'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Email
+        <span className='flex flex-col ml-1'>
+          <ChevronUp
+            className={`w-4 h-4 ${
+              column.getIsSorted() === 'asc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+          <ChevronDown
+            className={`w-4 h-4 -mt-1 ${
+              column.getIsSorted() === 'desc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+        </span>
+      </Button>
+    ),
     cell: ({ row }) => (
       <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
         {row.getValue('email')}
@@ -92,7 +180,32 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'department',
-    header: 'Department',
+    header: ({ column }) => (
+      <Button
+        type='button'
+        variant='ghost'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Department
+        <span className='flex flex-col ml-1'>
+          <ChevronUp
+            className={`w-4 h-4 ${
+              column.getIsSorted() === 'asc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+          <ChevronDown
+            className={`w-4 h-4 -mt-1 ${
+              column.getIsSorted() === 'desc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+        </span>
+      </Button>
+    ),
     cell: ({ row }) => (
       <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
         {row.getValue('department')}
@@ -101,7 +214,32 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'created',
-    header: 'Created',
+    header: ({ column }) => (
+      <Button
+        type='button'
+        variant='ghost'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Created
+        <span className='flex flex-col ml-1'>
+          <ChevronUp
+            className={`w-4 h-4 ${
+              column.getIsSorted() === 'asc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+          <ChevronDown
+            className={`w-4 h-4 -mt-1 ${
+              column.getIsSorted() === 'desc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+        </span>
+      </Button>
+    ),
     cell: ({ row }) => (
       <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
         {row.getValue('created')}
@@ -110,7 +248,32 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'lastLogin',
-    header: 'Last Login',
+    header: ({ column }) => (
+      <Button
+        type='button'
+        variant='ghost'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Last Login
+        <span className='flex flex-col ml-1'>
+          <ChevronUp
+            className={`w-4 h-4 ${
+              column.getIsSorted() === 'asc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+          <ChevronDown
+            className={`w-4 h-4 -mt-1 ${
+              column.getIsSorted() === 'desc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+        </span>
+      </Button>
+    ),
     cell: ({ row }) => (
       <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
         {row.getValue('lastLogin')}
@@ -119,7 +282,32 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'status',
-    header: 'Status',
+    header: ({ column }) => (
+      <Button
+        type='button'
+        variant='ghost'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Status
+        <span className='flex flex-col ml-1'>
+          <ChevronUp
+            className={`w-4 h-4 ${
+              column.getIsSorted() === 'asc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+          <ChevronDown
+            className={`w-4 h-4 -mt-1 ${
+              column.getIsSorted() === 'desc'
+                ? 'text-[#383ad8]'
+                : 'text-[#bdbdbd]'
+            }`}
+          />
+        </span>
+      </Button>
+    ),
     cell: ({ row }) => {
       const status = row.getValue('status')
       if (status === 'Active') {
@@ -148,7 +336,11 @@ const columns: ColumnDef<User>[] = [
   },
   {
     id: 'actions',
-    header: 'Action(s)',
+    header: () => (
+      <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
+        Action(s)
+      </span>
+    ),
     cell: ({ row }) => (
       <div className='flex gap-2'>
         <button
@@ -216,18 +408,27 @@ const columns: ColumnDef<User>[] = [
   },
 ]
 
-interface AdminUserTableProps {
-  search?: string
-  department?: string
-  status?: string
+export interface AdminUserTableStats {
+  total: number
+  active: number
+  newThisMonth: number
+  activePercent: number
+  newPercent: number
 }
 
-export default function AdminUserTable({
-  search = '',
-  department = 'All',
-  status = 'All',
-}: AdminUserTableProps) {
+interface AdminUserTableProps {
+  onStatsChange?: (stats: AdminUserTableStats) => void
+}
+
+export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
+  const [pageSize, setPageSize] = React.useState(5)
+  const [search, setSearch] = React.useState('')
+  const [department, setDepartment] = React.useState('All')
+  const [status, setStatus] = React.useState('All')
 
   // Filter users based on search, department, and status
   const filteredUsers = React.useMemo(() => {
@@ -243,6 +444,35 @@ export default function AdminUserTable({
     })
   }, [search, department, status])
 
+  // Calculate stats and call onStatsChange
+  React.useEffect(() => {
+    if (!onStatsChange) return
+    const now = new Date()
+    const thisMonth = now.getMonth()
+    const thisYear = now.getFullYear()
+    // Parse created date for newThisMonth
+    const newThisMonth = filteredUsers.filter((u) => {
+      const d = new Date(u.created + ' 2024') // fallback year if missing
+      return d.getMonth() === thisMonth && d.getFullYear() === thisYear
+    }).length
+    const active = filteredUsers.filter((u) => u.status === 'Active').length
+    const total = filteredUsers.length
+    const allTotal = users.filter((user) => {
+      const matchesDepartment =
+        department === 'All' || user.department === department
+      const matchesStatus = status === 'All' || user.status === status
+      return matchesDepartment && matchesStatus
+    }).length
+    onStatsChange({
+      total,
+      active,
+      newThisMonth,
+      activePercent: total > 0 ? Math.round((active / total) * 100) : 0,
+      newPercent:
+        allTotal > 0 ? Math.round((newThisMonth / allTotal) * 100) : 0,
+    })
+  }, [filteredUsers, onStatsChange, department, status])
+
   const table = useReactTable({
     data: filteredUsers,
     columns,
@@ -251,11 +481,86 @@ export default function AdminUserTable({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
-    state: { sorting },
+    state: { sorting, columnVisibility, rowSelection },
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row.email,
+    initialState: { pagination: { pageSize } },
   })
 
   return (
     <div className='w-full bg-[white] rounded-lg'>
+      <div className='flex flex-row items-center py-4 gap-2 md:gap-4 justify-between'>
+        <div className='flex items-center'>
+          <Input
+            placeholder='Search users...'
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+            className='max-w-xs border border-[#d9d9d9] rounded-md'
+          />
+        </div>
+        <div className='flex items-center gap-2 md:gap-4'>
+          <Select value={department} onValueChange={setDepartment}>
+            <SelectTrigger className='w-[160px]'>
+              <SelectValue placeholder='Department' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='All'>All Departments</SelectItem>
+              <SelectItem value='Engineering'>Engineering</SelectItem>
+              <SelectItem value='Marketing'>Marketing</SelectItem>
+              <SelectItem value='Sales'>Sales</SelectItem>
+              <SelectItem value='Design'>Design</SelectItem>
+              <SelectItem value='Product'>Product</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={status} onValueChange={setStatus}>
+            <SelectTrigger className='w-[140px]'>
+              <SelectValue placeholder='Status' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='All'>All Statuses</SelectItem>
+              <SelectItem value='Active'>Active</SelectItem>
+              <SelectItem value='Inactive'>Inactive</SelectItem>
+              <SelectItem value='Suspended'>Suspended</SelectItem>
+            </SelectContent>
+          </Select>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              asChild
+              className='flex flex-row justify-between'
+            >
+              <Button
+                variant='outline'
+                className='text-[15px] font-normal w-[140px]'
+              >
+                Columns <ChevronDown className='ml-2 h-4 w-4' />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className='capitalize px-8 py-2 text-[15px] font-normal focus:bg-[#f4f4f4] focus:text-black'
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.columnDef.header &&
+                    typeof column.columnDef.header === 'string'
+                      ? column.columnDef.header
+                      : column.id.charAt(0).toUpperCase() + column.id.slice(1)}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
@@ -299,25 +604,58 @@ export default function AdminUserTable({
               </TableRow>
             )}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell
+                colSpan={columns.length}
+                className='text-xs text-muted-foreground'
+              >
+                {table.getFilteredSelectedRowModel().rows.length} of{' '}
+                {table.getFilteredRowModel().rows.length} row(s) selected
+              </TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
       </div>
-      <div className='flex items-center justify-end space-x-2 py-4'>
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+      <div className='flex flex-col md:flex-row md:items-center justify-between gap-2 py-4'>
+        <div className='flex items-center gap-2'>
+          <span className='text-sm'>Rows per page:</span>
+          <select
+            className='border rounded px-2 py-1 text-sm'
+            value={table.getState().pagination.pageSize}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              table.setPageSize(Number(e.target.value))
+            }
+          >
+            {[5, 10, 20, 50].map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className='flex items-center gap-2'>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <span className='text-sm'>
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount()}
+          </span>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   )
