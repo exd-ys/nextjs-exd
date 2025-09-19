@@ -9,12 +9,12 @@ require('dotenv').config({ path: envPath })
 
 const nextConfig = {
   // output: 'standalone',
-  // reactStrictMode: true,
-  // devIndicators: {
-  //   buildActivity: false,
-  // },
+  reactStrictMode: true,
+  devIndicators: {
+    buildActivity: false,
+  },
   distDir: '.next',
-  // cleanDistDir: true,
+  cleanDistDir: true,
   compiler: {
     styledComponents: {
       // Enabled by default.
