@@ -1,9 +1,19 @@
 'use client'
+import AdminUserTable, {
+  AdminUserTableStats,
+} from '@/components/admin-user-table'
 import { Card, CardContent } from '@/components/ui/card'
 import { IconUserCheck, IconUserPlus, IconUsers } from '@tabler/icons-react'
-import AdminUserTableWithFilters from './AdminUserTableWithFilters'
+import React from 'react'
 
 export default function AdminPage() {
+  const [stats, setStats] = React.useState<AdminUserTableStats>({
+    total: 0,
+    active: 0,
+    newThisMonth: 0,
+    activePercent: 0,
+    newPercent: 0,
+  })
   return (
     <div className='flex flex-col gap-6'>
       <div
@@ -27,9 +37,10 @@ export default function AdminPage() {
                 </div>
               </div>
               <span className='text-[#363636] text-[24px] font-semibold leading-[1.0] font-sans'>
-                5
+                {stats.total}
               </span>
               <span className='text-[#363636] text-[14px] font-normal leading-[1.5] font-sans'>
+                {/* Placeholder for growth, you can update this logic as needed */}
                 +2 from last month
               </span>
             </div>
@@ -53,10 +64,12 @@ export default function AdminPage() {
               </div>
 
               <span className='text-[#363636] text-[24px] font-semibold leading-[1.0] font-sans'>
-                3
+                {stats.active}
               </span>
               <span className='text-[#363636] text-[14px] font-normal leading-[1.5] font-sans'>
-                60% of total
+                {stats.total > 0
+                  ? `${stats.activePercent}% of total`
+                  : '0% of total'}
               </span>
             </div>
           </CardContent>
@@ -79,10 +92,12 @@ export default function AdminPage() {
               </div>
 
               <span className='text-[#363636] text-[24px] font-semibold leading-[1.0] font-sans'>
-                2
+                {stats.newThisMonth}
               </span>
               <span className='text-[#363636] text-[14px] font-normal leading-[1.5] font-sans'>
-                +25% from last month
+                {stats.total > 0
+                  ? `+${stats.newPercent}% from last month`
+                  : '+0% from last month'}
               </span>
             </div>
           </CardContent>
@@ -105,7 +120,7 @@ export default function AdminPage() {
               Create new user
             </button>
           </div>
-          <AdminUserTableWithFilters />
+          <AdminUserTable onStatsChange={setStats} />
         </div>
       </div>
     </div>
