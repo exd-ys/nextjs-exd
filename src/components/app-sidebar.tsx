@@ -261,6 +261,7 @@ export function AppSidebar({
             icon: item.icon ? () => <item.icon /> : undefined,
           }))}
         />
+
         {/* <NavDocuments items={data.documents} /> */}
         {/* <NavSecondary items={data.navSecondary} className='mt-auto' /> */}
       </SidebarContent>

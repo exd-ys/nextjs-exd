@@ -1,383 +1,69 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import 'tw-animate-css';
-/*
-  ---break---
-*/
-@custom-variant dark (&:is(.dark *));
-
-@source '../../node_modules/tailwind-datepicker-react/dist/**/*.js';
-
-@theme {
-  --color-*: initial;
-
-  /* Figma Color Primitives - Core Foundation */
-  /* Primary Brand */
-  --color-primary: #383ad8;
-  --color-primary-darker: #272bac;
-  --color-primary-light: #edf3ff;
-  --color-primary-border: #c3d4ff;
-
-  /* Neutral Grays */
-  --color-gray-dark: #363636;
-  --color-gray-medium: #868686;
-  --color-gray-base: #767676;
-  --color-gray-light: #d9d9d9;
-  --color-gray-lighter: #f4f4f4;
-  --color-gray-border: #e5e6e8;
-
-  /* Pure Colors */
-  --color-white: #ffffff;
-  --color-black: #202049;
-
-  /* Semantic Colors */
-  --color-success: #28c700;
-  --color-success-light: #edfcf5;
-  --color-error: #f25d3b;
-  --color-error-light: #ffe6e3;
-  --color-warning: #fba300;
-
-  /* Figma Design System Colors */
-  /* Text Colors */
-  --color-text-base: var(--color-gray-dark);
-  --color-text-primary: var(--color-primary);
-  --color-text-secondary: var(--color-gray-medium);
-  --color-text-white: var(--color-white);
-  --color-text-black: var(--color-black);
-  --color-text-placeholder: var(--color-gray-light);
-  --color-text-success: var(--color-success);
-  --color-text-error: var(--color-error);
-
-  /* Background Colors */
-  --color-bg-white: var(--color-white);
-  --color-bg-primary: var(--color-primary);
-  --color-bg-primary-lighter: var(--color-primary-light);
-  --color-bg-secondary: var(--color-gray-medium);
-  --color-bg-success: var(--color-success);
-  --color-bg-success-light: var(--color-success-light);
-  --color-bg-warning: var(--color-warning);
-  --color-bg-error: var(--color-error);
-  --color-bg-error-light: var(--color-error-light);
-  --color-bg-gray-lightest: var(--color-gray-lighter);
-  --color-bg-gray-lighter: var(--color-gray-light);
-
-  /* Border Colors */
-  --color-border-base: var(--color-gray-light);
-  --color-border-secondary: var(--color-gray-lighter);
-  --color-border-secondary-lighter: var(--color-gray-border);
-  --color-border-white: var(--color-white);
-  --color-border-primary: var(--color-primary);
-  --color-border-primary-light: var(--color-primary-border);
-  --color-border-tertiary: var(--color-gray-border);
-  --color-border-accent: var(--color-error);
-
-  /* Icon Colors */
-  --color-icon-primary: var(--color-primary);
-  --color-icon-primary-darker: var(--color-primary-darker);
-  --color-icon-secondary: var(--color-gray-medium);
-  --color-icon-secondary-lighter: var(--color-gray-lighter);
-  --color-icon-base: var(--color-gray-base);
-  --color-icon-black: var(--color-gray-dark);
-  --color-icon-white: var(--color-white);
-  --color-icon-success: var(--color-success);
-  --color-icon-danger: var(--color-error);
-
-  --text-*: initial;
-
-  /* Tailwind CSS Type Scale */
-  /* Font Sizes */
-  --text-xs: 0.75rem; /* 12px */
-  --text-sm: 0.875rem; /* 14px */
-  --text-base: 1rem; /* 16px */
-  --text-lg: 1.125rem; /* 18px */
-  --text-xl: 1.25rem; /* 20px */
-  --text-2xl: 1.5rem; /* 24px */
-  --text-3xl: 1.875rem; /* 30px */
-  --text-4xl: 2.25rem; /* 36px */
-  --text-5xl: 3rem; /* 48px */
-  --text-6xl: 3.75rem; /* 60px */
-  --text-7xl: 4.5rem; /* 72px */
-  --text-8xl: 6rem; /* 96px */
-  --text-9xl: 8rem; /* 128px */
-
-  /* Font Weights */
-  --font-weight-regular: 400;
-  --font-weight-semibold: 600;
-
-  /* Font Families */
-  --font-family-body: 'Inter', sans-serif;
-  --font-family-title: 'Inter', sans-serif;
-
-  --breakpoint-*: initial;
-  --breakpoint-sm: 768px;
-  --breakpoint-md: 1040px;
-  --breakpoint-lg: 1366px;
-
-  /* Figma Size System */
-  --size-none: 0px;
-  --size-half: 4px;
-  --size-xs: 4px;
-  --size-sm: 8px;
-  --size-md: 8px;
-  --size-1: 8px;
-  --size-2: 16px;
-  --size-lg: 24px;
-  --size-xl: 24px;
-  --size-3: 24px;
-  --size-2xl: 32px;
-  --size-4: 32px;
-  --size-3xl: 40px;
-  --size-5: 40px;
-  --size-4xl: 48px;
-  --size-6xl: 64px;
-  --size-7: 56px;
-
-  /* Figma Border Radius System */
-  --radius-*: initial;
-  --radius-none: 0px;
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 8px;
-  --radius-lg: 24px;
-  --radius-xl: 24px;
-  --radius-full: 999px;
-  --radius-max: 999px;
-
-  --shadow-*: initial;
-  --shadow-sm: 0 4px 12px 0 rgba(10, 69, 87, 0.05);
-  --shadow-md: 0 8px 24px 0 rgba(10, 69, 87, 0.05);
-  --shadow-lg: 0 16px 48px 0 rgba(10, 69, 87, 0.05);
-}
-
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-}
 
 @layer base {
   * {
-    font-family: var(--font-family-body, 'Inter'), 'Nunito Sans', sans-serif;
-    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap');
-    font-size: var(--text-base, 1rem);
-  }
-}
-
-/*
-  ---break---
-*/
-
-/* Shadcn/UI Integration - Maps Figma primitives to Tailwind theme */
-@theme inline {
-  /* Radius System - Aligned with Figma */
-  --radius-sm: var(--radius-xs);
-  --radius-md: var(--radius-sm);
-  --radius-lg: var(--radius-md);
-  --radius-xl: var(--radius-lg);
-
-  /* Color System - Direct mapping to Figma primitives */
-  --color-background: var(--color-white);
-  --color-foreground: var(--color-gray-dark);
-  --color-card: var(--color-white);
-  --color-card-foreground: var(--color-gray-dark);
-  --color-popover: var(--color-white);
-  --color-popover-foreground: var(--color-gray-dark);
-  --color-primary: var(--color-primary);
-  --color-primary-foreground: var(--color-white);
-  --color-secondary: var(--color-gray-medium);
-  --color-secondary-foreground: var(--color-gray-dark);
-  --color-muted: var(--color-gray-lighter);
-  --color-muted-foreground: var(--color-gray-medium);
-  --color-accent: var(--color-gray-lighter);
-  --color-accent-foreground: var(--color-gray-dark);
-  --color-destructive: var(--color-error);
-  --color-border: var(--color-gray-border);
-  --color-input: var(--color-gray-border);
-  --color-ring: var(--color-primary);
-
-  /* Chart Colors - Using Figma semantic colors */
-  --color-chart-1: var(--color-primary);
-  --color-chart-2: var(--color-success);
-  --color-chart-3: var(--color-warning);
-  --color-chart-4: var(--color-gray-medium);
-  --color-chart-5: var(--color-primary-darker);
-
-  /* Sidebar Colors - Using Figma primitives */
-  --color-sidebar: var(--color-gray-lighter);
-  --color-sidebar-foreground: var(--color-gray-dark);
-  --color-sidebar-primary: var(--color-primary);
-  --color-sidebar-primary-foreground: var(--color-white);
-  --color-sidebar-accent: var(--color-gray-lighter);
-  --color-sidebar-accent-foreground: var(--color-gray-dark);
-  --color-sidebar-border: var(--color-gray-border);
-  --color-sidebar-ring: var(--color-primary);
-}
-
-/*
-  ---break---
-*/
-
-/* Light Mode Theme - Overrides for light mode specific values */
-:root {
-  /* These override the @theme inline values for light mode */
-  --color-background: var(--color-white);
-  --color-foreground: var(--color-gray-dark);
-  --color-card: var(--color-white);
-  --color-card-foreground: var(--color-gray-dark);
-  --color-primary: var(--color-primary);
-  --color-primary-foreground: var(--color-white);
-  --color-secondary: var(--color-gray-medium);
-  --color-secondary-foreground: var(--color-gray-dark);
-  --color-muted: var(--color-gray-lighter);
-  --color-muted-foreground: var(--color-gray-medium);
-  --color-destructive: var(--color-error);
-}
-
-/*
-  ---break---
-*/
-
-/* Dark Mode Theme - Overrides for dark mode specific values */
-.dark {
-  --color-background: var(--color-black);
-  --color-foreground: var(--color-white);
-  --color-card: var(--color-gray-dark);
-  --color-card-foreground: var(--color-white);
-  --color-primary: var(--color-primary-light);
-  --color-primary-foreground: var(--color-black);
-  --color-secondary: var(--color-gray-base);
-  --color-secondary-foreground: var(--color-white);
-  --color-muted: var(--color-gray-base);
-  --color-muted-foreground: var(--color-gray-light);
-  --color-destructive: var(--color-error-light);
-  --color-sidebar: var(--color-gray-dark);
-  --color-sidebar-foreground: var(--color-white);
-  --color-sidebar-accent: var(--color-gray-base);
-  --color-sidebar-accent-foreground: var(--color-white);
-}
-
-/*
-  ---break---
-*/
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
 
-/* Utility Classes - Leveraging the integrated theme system */
-@layer utilities {
-  /* Text utilities using Figma design system */
-  .text-brand {
-    @apply text-primary;
-  }
-  .text-muted {
-    @apply text-muted-foreground;
-  }
-  .text-success {
-    color: var(--color-success);
-  }
-  .text-error {
-    @apply text-destructive;
-  }
-  .text-warning {
-    color: var(--color-warning);
-  }
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+  --radius: 0.5rem;
+}
 
-  /* Background utilities using Figma design system */
-  .bg-brand {
-    @apply bg-primary;
-  }
-  .bg-muted {
-    @apply bg-muted;
-  }
-  .bg-success {
-    background-color: var(--color-success-light);
-  }
-  .bg-error {
-    background-color: var(--color-error-light);
-  }
-  .bg-warning {
-    background-color: var(--color-warning);
-  }
-
-  /* Border utilities using Figma design system */
-  .border-brand {
-    @apply border-primary;
-  }
-  .border-muted {
-    @apply border-border;
-  }
-  .border-success {
-    border-color: var(--color-success);
-  }
-  .border-error {
-    @apply border-destructive;
-  }
-
-  /* Spacing utilities using design system sizes */
-  .space-xs {
-    @apply space-x-1;
-  } /* 4px */
-  .space-sm {
-    @apply space-x-2;
-  } /* 8px */
-  .space-md {
-    @apply space-x-3;
-  } /* 12px */
-  .space-lg {
-    @apply space-x-6;
-  } /* 24px */
-  .space-xl {
-    @apply space-x-8;
-  } /* 32px */
-
-  /* Padding utilities using design system sizes */
-  .p-xs {
-    @apply p-1;
-  } /* 4px */
-  .p-sm {
-    @apply p-2;
-  } /* 8px */
-  .p-md {
-    @apply p-3;
-  } /* 12px */
-  .p-lg {
-    @apply p-6;
-  } /* 24px */
-  .p-xl {
-    @apply p-8;
-  } /* 32px */
-
-  /* Margin utilities using design system sizes */
-  .m-xs {
-    @apply m-1;
-  } /* 4px */
-  .m-sm {
-    @apply m-2;
-  } /* 8px */
-  .m-md {
-    @apply m-3;
-  } /* 12px */
-  .m-lg {
-    @apply m-6;
-  } /* 24px */
-  .m-xl {
-    @apply m-8;
-  } /* 32px */
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 94.1%;
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
 }

@@ -49,8 +49,8 @@ export default function Page() {
     return (
       <div className='flex items-center justify-center min-h-screen'>
         <div className='text-center'>
-          <div className='animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900'></div>
-          <p className='mt-4 text-gray-600'>Loading dashboard...</p>
+          <div className='animate-spin rounded-full h-32 w-32 border-b-2 border-primary'></div>
+          <p className='mt-4 text-muted-foreground'>Loading dashboard...</p>
         </div>
       </div>
     )
@@ -59,7 +59,7 @@ export default function Page() {
   return (
     <div className='flex flex-1 flex-col'>
       <div className='@container/main flex flex-1 flex-col gap-2'>
-        <div className='flex flex-col gap-4 md:gap-6 bg-[#EDF3FF]'>
+        <div className='flex flex-col gap-4 md:gap-6 bg-muted'>
           <SectionCards />
           <div className='flex flex-col md:flex-row gap-6'>
             <div className='flex-1 min-w-0'>
@@ -77,7 +77,7 @@ export default function Page() {
               <ChartPieDonut />
             </div>
           </div>
-          <div className='bg-white rounded-lg'>
+          <div className='bg-card rounded-lg'>
             <DataTableColumnsVisibilityDemo />
           </div>
         </div>
