@@ -108,9 +108,9 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'status',
-    header: 'Status',
+    header: () => <div className='font-medium text-foreground'>Status</div>,
     cell: ({ row }) => (
-      <div className='capitalize'>{row.getValue('status')}</div>
+      <div className='capitalize text-foreground'>{row.getValue('status')}</div>
     ),
   },
   {
@@ -119,19 +119,23 @@ export const columns: ColumnDef<Payment>[] = [
       return (
         <Button
           variant='ghost'
-          className='text-base font-medium'
+          className='h-auto p-0 font-medium text-foreground hover:bg-transparent hover:text-foreground'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Email
-          <ArrowUpDown />
+          <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       )
     },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('email')}</div>,
+    cell: ({ row }) => (
+      <div className='lowercase text-foreground'>{row.getValue('email')}</div>
+    ),
   },
   {
     accessorKey: 'amount',
-    header: () => <div className='text-right'>Amount</div>,
+    header: () => (
+      <div className='text-right font-medium text-foreground'>Amount</div>
+    ),
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue('amount'))
       // Format the amount as a dollar amount
@@ -139,7 +143,11 @@ export const columns: ColumnDef<Payment>[] = [
         style: 'currency',
         currency: 'USD',
       }).format(amount)
-      return <div className='text-right font-medium'>{formatted}</div>
+      return (
+        <div className='text-right font-medium text-foreground'>
+          {formatted}
+        </div>
+      )
     },
   },
   {
@@ -152,19 +160,26 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuTrigger asChild>
             <Button variant='ghost' className='h-8 w-8 p-0'>
               <span className='sr-only'>Open menu</span>
-              <MoreHorizontal />
+              <MoreHorizontal className='h-4 w-4' />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel className='text-foreground'>
+              Actions
+            </DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(payment.id)}
+              className='text-foreground'
             >
               Copy payment ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem className='text-foreground'>
+              View customer
+            </DropdownMenuItem>
+            <DropdownMenuItem className='text-foreground'>
+              View payment details
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -208,8 +223,8 @@ export default function DataTableColumnsVisibilityDemo({
   })
 
   return (
-    <div className='w-full bg-[white] px-6 py-2 rounded-lg'>
-      <div className='flex items-center gap-2 py-4'>
+    <div className='w-full bg-card p-6 border border-border rounded-lg shadow-sm'>
+      <div className='flex items-center gap-2 pb-4'>
         <Input
           placeholder='Filter emails...'
           value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
@@ -221,7 +236,9 @@ export default function DataTableColumnsVisibilityDemo({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' className='ml-auto'>
-              <Columns3 /> Columns <ChevronDown className='ml-3' />
+              <Columns3 className='h-4 w-4' />
+              <span className='ml-2'>Columns</span>
+              <ChevronDown className='ml-2 h-4 w-4' />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
@@ -230,10 +247,10 @@ export default function DataTableColumnsVisibilityDemo({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className='pl-8'
-                placeholder='Search'
+                placeholder='Search columns...'
                 onKeyDown={(e) => e.stopPropagation()}
               />
-              <SearchIcon className='absolute inset-y-0 my-auto left-2 h-4 w-4' />
+              <SearchIcon className='absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground' />
             </div>
             <DropdownMenuSeparator />
             {table
@@ -250,7 +267,7 @@ export default function DataTableColumnsVisibilityDemo({
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className='capitalize'
+                    className='capitalize text-foreground'
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
@@ -267,13 +284,15 @@ export default function DataTableColumnsVisibilityDemo({
                 table.resetColumnVisibility()
                 setSearchQuery('')
               }}
+              className='text-foreground'
             >
-              <RefreshCcw /> Reset
+              <RefreshCcw className='h-4 w-4' />
+              <span className='ml-2'>Reset</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className='rounded-md border'>
+      <div className='border border-border rounded-md'>
         <Table>
           <TableHeader>
             {tableHeaders ? (
@@ -322,21 +341,21 @@ export default function DataTableColumnsVisibilityDemo({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className='h-24 text-center text-muted-foreground'
                 >
-                  No results.
+                  No results found.
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <div className='flex items-center justify-end space-x-2 py-4'>
-        <div className='flex-1 text-sm text-muted-foreground'>
+      <div className='flex items-center justify-between pt-4'>
+        <div className='text-sm text-muted-foreground'>
           {table.getFilteredSelectedRowModel().rows.length} of{' '}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className='space-x-2'>
+        <div className='flex items-center space-x-2'>
           <Button
             variant='outline'
             size='sm'
