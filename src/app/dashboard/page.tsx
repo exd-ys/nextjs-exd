@@ -47,40 +47,39 @@ export default function Page() {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <div className='text-center'>
-          <div className='animate-spin rounded-full h-32 w-32 border-b-2 border-primary'></div>
-          <p className='mt-4 text-muted-foreground'>Loading dashboard...</p>
+      <div className='flex items-center justify-center min-h-screen bg-background'>
+        <div className='text-center space-y-4'>
+          <div className='animate-spin rounded-full h-16 w-16 border-2 border-primary border-t-transparent mx-auto'></div>
+          <p className='text-sm font-medium text-muted-foreground'>
+            Loading dashboard...
+          </p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className='flex flex-1 flex-col'>
-      <div className='@container/main flex flex-1 flex-col gap-2'>
-        <div className='flex flex-col gap-4 md:gap-6 bg-muted'>
-          <SectionCards />
-          <div className='flex flex-col md:flex-row gap-6'>
-            <div className='flex-1 min-w-0'>
-              <ChartAreaInteractive variant='single' />
-            </div>
-            <div className='flex-1 min-w-0'>
-              <ChartAreaInteractive variant='double' />
-            </div>
+    <div className='flex flex-1 flex-col p-6'>
+      <div className='flex flex-col gap-6'>
+        <SectionCards />
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+          <div className='min-w-0'>
+            <ChartAreaInteractive variant='single' />
           </div>
-          <div className='flex flex-col md:flex-row gap-6'>
-            <div className='flex-1 min-w-0'>
-              <ChartBarMultiple />
-            </div>
-            <div className='flex-1 min-w-0'>
-              <ChartPieDonut />
-            </div>
-          </div>
-          <div className='bg-card rounded-lg'>
-            <DataTableColumnsVisibilityDemo />
+          <div className='min-w-0'>
+            <ChartAreaInteractive variant='double' />
           </div>
         </div>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+          <div className='min-w-0'>
+            <ChartBarMultiple />
+          </div>
+          <div className='min-w-0'>
+            <ChartPieDonut />
+          </div>
+        </div>
+
+        <DataTableColumnsVisibilityDemo />
       </div>
     </div>
   )

@@ -21,11 +21,11 @@ import {
 export const description = 'A donut chart'
 
 const chartData = [
-  { browser: 'chrome', visitors: 275, fill: 'hsl(var(--chart-1))' },
-  { browser: 'safari', visitors: 200, fill: 'hsl(var(--chart-2))' },
-  { browser: 'firefox', visitors: 187, fill: 'hsl(var(--chart-3))' },
-  { browser: 'edge', visitors: 173, fill: 'hsl(var(--chart-4))' },
-  { browser: 'other', visitors: 90, fill: 'hsl(var(--chart-5))' },
+  { browser: 'chrome', visitors: 275, fill: 'var(--chart-1)' },
+  { browser: 'safari', visitors: 200, fill: 'var(--chart-2)' },
+  { browser: 'firefox', visitors: 187, fill: 'var(--chart-3)' },
+  { browser: 'edge', visitors: 173, fill: 'var(--chart-4)' },
+  { browser: 'other', visitors: 90, fill: 'var(--chart-5)' },
 ]
 
 const chartConfig = {
@@ -57,12 +57,10 @@ const chartConfig = {
 export function ChartPieDonut() {
   const [timeRange, setTimeRange] = React.useState('90d')
   return (
-    <Card className='flex flex-col border-none'>
+    <Card>
       <CardHeader className='flex flex-row items-start justify-between gap-4 pb-0'>
         <div className='space-y-1'>
-          <CardTitle className='text-lg font-semibold leading-tight'>
-            Total Visitors
-          </CardTitle>
+          <CardTitle>Donut Chart</CardTitle>
           <CardDescription>
             <span className='hidden @[540px]/card:block'>
               Total for the last 3 months

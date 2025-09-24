@@ -116,30 +116,30 @@ const columns: ColumnDef<User>[] = [
       <Button
         type='button'
         variant='ghost'
-        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-semibold font-sans whitespace-nowrap'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-foreground text-sm font-semibold whitespace-nowrap hover:bg-transparent'
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         Name
         <span className='flex flex-col ml-1'>
           <ChevronUp
-            className={`w-4 h-4 ${
+            className={`size-4 ${
               column.getIsSorted() === 'asc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
           <ChevronDown
-            className={`w-4 h-4 -mt-1 ${
+            className={`size-4 -mt-1 ${
               column.getIsSorted() === 'desc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
         </span>
       </Button>
     ),
     cell: ({ row }) => (
-      <span className='text-[#363636] text-[14px] font-semibold font-sans whitespace-nowrap'>
+      <span className='text-foreground text-sm font-semibold whitespace-nowrap'>
         {row.getValue('name')}
       </span>
     ),
@@ -150,30 +150,30 @@ const columns: ColumnDef<User>[] = [
       <Button
         type='button'
         variant='ghost'
-        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-foreground text-sm font-medium whitespace-nowrap hover:bg-transparent'
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         Email
         <span className='flex flex-col ml-1'>
           <ChevronUp
-            className={`w-4 h-4 ${
+            className={`size-4 ${
               column.getIsSorted() === 'asc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
           <ChevronDown
-            className={`w-4 h-4 -mt-1 ${
+            className={`size-4 -mt-1 ${
               column.getIsSorted() === 'desc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
         </span>
       </Button>
     ),
     cell: ({ row }) => (
-      <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
+      <span className='text-foreground text-sm font-medium whitespace-nowrap'>
         {row.getValue('email')}
       </span>
     ),
@@ -184,30 +184,30 @@ const columns: ColumnDef<User>[] = [
       <Button
         type='button'
         variant='ghost'
-        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-foreground text-sm font-medium whitespace-nowrap hover:bg-transparent'
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         Department
         <span className='flex flex-col ml-1'>
           <ChevronUp
-            className={`w-4 h-4 ${
+            className={`size-4 ${
               column.getIsSorted() === 'asc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
           <ChevronDown
-            className={`w-4 h-4 -mt-1 ${
+            className={`size-4 -mt-1 ${
               column.getIsSorted() === 'desc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
         </span>
       </Button>
     ),
     cell: ({ row }) => (
-      <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
+      <span className='text-foreground text-sm font-medium whitespace-nowrap'>
         {row.getValue('department')}
       </span>
     ),
@@ -218,30 +218,30 @@ const columns: ColumnDef<User>[] = [
       <Button
         type='button'
         variant='ghost'
-        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-foreground text-sm font-medium whitespace-nowrap hover:bg-transparent'
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         Created
         <span className='flex flex-col ml-1'>
           <ChevronUp
-            className={`w-4 h-4 ${
+            className={`size-4 ${
               column.getIsSorted() === 'asc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
           <ChevronDown
-            className={`w-4 h-4 -mt-1 ${
+            className={`size-4 -mt-1 ${
               column.getIsSorted() === 'desc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
         </span>
       </Button>
     ),
     cell: ({ row }) => (
-      <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
+      <span className='text-foreground text-sm font-medium whitespace-nowrap'>
         {row.getValue('created')}
       </span>
     ),
@@ -252,30 +252,30 @@ const columns: ColumnDef<User>[] = [
       <Button
         type='button'
         variant='ghost'
-        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-foreground text-sm font-medium whitespace-nowrap hover:bg-transparent'
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         Last Login
         <span className='flex flex-col ml-1'>
           <ChevronUp
-            className={`w-4 h-4 ${
+            className={`size-4 ${
               column.getIsSorted() === 'asc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
           <ChevronDown
-            className={`w-4 h-4 -mt-1 ${
+            className={`size-4 -mt-1 ${
               column.getIsSorted() === 'desc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
         </span>
       </Button>
     ),
     cell: ({ row }) => (
-      <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
+      <span className='text-foreground text-sm font-medium whitespace-nowrap'>
         {row.getValue('lastLogin')}
       </span>
     ),
@@ -286,23 +286,23 @@ const columns: ColumnDef<User>[] = [
       <Button
         type='button'
         variant='ghost'
-        className='flex items-center gap-1 p-0 m-0 h-auto text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'
+        className='flex items-center gap-1 p-0 m-0 h-auto text-foreground text-sm font-medium whitespace-nowrap hover:bg-transparent'
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         Status
         <span className='flex flex-col ml-1'>
           <ChevronUp
-            className={`w-4 h-4 ${
+            className={`size-4 ${
               column.getIsSorted() === 'asc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
           <ChevronDown
-            className={`w-4 h-4 -mt-1 ${
+            className={`size-4 -mt-1 ${
               column.getIsSorted() === 'desc'
-                ? 'text-[#383ad8]'
-                : 'text-[#bdbdbd]'
+                ? 'text-primary'
+                : 'text-muted-foreground'
             }`}
           />
         </span>
@@ -312,21 +312,21 @@ const columns: ColumnDef<User>[] = [
       const status = row.getValue('status')
       if (status === 'Active') {
         return (
-          <span className='bg-[#edfcf5] text-[#28c700] px-3 py-1 rounded-full text-xs font-semibold'>
+          <span className='bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-semibold'>
             Active
           </span>
         )
       }
       if (status === 'Inactive') {
         return (
-          <span className='bg-[#d9d9d9] text-[#868686] px-3 py-1 rounded-full text-xs font-semibold'>
+          <span className='bg-muted text-muted-foreground px-3 py-1 rounded-full text-xs font-semibold'>
             Inactive
           </span>
         )
       }
       if (status === 'Suspended') {
         return (
-          <span className='bg-[#ffe6e3] text-[#f25d3b] px-3 py-1 rounded-full text-xs font-semibold'>
+          <span className='bg-destructive/10 text-destructive px-3 py-1 rounded-full text-xs font-semibold'>
             Suspended
           </span>
         )
@@ -337,44 +337,44 @@ const columns: ColumnDef<User>[] = [
   {
     id: 'actions',
     header: () => (
-      <span className='text-[#363636] text-[14px] font-normal font-sans whitespace-nowrap'>
+      <span className='text-foreground text-sm font-medium whitespace-nowrap'>
         Action(s)
       </span>
     ),
     cell: ({ row }) => (
       <div className='flex gap-2'>
         <button
-          className='p-2 rounded-[6px] border border-[#d9d9d9] bg-white hover:bg-[#f4f4f4] transition-colors'
+          className='p-2 rounded-lg border border-border bg-background hover:bg-muted transition-colors'
           title='View'
           aria-label='View'
         >
           <svg width='16' height='16' fill='none' viewBox='0 0 16 16'>
             <path
               d='M8 3C4.5 3 2 8 2 8s2.5 5 6 5 6-5 6-5-2.5-5-6-5Zm0 7.5A2.5 2.5 0 1 1 8 6a2.5 2.5 0 0 1 0 5Z'
-              stroke='#767676'
+              stroke='currentColor'
               strokeWidth='1.2'
               strokeLinecap='round'
               strokeLinejoin='round'
             />
-            <circle cx='8' cy='8.5' r='1.5' fill='#767676' />
+            <circle cx='8' cy='8.5' r='1.5' fill='currentColor' />
           </svg>
         </button>
         <button
-          className='p-2 rounded-[6px] border border-[#d9d9d9] bg-white hover:bg-[#f4f4f4] transition-colors'
+          className='p-2 rounded-lg border border-border bg-background hover:bg-muted transition-colors'
           title='Edit'
           aria-label='Edit'
         >
           <svg width='16' height='16' fill='none' viewBox='0 0 16 16'>
             <path
               d='M12.8 5.2l-2-2a1 1 0 0 0-1.4 0l-5 5V12h3.8l5-5a1 1 0 0 0 0-1.4Z'
-              stroke='#767676'
+              stroke='currentColor'
               strokeWidth='1.2'
               strokeLinecap='round'
               strokeLinejoin='round'
             />
             <path
               d='M11 4l1 1'
-              stroke='#767676'
+              stroke='currentColor'
               strokeWidth='1.2'
               strokeLinecap='round'
               strokeLinejoin='round'
@@ -382,21 +382,21 @@ const columns: ColumnDef<User>[] = [
           </svg>
         </button>
         <button
-          className='p-2 rounded-[8px] border border-[#f25d3b] bg-white hover:bg-[#ffe6e3] transition-colors'
+          className='p-2 rounded-lg border border-destructive bg-background hover:bg-destructive/10 transition-colors'
           title='Delete'
           aria-label='Delete'
         >
           <svg width='16' height='16' fill='none' viewBox='0 0 16 16'>
             <path
               d='M6.5 7v3m3-3v3M2 4h12M3 4v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4'
-              stroke='#f25d3b'
+              stroke='currentColor'
               strokeWidth='1.2'
               strokeLinecap='round'
               strokeLinejoin='round'
             />
             <path
               d='M6 2h4a1 1 0 0 1 1 1v1H5V3a1 1 0 0 1 1-1Z'
-              stroke='#f25d3b'
+              stroke='currentColor'
               strokeWidth='1.2'
               strokeLinecap='round'
               strokeLinejoin='round'
@@ -489,7 +489,7 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
   })
 
   return (
-    <div className='w-full bg-[white] rounded-lg'>
+    <div className=''>
       <div className='flex flex-row items-center py-4 gap-2 md:gap-4 justify-between'>
         <div className='flex items-center'>
           <Input
@@ -498,12 +498,12 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSearch(e.target.value)
             }
-            className='max-w-xs border border-[#d9d9d9] rounded-md'
+            className='max-w-xs'
           />
         </div>
         <div className='flex items-center gap-2 md:gap-4'>
           <Select value={department} onValueChange={setDepartment}>
-            <SelectTrigger className='w-[160px]'>
+            <SelectTrigger className='w-40'>
               <SelectValue placeholder='Department' />
             </SelectTrigger>
             <SelectContent>
@@ -516,7 +516,7 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
             </SelectContent>
           </Select>
           <Select value={status} onValueChange={setStatus}>
-            <SelectTrigger className='w-[140px]'>
+            <SelectTrigger className='w-36'>
               <SelectValue placeholder='Status' />
             </SelectTrigger>
             <SelectContent>
@@ -531,10 +531,7 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
               asChild
               className='flex flex-row justify-between'
             >
-              <Button
-                variant='outline'
-                className='text-[15px] font-normal w-[140px]'
-              >
+              <Button variant='outline' className='text-sm font-medium w-36'>
                 Columns <ChevronDown className='ml-2 h-4 w-4' />
               </Button>
             </DropdownMenuTrigger>
@@ -545,7 +542,7 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
                 .map((column) => (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className='capitalize px-8 py-2 text-[15px] font-normal focus:bg-[#f4f4f4] focus:text-black'
+                    className='capitalize px-8 py-2 text-sm font-medium'
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
@@ -561,7 +558,7 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
           </DropdownMenu>
         </div>
       </div>
-      <div className='rounded-md border'>
+      <div className='border border-border rounded-md'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -597,7 +594,7 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className='h-24 text-center text-muted-foreground'
                 >
                   No results.
                 </TableCell>
@@ -621,7 +618,7 @@ export default function AdminUserTable({ onStatsChange }: AdminUserTableProps) {
         <div className='flex items-center gap-2'>
           <span className='text-sm'>Rows per page:</span>
           <select
-            className='border rounded px-2 py-1 text-sm'
+            className='border border-border rounded px-2 py-1 text-sm bg-background'
             value={table.getState().pagination.pageSize}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
               table.setPageSize(Number(e.target.value))

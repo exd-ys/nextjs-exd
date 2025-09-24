@@ -4,9 +4,9 @@ import { Card } from '@/components/ui/card'
 
 export function SectionCards() {
   return (
-    <div className='grid grid-cols-1 gap-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4'>
-      <Card className='p-6 rounded-lg border-none'>
-        <div className='flex gap-4 items-center justify-start w-full'>
+    <div className='grid grid-cols-4 gap-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4'>
+      <Card>
+        <div className='flex gap-4 items-center justify-start w-full px-6'>
           <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
             <IconTrendingUp className='text-primary' size={20} />
           </div>
@@ -20,8 +20,8 @@ export function SectionCards() {
           </div>
         </div>
       </Card>
-      <Card className='p-6 rounded-lg border-none'>
-        <div className='flex gap-4 items-center justify-start w-full'>
+      <Card>
+        <div className='flex gap-4 items-center justify-start w-full px-6'>
           <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
             <IconTrendingDown className='text-primary' size={20} />
           </div>
@@ -35,8 +35,8 @@ export function SectionCards() {
           </div>
         </div>
       </Card>
-      <Card className='p-6 rounded-lg border-none'>
-        <div className='flex gap-4 items-center justify-start w-full'>
+      <Card>
+        <div className='flex gap-4 items-center justify-start w-full px-6'>
           <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
             <IconTrendingUp className='text-primary' size={20} />
           </div>
@@ -50,8 +50,8 @@ export function SectionCards() {
           </div>
         </div>
       </Card>
-      <Card className='p-6 rounded-lg border-none'>
-        <div className='flex gap-4 items-center justify-start w-full'>
+      <Card>
+        <div className='flex gap-4 items-center justify-start w-full px-6'>
           <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
             <IconTrendingUp className='text-primary' size={20} />
           </div>

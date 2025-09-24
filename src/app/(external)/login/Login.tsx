@@ -305,14 +305,14 @@ const Login: NextPage<Props> = ({}) => {
         <img
           src='/images/bg-authentication.png'
           alt='Login cover'
-          className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
+          className='absolute inset-0 h-full w-full object-cover'
         />
         <div className='absolute bottom-[110px] left-1/2 -translate-x-1/2 text-center text-white w-[370px] z-10'>
           <div className='flex flex-col gap-1 items-center w-full text-center'>
-            <h2 className='text-2xl font-semibold mb-1 leading-normal'>
+            <h2 className='text-foreground text-2xl font-semibold mb-1 leading-normal'>
               Turn your idea to reality
             </h2>
-            <p className='text-sm font-normal leading-[1.5]'>
+            <p className='text-foreground text-sm font-normal leading-[1.5]'>
               Consistent quality and experience across all platforms.
             </p>
           </div>

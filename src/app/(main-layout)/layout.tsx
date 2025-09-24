@@ -21,9 +21,7 @@ export default function MainLayout({
       <AppSidebar variant='sidebar' side='left' />
       <SidebarInset>
         <SiteHeader />
-        <div className='flex flex-1 flex-col bg-muted min-h-screen p-6'>
-          {children}
-        </div>
+        <div className='flex flex-1 flex-col'>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )

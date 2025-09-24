@@ -122,11 +122,11 @@ const chartConfig = {
   },
   desktop: {
     label: 'Desktop',
-    color: 'hsl(var(--chart-1))',
+    color: 'var(--chart-1)',
   },
   mobile: {
     label: 'Mobile',
-    color: 'hsl(var(--chart-2))',
+    color: 'var(--chart-2)',
   },
 } satisfies ChartConfig
 
@@ -159,9 +159,9 @@ export function ChartAreaInteractive({
   })
 
   return (
-    <Card className='@container/card border-none'>
+    <Card className='@container/card'>
       <CardHeader>
-        <CardTitle>Total Visitors</CardTitle>
+        <CardTitle>Area Chart</CardTitle>
         <CardDescription>
           <span className='hidden @[540px]/card:block'>
             Total for the last 3 months
@@ -182,24 +182,24 @@ export function ChartAreaInteractive({
               <linearGradient id='fillDesktop' x1='0' y1='0' x2='0' y2='1'>
                 <stop
                   offset='5%'
-                  stopColor='hsl(var(--chart-1))'
+                  stopColor='var(--chart-1)'
                   stopOpacity={0.7}
                 />
                 <stop
                   offset='95%'
-                  stopColor='hsl(var(--chart-1))'
+                  stopColor='var(--chart-1)'
                   stopOpacity={0.05}
                 />
               </linearGradient>
               <linearGradient id='fillMobile' x1='0' y1='0' x2='0' y2='1'>
                 <stop
                   offset='5%'
-                  stopColor='hsl(var(--chart-2))'
+                  stopColor='var(--chart-2)'
                   stopOpacity={0.6}
                 />
                 <stop
                   offset='95%'
-                  stopColor='hsl(var(--chart-2))'
+                  stopColor='var(--chart-2)'
                   stopOpacity={0.05}
                 />
               </linearGradient>
@@ -238,7 +238,7 @@ export function ChartAreaInteractive({
                 dataKey='mobile'
                 type='linear'
                 fill='url(#fillMobile)'
-                stroke='hsl(var(--chart-2))'
+                stroke='var(--chart-2)'
                 strokeWidth={1}
                 stackId='a'
               />
@@ -247,7 +247,7 @@ export function ChartAreaInteractive({
               dataKey='desktop'
               type='linear'
               fill='url(#fillDesktop)'
-              stroke='hsl(var(--chart-1))'
+              stroke='var(--chart-1)'
               strokeWidth={1}
               stackId='a'
             />
