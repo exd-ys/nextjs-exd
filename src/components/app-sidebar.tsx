@@ -53,9 +53,11 @@ interface MenuItem {
 function CollapsibleMenuItem({
   item,
   pathname,
+  isHorizontal = false,
 }: {
   item: MenuItem
   pathname: string
+  isHorizontal?: boolean
 }) {
   const [isOpen, setIsOpen] = React.useState(false)
 
@@ -85,7 +87,49 @@ function CollapsibleMenuItem({
     )
   }
 
-  // Menu item with submenu
+  // For horizontal layout, we'll use a dropdown approach
+  if (isHorizontal) {
+    return (
+      <SidebarMenuItem>
+        <SidebarMenuButton
+          onClick={() => setIsOpen(!isOpen)}
+          size='sm'
+          className='h-8 px-3'
+          tooltip={item.title}
+        >
+          {item.icon && <item.icon className='h-4 w-4' />}
+          <span className='text-sm'>{item.title}</span>
+          {isOpen ? (
+            <CaretDown className='ml-1 h-3 w-3' />
+          ) : (
+            <CaretRight className='ml-1 h-3 w-3' />
+          )}
+        </SidebarMenuButton>
+        {isOpen && (
+          <div className='absolute top-full left-0 mt-1 bg-popover border border-border rounded-md shadow-lg z-50 min-w-48'>
+            <div className='py-1'>
+              {item.items.map((subItem: MenuItem) => (
+                <a
+                  key={subItem.title}
+                  href={subItem.url}
+                  className={`flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground ${
+                    subItem.url === pathname
+                      ? 'bg-accent text-accent-foreground'
+                      : ''
+                  }`}
+                >
+                  {subItem.icon && <subItem.icon className='h-4 w-4' />}
+                  <span>{subItem.title}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </SidebarMenuItem>
+    )
+  }
+
+  // Menu item with submenu (vertical layout)
   return (
     <SidebarMenuItem>
       <SidebarMenuButton onClick={() => setIsOpen(!isOpen)}>
@@ -174,120 +218,42 @@ const data = {
       active: false,
     },
   ],
-  navOther: [
-    {
-      title: 'Reports',
-      url: '/reports',
-      icon: FileText,
-      active: false,
-    },
-    {
-      title: 'Analytics',
-      url: '/analytics',
-      icon: ChartLine,
-      active: false,
-    },
-    {
-      title: 'Data Sources',
-      url: '/data-sources',
-      icon: Database,
-      active: false,
-    },
-    {
-      title: 'Team Management',
-      url: '/team',
-      icon: Users,
-      active: false,
-    },
-    {
-      title: 'System Config',
-      url: '/system-config',
-      icon: GearSix,
-      active: false,
-    },
-  ],
-  // navClouds: [
-  //   {
-  //     title: 'Capture',
-  //     icon: IconCamera,
-  //     isActive: true,
-  //     url: '#',
-  //     items: [
-  //       {
-  //         title: 'Active Proposals',
-  //         url: '#',
-  //       },
-  //       {
-  //         title: 'Archived',
-  //         url: '#',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     title: 'Proposal',
-  //     icon: IconFileDescription,
-  //     url: '#',
-  //     items: [
-  //       {
-  //         title: 'Active Proposals',
-  //         url: '#',
-  //       },
-  //       {
-  //         title: 'Archived',
-  //         url: '#',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     title: 'Prompts',
-  //     icon: IconFileAi,
-  //     url: '#',
-  //     items: [
-  //       {
-  //         title: 'Active Proposals',
-  //         url: '#',
-  //       },
-  //       {
-  //         title: 'Archived',
-  //         url: '#',
-  //       },
-  //     ],
-  //   },
-  // ],
-  // navSecondary: [
-  //   {
-  //     title: 'Settings',
-  //     url: '#',
-  //     icon: IconSettings,
-  //   },
-  //   {
-  //     title: 'Get Help',
-  //     url: '#',
-  //     icon: IconHelp,
-  //   },
-  //   {
-  //     title: 'Search',
-  //     url: '#',
-  //     icon: IconSearch,
-  //   },
-  // ],
-  // documents: [
-  //   {
-  //     name: 'Data Library',
-  //     url: '#',
-  //     icon: IconDatabase,
-  //   },
-  //   {
-  //     name: 'Reports',
-  //     url: '#',
-  //     icon: IconReport,
-  //   },
-  //   {
-  //     name: 'Word Assistant',
-  //     url: '#',
-  //     icon: IconFileWord,
-  //   },
-  // ],
+  navOther: {
+    title: 'Other Modules',
+    icon: GearSix,
+    items: [
+      {
+        title: 'Reports',
+        url: '/reports',
+        icon: FileText,
+        active: false,
+      },
+      {
+        title: 'Analytics',
+        url: '/analytics',
+        icon: ChartLine,
+        active: false,
+      },
+      {
+        title: 'Data Sources',
+        url: '/data-sources',
+        icon: Database,
+        active: false,
+      },
+      {
+        title: 'Team Management',
+        url: '/team',
+        icon: Users,
+        active: false,
+      },
+      {
+        title: 'System Config',
+        url: '/system-config',
+        icon: GearSix,
+        active: false,
+      },
+    ],
+  },
 }
 
 export function AppSidebar({
@@ -301,16 +267,18 @@ export function AppSidebar({
       <Sidebar collapsible='offcanvas' side={side} {...props}>
         <div className='flex h-full w-full items-center justify-between px-4'>
           {/* Left side - Logo and main nav */}
-          <div className='flex items-center gap-6'>
-            <SidebarGroup>
+          <div className='flex items-center w-full'>
+            <SidebarGroup className='w-fit'>
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild size='sm'>
+                    <SidebarMenuButton asChild size='sm' className='w-auto'>
                       <a href='#'>
-                        <span className='text-base font-semibold'>
-                          Acme Inc.
-                        </span>
+                        <img
+                          src='/images/ys-new-logo.png'
+                          alt='logo'
+                          className='h-8 w-auto object-contain'
+                        />
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -319,21 +287,50 @@ export function AppSidebar({
             </SidebarGroup>
 
             {/* Main navigation items */}
-            <SidebarGroup>
+            <SidebarGroup className='w-fit'>
               <SidebarGroupContent>
                 <SidebarMenu className='flex-row gap-1'>
                   {data.navMain.map((item) => (
                     <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton
-                        tooltip={item.title}
-                        size='sm'
-                        className='h-8 px-3'
-                      >
-                        {item.icon && <item.icon className='h-4 w-4' />}
-                        <span className='text-sm'>{item.title}</span>
-                      </SidebarMenuButton>
+                      {item.items ? (
+                        // Handle collapsible items (like Dashboard)
+                        <CollapsibleMenuItem
+                          item={item}
+                          pathname={pathname}
+                          isHorizontal={true}
+                        />
+                      ) : (
+                        // Handle direct link items
+                        <SidebarMenuButton
+                          asChild
+                          tooltip={item.title}
+                          size='sm'
+                          className='h-8 px-3'
+                          isActive={item.url === pathname}
+                        >
+                          <a href={item.url}>
+                            {item.icon && <item.icon className='h-4 w-4' />}
+                            <span className='text-sm'>{item.title}</span>
+                          </a>
+                        </SidebarMenuButton>
+                      )}
                     </SidebarMenuItem>
                   ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Other Modules dropdown */}
+            <SidebarGroup className='w-fit'>
+              <SidebarGroupContent>
+                <SidebarMenu className='flex-row gap-1'>
+                  <SidebarMenuItem>
+                    <CollapsibleMenuItem
+                      item={data.navOther}
+                      pathname={pathname}
+                      isHorizontal={true}
+                    />
+                  </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -359,7 +356,7 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild size='lg' className='h-12'>
-              <div className='flex flex-row items-center justify-center w-full'>
+              <div className='flex flex-row items-center justify-start w-full'>
                 <img
                   src='/images/ys-new-logo.png'
                   alt='logo'
@@ -390,7 +387,7 @@ export function AppSidebar({
           <SidebarGroupLabel>Other Modules</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {data.navOther.map((item) => (
+              {data.navOther.items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={item.url === pathname}>
                     <a href={item.url}>
@@ -408,8 +405,8 @@ export function AppSidebar({
       <SidebarFooter>
         <SidebarGroup>
           <SidebarGroupContent>
-            <Card className='shadow-none border-0 bg-transparent'>
-              <CardHeader className='p-4'>
+            <Card>
+              <CardHeader className='px-4'>
                 <CardDescription className='space-y-2'>
                   <div className='text-sm font-semibold text-foreground'>
                     Need help?
