@@ -13,13 +13,15 @@ import {
 } from '@/_shared/constants/validations/password-validation.constant'
 import { PasswordRequirement } from '@/_shared/enums/validations'
 import { ValidationHelper } from '@/_shared/helpers/validation.helper'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Form, Formik } from 'formik'
+import { CheckCircle, Eye, EyeOff, XCircle } from 'lucide-react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
-import { CheckCircle, Eye, EyeSlash, XCircle } from 'phosphor-react'
 import { useState } from 'react'
 import * as Yup from 'yup'
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
@@ -154,18 +156,20 @@ const SignUp: NextPage<Props> = () => {
   }
 
   return (
-    <div className="grid min-h-svh lg:grid-cols-2 font-['Inter',sans-serif]">
+    <div className='grid min-h-svh lg:grid-cols-2'>
+      {/* Left Side - Sign Up Form */}
       <div className='flex flex-col gap-4 p-6 md:p-10'>
+        <div className='flex justify-center gap-2 md:justify-start'>
+          <a href='#' className='flex items-center gap-2 font-medium'>
+            <img
+              src='/images/ys-new-logo.png'
+              alt='logo'
+              className='h-[45px] w-auto'
+            />
+          </a>
+        </div>
         <div className='flex flex-1 items-center justify-center'>
-          <div className='w-full max-w-md'>
-            {/* Logo at top center */}
-            <div className='flex flex-col items-center mb-6'>
-              <img
-                src='/images/ys-new-logo.png'
-                alt='logo'
-                className='h-[45px] w-auto mb-2'
-              />
-            </div>
+          <div className='w-full max-w-xs'>
             {/* Sign Up Form Card */}
             <Formik
               initialValues={signUpFormInitialValue}
@@ -199,256 +203,254 @@ const SignUp: NextPage<Props> = () => {
                 ]
                 return (
                   <Form noValidate className='flex flex-col gap-6'>
-                    {/* Sign Up label and sublabel aligned left */}
-                    <div className='flex flex-col gap-1 items-start mb-2'>
-                      <h1 className='text-[18px] font-semibold text-[#363636]'>
-                        Sign Up
-                      </h1>
-                      <div className='text-[14px] text-[#868686] font-normal'>
-                        Already have an account?{' '}
-                        <a
-                          href='/login'
-                          className='text-[#383ad8] font-semibold'
-                        >
-                          Log in
-                        </a>
-                      </div>
+                    <div className='flex flex-col items-center gap-2 text-center'>
+                      <h1 className='text-2xl font-bold'>Sign Up</h1>
+                      <p className='text-muted-foreground text-sm text-balance'>
+                        Create your account to get started.
+                      </p>
                     </div>
-                    {/* Full Name */}
-                    <div className='flex flex-col gap-1 w-full'>
-                      <Label
-                        htmlFor='fullName'
-                        className='text-[14px] font-semibold text-[#868686]'
-                      >
-                        Full name
-                      </Label>
-                      <Input
-                        id='fullName'
-                        name='fullName'
-                        placeholder='Juan Dela Cruz'
-                        value={values.fullName}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className='w-full h-[42px] px-[16px] rounded-[6px] border border-[#d9d9d9] !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal'
-                      />
-                    </div>
-                    {/* Phone Number */}
-                    <div className='flex flex-col gap-1 w-full'>
-                      <Label
-                        htmlFor='phone'
-                        className='text-[14px] font-semibold text-[#868686]'
-                      >
-                        Phone number
-                      </Label>
-                      <div className='flex w-full h-[42px] bg-white rounded-[6px] border border-[#d9d9d9] items-center'>
-                        <span className='flex items-center px-2 text-[#868686] text-[16px] relative'>
-                          +639
-                        </span>
+
+                    <div className='grid gap-6'>
+                      {/* Full Name */}
+                      <div className='grid gap-3'>
+                        <Label htmlFor='fullName'>Full name</Label>
                         <Input
-                          id='phone'
-                          name='phone'
-                          placeholder='00 0000 000'
-                          value={values.phone}
+                          id='fullName'
+                          name='fullName'
+                          placeholder='Juan Dela Cruz'
+                          value={values.fullName}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          className='flex-1 h-full px-[16px] rounded-r-[6px] border-none !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal'
                         />
+                        {errors.fullName && touched.fullName && (
+                          <p className='text-sm text-destructive'>
+                            {errors.fullName}
+                          </p>
+                        )}
                       </div>
-                    </div>
-                    {/* Email Address */}
-                    <div className='flex flex-col gap-1 w-full'>
-                      <Label
-                        htmlFor='email'
-                        className='text-[14px] font-semibold text-[#868686]'
-                      >
-                        Email
-                      </Label>
-                      <Input
-                        id='email'
-                        name='email'
-                        type='email'
-                        placeholder='name@email.com'
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className='w-full h-[42px] px-[16px] rounded-[6px] border border-[#d9d9d9] !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal'
-                      />
-                    </div>
-                    {/* Password */}
-                    <div className='flex flex-col gap-1 w-full'>
-                      <Label
-                        htmlFor='password'
-                        className='text-[14px] font-semibold text-[#868686]'
-                      >
-                        Enter password
-                      </Label>
-                      <div className='relative w-full'>
+                      {/* Phone Number */}
+                      <div className='grid gap-3'>
+                        <Label htmlFor='phone'>Phone number</Label>
+                        <div className='flex w-full bg-background rounded-md border border-input items-center'>
+                          <span className='flex items-center px-3 text-muted-foreground text-sm'>
+                            +639
+                          </span>
+                          <Input
+                            id='phone'
+                            name='phone'
+                            placeholder='00 0000 000'
+                            value={values.phone}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className='flex-1 border-none shadow-none focus-visible:ring-0'
+                          />
+                        </div>
+                        {errors.phone && touched.phone && (
+                          <p className='text-sm text-destructive'>
+                            {errors.phone}
+                          </p>
+                        )}
+                      </div>
+                      {/* Email Address */}
+                      <div className='grid gap-3'>
+                        <Label htmlFor='email'>Email</Label>
                         <Input
-                          id='password'
-                          name='password'
-                          type={showPassword ? 'text' : 'password'}
-                          placeholder='Enter password'
-                          value={values.password}
+                          id='email'
+                          name='email'
+                          type='email'
+                          placeholder='name@email.com'
+                          value={values.email}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          className='w-full h-[42px] px-[16px] pr-10 rounded-[6px] border border-[#d9d9d9] !text-[14px] placeholder:text-[14px] placeholder:text-[#d9d9d9] font-normal'
                         />
-                        <button
-                          type='button'
-                          className='absolute right-3 top-1/2 -translate-y-1/2'
-                          tabIndex={-1}
-                          onClick={() => setShowPassword((v) => !v)}
-                        >
-                          {showPassword ? (
-                            <EyeSlash size={20} color='#868686' />
-                          ) : (
-                            <Eye size={20} color='#868686' />
-                          )}
-                        </button>
+                        {errors.email && touched.email && (
+                          <p className='text-sm text-destructive'>
+                            {errors.email}
+                          </p>
+                        )}
                       </div>
-                      {/* Password strength indicator - color-coded bars */}
-                      <div className='flex gap-1 mt-2 h-1'>
-                        {(() => {
-                          const checks = [
-                            /[A-Z]/.test(values.password),
-                            /[0-9]/.test(values.password),
-                            values.password.length >= 8,
-                          ]
-                          const strength = checks.filter(Boolean).length
-                          let colors = [
-                            'bg-[#d9d9d9]',
-                            'bg-[#d9d9d9]',
-                            'bg-[#d9d9d9]',
-                          ]
-                          if (strength === 1) {
-                            colors = [
-                              'bg-[#ffe066]',
-                              'bg-[#d9d9d9]',
-                              'bg-[#d9d9d9]',
-                            ] // yellow
-                          } else if (strength === 2) {
-                            colors = [
-                              'bg-[#ffa600]',
-                              'bg-[#ffa600]',
-                              'bg-[#d9d9d9]',
-                            ] // orange
-                          } else if (strength === 3) {
-                            colors = [
-                              'bg-[#28c700]',
-                              'bg-[#28c700]',
-                              'bg-[#28c700]',
-                            ] // green
-                          }
-                          return colors.map((c, i) => (
+                      {/* Password */}
+                      <div className='grid gap-3'>
+                        <Label htmlFor='password'>Enter password</Label>
+                        <div className='relative'>
+                          <Input
+                            id='password'
+                            name='password'
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder='Enter password'
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className='pr-10'
+                          />
+                          <Button
+                            type='button'
+                            variant='ghost'
+                            size='sm'
+                            className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent'
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? (
+                              <EyeOff className='w-4 h-4' />
+                            ) : (
+                              <Eye className='w-4 h-4' />
+                            )}
+                          </Button>
+                        </div>
+                        {/* Password strength indicator - color-coded bars */}
+                        <div className='flex gap-1 mt-2 h-1'>
+                          {(() => {
+                            const checks = [
+                              /[A-Z]/.test(values.password),
+                              /[0-9]/.test(values.password),
+                              values.password.length >= 8,
+                            ]
+                            const strength = checks.filter(Boolean).length
+                            let colors = ['bg-muted', 'bg-muted', 'bg-muted']
+                            if (strength === 1) {
+                              colors = ['bg-yellow-500', 'bg-muted', 'bg-muted'] // yellow
+                            } else if (strength === 2) {
+                              colors = [
+                                'bg-orange-500',
+                                'bg-orange-500',
+                                'bg-muted',
+                              ] // orange
+                            } else if (strength === 3) {
+                              colors = [
+                                'bg-green-500',
+                                'bg-green-500',
+                                'bg-green-500',
+                              ] // green
+                            }
+                            return colors.map((c, i) => (
+                              <span
+                                key={i}
+                                className={`flex-1 rounded-full ${c}`}
+                              ></span>
+                            ))
+                          })()}
+                        </div>
+                        {/* Password requirements */}
+                        <div className='mt-2 flex flex-col gap-2'>
+                          <div className='flex items-center gap-2 text-sm font-normal'>
+                            {/[A-Z]/.test(values.password) ? (
+                              <CheckCircle className='w-4 h-4 text-green-500' />
+                            ) : (
+                              <XCircle className='w-4 h-4 text-destructive' />
+                            )}
                             <span
-                              key={i}
-                              className={`flex-1 rounded-[999px] ${c}`}
-                            ></span>
-                          ))
-                        })()}
+                              className={
+                                /[A-Z]/.test(values.password)
+                                  ? 'text-foreground'
+                                  : 'text-muted-foreground'
+                              }
+                            >
+                              At least one capital letter
+                            </span>
+                          </div>
+                          <div className='flex items-center gap-2 text-sm font-normal'>
+                            {/[0-9]/.test(values.password) ? (
+                              <CheckCircle className='w-4 h-4 text-green-500' />
+                            ) : (
+                              <XCircle className='w-4 h-4 text-destructive' />
+                            )}
+                            <span
+                              className={
+                                /[0-9]/.test(values.password)
+                                  ? 'text-foreground'
+                                  : 'text-muted-foreground'
+                              }
+                            >
+                              At least one number
+                            </span>
+                          </div>
+                          <div className='flex items-center gap-2 text-sm font-normal'>
+                            {values.password.length >= 8 ? (
+                              <CheckCircle className='w-4 h-4 text-green-500' />
+                            ) : (
+                              <XCircle className='w-4 h-4 text-destructive' />
+                            )}
+                            <span
+                              className={
+                                values.password.length >= 8
+                                  ? 'text-foreground'
+                                  : 'text-muted-foreground'
+                              }
+                            >
+                              Be at least 8 characters
+                            </span>
+                          </div>
+                        </div>
+                        {errors.password && touched.password && (
+                          <p className='text-sm text-destructive'>
+                            {errors.password}
+                          </p>
+                        )}
                       </div>
-                      {/* Password requirements - Figma style */}
-                      <div className='mt-2 flex flex-col gap-2'>
-                        <div className='flex items-center gap-2 text-[14px] font-normal'>
-                          {/[A-Z]/.test(values.password) ? (
-                            <CheckCircle
-                              size={20}
-                              color='#28c700'
-                              weight='fill'
-                            />
-                          ) : (
-                            <XCircle size={20} color='#f25d3b' weight='fill' />
-                          )}
-                          <span
-                            className={`${
-                              /[A-Z]/.test(values.password)
-                                ? 'text-[#363636]'
-                                : 'text-[#868686]'
-                            }`}
-                          >
-                            At least one capital letter
-                          </span>
-                        </div>
-                        <div className='flex items-center gap-2 text-[14px] font-normal'>
-                          {/[0-9]/.test(values.password) ? (
-                            <CheckCircle
-                              size={20}
-                              color='#28c700'
-                              weight='fill'
-                            />
-                          ) : (
-                            <XCircle size={20} color='#f25d3b' weight='fill' />
-                          )}
-                          <span
-                            className={`${
-                              /[0-9]/.test(values.password)
-                                ? 'text-[#363636]'
-                                : 'text-[#868686]'
-                            }`}
-                          >
-                            At least one number
-                          </span>
-                        </div>
-                        <div className='flex items-center gap-2 text-[14px] font-normal'>
-                          {values.password.length >= 8 ? (
-                            <CheckCircle
-                              size={20}
-                              color='#28c700'
-                              weight='fill'
-                            />
-                          ) : (
-                            <XCircle size={20} color='#f25d3b' weight='fill' />
-                          )}
-                          <span
-                            className={`${
-                              values.password.length >= 8
-                                ? 'text-[#363636]'
-                                : 'text-[#868686]'
-                            }`}
-                          >
-                            Be at least 8 characters
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Terms and Conditions */}
-                    <div className='flex items-start gap-2 mt-4 w-full'>
-                      <input
-                        type='checkbox'
-                        id='terms'
-                        name='terms'
-                        checked={values.terms}
-                        onChange={(e) =>
-                          setFieldValue('terms', e.target.checked)
-                        }
-                        className='accent-[#383ad8] size-4 rounded-[4px] border border-[#d9d9d9]'
-                      />
-                      <label
-                        htmlFor='terms'
-                        className='text-[14px] text-[#363636] font-normal leading-[1.5]'
-                      >
-                        I acknowledge that I have read and accept the
-                        <a
-                          href='#'
-                          className='text-[#383ad8] font-semibold ml-1'
+                      {/* Terms and Conditions */}
+                      <div className='flex items-center space-x-2'>
+                        <Checkbox
+                          id='terms'
+                          name='terms'
+                          checked={values.terms}
+                          onCheckedChange={(checked) =>
+                            setFieldValue('terms', checked)
+                          }
+                        />
+                        <Label
+                          htmlFor='terms'
+                          className='text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                         >
-                          Terms and Condition
-                        </a>
-                        <span> and the </span>
-                        <a href='#' className='text-[#383ad8] font-semibold'>
-                          Privacy Policy
-                        </a>
-                        .
-                      </label>
+                          I acknowledge that I have read and accept the{' '}
+                          <Button
+                            variant='link'
+                            className='h-auto p-0 underline underline-offset-4'
+                            onClick={() => {
+                              // Handle terms link
+                            }}
+                          >
+                            Terms and Condition
+                          </Button>{' '}
+                          and the{' '}
+                          <Button
+                            variant='link'
+                            className='h-auto p-0 underline underline-offset-4'
+                            onClick={() => {
+                              // Handle privacy policy link
+                            }}
+                          >
+                            Privacy Policy
+                          </Button>
+                          .
+                        </Label>
+                      </div>
+                      {errors.terms && touched.terms && (
+                        <p className='text-sm text-destructive'>
+                          {errors.terms}
+                        </p>
+                      )}
+
+                      {/* Sign Up Button */}
+                      <Button
+                        type='submit'
+                        className='w-full'
+                        disabled={isLoading || !values.terms}
+                      >
+                        {isLoading ? 'Signing Up...' : 'Sign up'}
+                      </Button>
                     </div>
-                    {/* Sign Up Button */}
-                    <button
-                      type='submit'
-                      className='w-full h-[42px] bg-[#383ad8] text-[white] text-[14px] font-semibold rounded-[6px]'
-                      disabled={isLoading || !values.terms}
-                    >
-                      {isLoading ? 'Signing Up...' : 'Sign up'}
-                    </button>
+
+                    {/* Login Link */}
+                    <div className='text-center text-sm'>
+                      Already have an account?{' '}
+                      <Button
+                        variant='link'
+                        className='h-auto p-0 underline underline-offset-4'
+                        onClick={() => router.push('/login')}
+                      >
+                        Log in
+                      </Button>
+                    </div>
                   </Form>
                 )
               }}
@@ -463,14 +465,14 @@ const SignUp: NextPage<Props> = () => {
         <img
           src='/images/bg-authentication.png'
           alt='Sign up cover'
-          className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
+          className='absolute inset-0 h-full w-full object-cover'
         />
         <div className='absolute bottom-[110px] left-1/2 -translate-x-1/2 text-center text-white w-[370px] z-10'>
-          <div className='flex flex-col gap-1 items-center w-full text-[#363636] text-center'>
-            <h2 className="font-['Inter',_sans-serif] text-[24px] font-semibold mb-1 leading-normal">
+          <div className='flex flex-col gap-1 items-center w-full text-center'>
+            <h2 className='text-foreground text-2xl font-semibold mb-1 leading-normal'>
               Turn your idea to reality
             </h2>
-            <p className="font-['Inter',_sans-serif] text-[14px] font-normal leading-[1.5]">
+            <p className='text-foreground text-sm font-normal leading-[1.5]'>
               Consistent quality and experience across all platforms.
             </p>
           </div>

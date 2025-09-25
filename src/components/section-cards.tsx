@@ -4,11 +4,11 @@ import { Card } from '@/components/ui/card'
 
 export function SectionCards() {
   return (
-    <div className='grid grid-cols-4 gap-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6'>
       <Card>
-        <div className='flex gap-4 items-center justify-start w-full px-6'>
-          <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
-            <IconTrendingUp className='text-primary' size={20} />
+        <div className='flex gap-3 sm:gap-4 items-center justify-start w-full px-4 sm:px-6'>
+          <div className='bg-muted flex items-center justify-center rounded-lg p-3 sm:p-4'>
+            <IconTrendingUp className='text-primary w-4 h-4 sm:w-5 sm:h-5' />
           </div>
           <div className='flex flex-col items-start'>
             <div className='text-lg font-semibold leading-[1.5] text-foreground'>
@@ -21,9 +21,9 @@ export function SectionCards() {
         </div>
       </Card>
       <Card>
-        <div className='flex gap-4 items-center justify-start w-full px-6'>
-          <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
-            <IconTrendingDown className='text-primary' size={20} />
+        <div className='flex gap-3 sm:gap-4 items-center justify-start w-full px-4 sm:px-6'>
+          <div className='bg-muted flex items-center justify-center rounded-lg p-3 sm:p-4'>
+            <IconTrendingDown className='text-primary w-4 h-4 sm:w-5 sm:h-5' />
           </div>
           <div className='flex flex-col items-start'>
             <div className='text-lg font-semibold leading-[1.5] text-foreground'>
@@ -36,9 +36,9 @@ export function SectionCards() {
         </div>
       </Card>
       <Card>
-        <div className='flex gap-4 items-center justify-start w-full px-6'>
-          <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
-            <IconTrendingUp className='text-primary' size={20} />
+        <div className='flex gap-3 sm:gap-4 items-center justify-start w-full px-4 sm:px-6'>
+          <div className='bg-muted flex items-center justify-center rounded-lg p-3 sm:p-4'>
+            <IconTrendingUp className='text-primary w-4 h-4 sm:w-5 sm:h-5' />
           </div>
           <div className='flex flex-col items-start'>
             <div className='text-lg font-semibold leading-[1.5] text-foreground'>
@@ -51,9 +51,9 @@ export function SectionCards() {
         </div>
       </Card>
       <Card>
-        <div className='flex gap-4 items-center justify-start w-full px-6'>
-          <div className='bg-muted flex items-center justify-center rounded-lg p-4'>
-            <IconTrendingUp className='text-primary' size={20} />
+        <div className='flex gap-3 sm:gap-4 items-center justify-start w-full px-4 sm:px-6'>
+          <div className='bg-muted flex items-center justify-center rounded-lg p-3 sm:p-4'>
+            <IconTrendingUp className='text-primary w-4 h-4 sm:w-5 sm:h-5' />
           </div>
           <div className='flex flex-col items-start'>
             <div className='text-lg font-semibold leading-[1.5] text-foreground'>

@@ -20,7 +20,7 @@ export default function MainLayout({
     >
       <AppSidebar variant='sidebar' side='left' />
       <SidebarInset>
-        <SiteHeader />
+        <SiteHeader sidebarSide='left' />
         <div className='flex flex-1 flex-col'>{children}</div>
       </SidebarInset>
     </SidebarProvider>
