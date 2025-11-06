@@ -2,24 +2,38 @@
 
 import {
   Attachments,
+  AutoFill,
+  ChainedAction,
   CitationMarks,
   Connectors,
+  Describe,
   ExampleGallery,
+  Expand,
   Filters,
   FollowUpBar,
   FootprintsButton,
   InitialCTA,
+  InlineAction,
+  Inpainting,
+  Madlibs,
   ModelManagement,
   Modes,
   Nudges,
+  OpenInput,
   Parameters,
   PresetStyles,
   PromptDetails,
   PromptEnhancer,
   Randomize,
+  Regenerate,
+  Restructure,
+  Restyle,
   SavedStyles,
   Suggestions,
+  Summary,
+  Synthesis,
   Templates,
+  Transform,
   VariationCards,
   VoiceAndTone,
 } from '@/components/ai-patterns'
@@ -107,6 +121,23 @@ export default function PatternsDemoPage() {
   const [selectedVoice, setSelectedVoice] = useState('neutral')
   const [selectedTone, setSelectedTone] = useState('friendly')
   const [customInstructions, setCustomInstructions] = useState('')
+
+  // Input components state
+  const [autoFillFields, setAutoFillFields] = useState<
+    Array<{ id: string; label: string; value: string; placeholder?: string }>
+  >([
+    { id: 'field1', label: 'Name', value: '', placeholder: 'Enter name' },
+    { id: 'field2', label: 'Email', value: '', placeholder: 'Enter email' },
+    { id: 'field3', label: 'Message', value: '', placeholder: 'Enter message' },
+  ])
+  const [chainedActions, setChainedActions] = useState([
+    { id: '1', label: 'Analyze', prompt: 'Analyze the document' },
+    { id: '2', label: 'Summarize', prompt: 'Create a summary' },
+  ])
+  const [inpaintingAreas, setInpaintingAreas] = useState<
+    Array<{ id: string; start: number; end: number; prompt: string }>
+  >([])
+  const [madlibsValues, setMadlibsValues] = useState<Record<string, string>>({})
 
   const suggestionItems = [
     { id: '1', label: 'Explain AI basics', hint: 'Beginner' },
@@ -390,10 +421,10 @@ export default function PatternsDemoPage() {
       <Tabs defaultValue='wayfinders' className='w-full'>
         <TabsList>
           <TabsTrigger value='wayfinders'>Wayfinders</TabsTrigger>
-          <TabsTrigger value='trust-builders'>Trust Builders</TabsTrigger>
           <TabsTrigger value='inputs'>Inputs</TabsTrigger>
           <TabsTrigger value='tuners'>Tuners</TabsTrigger>
           <TabsTrigger value='governors'>Governors</TabsTrigger>
+          <TabsTrigger value='trust-builders'>Trust Builders</TabsTrigger>
           <TabsTrigger value='identifiers'>Identifiers</TabsTrigger>
         </TabsList>
 
@@ -546,57 +577,382 @@ export default function PatternsDemoPage() {
           </div>
         </TabsContent>
 
-        <TabsContent value='trust-builders' className='mt-6 space-y-6'>
+        <TabsContent value='inputs' className='mt-6 space-y-6'>
           <div>
             <p className='text-sm text-muted-foreground mb-6'>
-              Components that give users confidence that AI results are ethical,
-              accurate, and trustworthy
+              Components that handle user input and interaction
             </p>
 
             <div className='space-y-6'>
               <Card>
                 <CardHeader>
-                  <CardTitle>AI Response with Citations</CardTitle>
+                  <CardTitle>Open Input</CardTitle>
                   <CardDescription>
-                    Generated answer with inline citation marks
+                    Open ended prompt inputs for AI conversations and natural
+                    language prompting
                   </CardDescription>
                 </CardHeader>
-                <CardContent className='space-y-4'>
-                  <p className='text-base leading-relaxed'>
-                    {answer} <CitationMarks citations={citations} />
-                  </p>
+                <CardContent>
+                  <OpenInput
+                    placeholder='Ask me anything...'
+                    onSubmit={(input: string) => {
+                      console.log('Submitted:', input)
+                      setAnswer(`You asked: "${input}". Here's a response...`)
+                    }}
+                  />
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Footprints</CardTitle>
+                  <CardTitle>Auto-fill</CardTitle>
                   <CardDescription>
-                    View metadata and audit information
+                    Extend a prompt to multiple fields or inputs at once
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <FootprintsButton data={footprintsData} />
+                  <AutoFill
+                    fields={autoFillFields}
+                    onFieldsChange={setAutoFillFields}
+                    onAutoFill={(prompt: string) => {
+                      console.log('Auto-filling with:', prompt)
+                      alert('Fields auto-filled! Check console.')
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Chained Action</CardTitle>
+                  <CardDescription>
+                    Chain multiple AI actions together in sequence
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChainedAction
+                    actions={chainedActions}
+                    onActionsChange={setChainedActions}
+                    onExecute={(
+                      actions: Array<{
+                        id: string
+                        label: string
+                        prompt: string
+                      }>
+                    ) => {
+                      console.log('Executing chain:', actions)
+                      alert('Chain executed! Check console.')
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Describe</CardTitle>
+                  <CardDescription>
+                    Decompose content into fundamental tokens and suggested
+                    prompts
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Describe
+                    content='Artificial intelligence is transforming technology.'
+                    onDescribe={(content: string) => {
+                      console.log('Analyzing:', content)
+                      alert('Content analyzed! Check console.')
+                    }}
+                    suggestedPrompts={[
+                      { id: '1', text: 'Explain AI basics', tokens: 3 },
+                      {
+                        id: '2',
+                        text: 'Describe technology transformation',
+                        tokens: 4,
+                      },
+                    ]}
+                    onPromptSelect={(prompt: {
+                      id: string
+                      text: string
+                      tokens?: number
+                    }) => {
+                      console.log('Selected prompt:', prompt)
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Expand</CardTitle>
+                  <CardDescription>
+                    Lengthen content or add depth and details
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Expand
+                    content='AI is powerful.'
+                    onExpand={(expanded: string) => {
+                      console.log('Expanded:', expanded)
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Inline Action</CardTitle>
+                  <CardDescription>
+                    Ask or interact with AI contextually based on page content
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className='p-4 border rounded-lg'>
+                    <p className='mb-4'>
+                      This is some sample content. Select text and use the
+                      inline action button.
+                    </p>
+                    <InlineAction
+                      context='This is some sample content. Select text and use the inline action button.'
+                      onAction={(query: string, context: string) => {
+                        console.log('Inline action:', query, context)
+                        alert(`Query: ${query}`)
+                      }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Inpainting</CardTitle>
+                  <CardDescription>
+                    Target specific areas to regenerate or remix
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Inpainting
+                    content='This is a sample paragraph with multiple sentences. You can select specific parts to regenerate. Each sentence can be targeted individually for inpainting.'
+                    areas={inpaintingAreas}
+                    onAreaAdd={(area: {
+                      id: string
+                      start: number
+                      end: number
+                      prompt: string
+                    }) => {
+                      setInpaintingAreas([...inpaintingAreas, area])
+                    }}
+                    onAreaRemove={(id: string) => {
+                      setInpaintingAreas(
+                        inpaintingAreas.filter((a) => a.id !== id)
+                      )
+                    }}
+                    onRegenerate={(areaId: string, prompt: string) => {
+                      console.log('Regenerating area:', areaId, prompt)
+                      alert('Area regenerated!')
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Madlibs</CardTitle>
+                  <CardDescription>
+                    Repeatedly run generative tasks without compromising format
+                    or accuracy
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Madlibs
+                    template={{
+                      id: '1',
+                      template:
+                        'The {noun} is {adjective} and {verb} {adverb}.',
+                      fields: [
+                        { id: 'noun', label: 'Noun' },
+                        { id: 'adjective', label: 'Adjective' },
+                        { id: 'verb', label: 'Verb' },
+                        { id: 'adverb', label: 'Adverb' },
+                      ],
+                    }}
+                    values={madlibsValues}
+                    onValueChange={(fieldId: string, value: string) => {
+                      setMadlibsValues({ ...madlibsValues, [fieldId]: value })
+                    }}
+                    onGenerate={(values: Record<string, string>) => {
+                      console.log('Generated with:', values)
+                      alert('Content generated! Check console.')
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Regenerate</CardTitle>
+                  <CardDescription>
+                    Reproduce AI response without additional input
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className='space-y-4'>
+                    <p className='text-sm text-muted-foreground'>
+                      Current response: {answer.substring(0, 100)}...
+                    </p>
+                    <Regenerate
+                      onRegenerate={() => {
+                        console.log('Regenerating response...')
+                        setAnswer('Regenerated: ' + answer)
+                      }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Restructure</CardTitle>
+                  <CardDescription>
+                    Use existing content as the starting point for prompting
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Restructure
+                    content='Point A. Point B. Point C.'
+                    structureOptions={[
+                      {
+                        id: 'list',
+                        label: 'Bullet List',
+                        description: 'Convert to bullet points',
+                      },
+                      {
+                        id: 'paragraph',
+                        label: 'Paragraph',
+                        description: 'Convert to paragraph format',
+                      },
+                      {
+                        id: 'outline',
+                        label: 'Outline',
+                        description: 'Convert to structured outline',
+                      },
+                    ]}
+                    onRestructure={(content: string, structureId: string) => {
+                      console.log('Restructuring:', content, structureId)
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Restyle</CardTitle>
+                  <CardDescription>
+                    Transfer styles without changing the underlying structure
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Restyle
+                    content='This is a sample text that can be restyled.'
+                    styleOptions={[
+                      {
+                        id: 'formal',
+                        label: 'Formal',
+                        description: 'Professional and formal tone',
+                      },
+                      {
+                        id: 'casual',
+                        label: 'Casual',
+                        description: 'Relaxed and conversational',
+                      },
+                      {
+                        id: 'academic',
+                        label: 'Academic',
+                        description: 'Scholarly and precise',
+                      },
+                    ]}
+                    onRestyle={(content: string, styleId: string) => {
+                      console.log('Restyling:', content, styleId)
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Summary</CardTitle>
+                  <CardDescription>
+                    Distill a topic or resource down to its essence
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Summary
+                    content='Artificial intelligence represents a paradigm shift in computational systems. By leveraging advanced algorithms, AI enables the creation of intuitive interfaces and personalized experiences across diverse domains including healthcare, education, and finance.'
+                    onSummarize={(summary: string) => {
+                      console.log('Summary:', summary)
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Synthesis</CardTitle>
+                  <CardDescription>
+                    Distill or reorganize complicated information into simple
+                    structure
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Synthesis
+                    content='Complex information about AI, machine learning, neural networks, and their applications in various industries with technical details and extensive explanations.'
+                    onSynthesize={(synthesized: string) => {
+                      console.log('Synthesized:', synthesized)
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Transform</CardTitle>
+                  <CardDescription>
+                    Change the modality of content using AI
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Transform
+                    content='A description of an image: A beautiful sunset over mountains.'
+                    modalityOptions={[
+                      {
+                        id: 'text-to-image',
+                        label: 'Text to Image',
+                        from: 'Text',
+                        to: 'Image',
+                        description: 'Generate image from text description',
+                      },
+                      {
+                        id: 'text-to-code',
+                        label: 'Text to Code',
+                        from: 'Text',
+                        to: 'Code',
+                        description: 'Convert description to code',
+                      },
+                      {
+                        id: 'text-to-audio',
+                        label: 'Text to Audio',
+                        from: 'Text',
+                        to: 'Audio',
+                        description: 'Convert text to speech',
+                      },
+                    ]}
+                    onTransform={(content: string, modalityId: string) => {
+                      console.log('Transforming:', content, modalityId)
+                    }}
+                  />
                 </CardContent>
               </Card>
             </div>
           </div>
-        </TabsContent>
-
-        <TabsContent value='inputs' className='mt-6'>
-          <Card>
-            <CardHeader>
-              <CardTitle>Inputs</CardTitle>
-              <CardDescription>
-                Components that handle user input and interaction
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className='text-sm text-muted-foreground'>
-                Input components coming soon...
-              </p>
-            </CardContent>
-          </Card>
         </TabsContent>
 
         <TabsContent value='tuners' className='mt-6 space-y-6'>
@@ -1023,6 +1379,43 @@ export default function PatternsDemoPage() {
               </p>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value='trust-builders' className='mt-6 space-y-6'>
+          <div>
+            <p className='text-sm text-muted-foreground mb-6'>
+              Components that give users confidence that AI results are ethical,
+              accurate, and trustworthy
+            </p>
+
+            <div className='space-y-6'>
+              <Card>
+                <CardHeader>
+                  <CardTitle>AI Response with Citations</CardTitle>
+                  <CardDescription>
+                    Generated answer with inline citation marks
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <p className='text-base leading-relaxed'>
+                    {answer} <CitationMarks citations={citations} />
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Footprints</CardTitle>
+                  <CardDescription>
+                    View metadata and audit information
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <FootprintsButton data={footprintsData} />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value='identifiers' className='mt-6'>
