@@ -34,3 +34,6 @@ export type { Template, TemplateField, TemplatesProps } from './templates'
 
 export { VariationCards } from './variation-cards'
 export type { VariationCardsProps, VariationItem } from './variation-cards'
+
+export { PatternLearnMore } from './pattern-learn-more'
+export type { PatternLearnMoreProps } from './pattern-learn-more'

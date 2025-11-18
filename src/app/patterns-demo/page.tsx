@@ -1,41 +1,65 @@
 'use client'
 
 import {
+  ActionPlan,
   Attachments,
   AutoFill,
+  Branches,
+  Caveat,
   ChainedAction,
   CitationMarks,
+  Citations,
   Connectors,
+  ConsentManager,
+  Controls,
+  CostEstimates,
+  DataOwnership,
   Describe,
+  Disclosure,
+  DraftMode,
   ExampleGallery,
   Expand,
   Filters,
   FollowUpBar,
   FootprintsButton,
+  GovernorPatternLearnMore,
+  IncognitoMode,
   InitialCTA,
   InlineAction,
   Inpainting,
+  InputPatternLearnMore,
   Madlibs,
+  Memory,
   ModelManagement,
   Modes,
   Nudges,
   OpenInput,
   Parameters,
+  PatternLearnMore,
   PresetStyles,
   PromptDetails,
   PromptEnhancer,
   Randomize,
+  References,
   Regenerate,
   Restructure,
   Restyle,
+  SampleResponse,
   SavedStyles,
+  SharedVision,
+  StreamOfThought,
   Suggestions,
   Summary,
   Synthesis,
   Templates,
   Transform,
+  TrustPatternLearnMore,
+  TunerPatternLearnMore,
   VariationCards,
+  Variations,
+  Verification,
   VoiceAndTone,
+  Watermark,
 } from '@/components/ai-patterns'
 import {
   Card,
@@ -45,7 +69,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export default function PatternsDemoPage() {
   const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(
@@ -121,6 +145,291 @@ export default function PatternsDemoPage() {
   const [selectedVoice, setSelectedVoice] = useState('neutral')
   const [selectedTone, setSelectedTone] = useState('friendly')
   const [customInstructions, setCustomInstructions] = useState('')
+
+  const actionPlanSteps = [
+    {
+      id: 'plan-1',
+      title: 'Align on objective',
+      description: 'Restate the user goal to confirm shared understanding.',
+      status: 'ready' as const,
+      estimateMinutes: 1,
+    },
+    {
+      id: 'plan-2',
+      title: 'Propose outline',
+      description: 'Draft a 3-step approach to reach the outcome.',
+      status: 'in-progress' as const,
+      estimateMinutes: 3,
+    },
+    {
+      id: 'plan-3',
+      title: 'Highlight dependencies',
+      description: 'Call out any data or approvals required.',
+      status: 'pending' as const,
+      estimateMinutes: 2,
+    },
+  ]
+  const [approvedPlanSteps, setApprovedPlanSteps] = useState<string[] | null>(
+    null
+  )
+
+  const governorBranches = useMemo(
+    () => [
+      {
+        id: 'branch-1',
+        title: 'Structured summary',
+        summary: 'Creates a concise overview with bullet highlights.',
+        createdAt: new Date('2025-01-15T10:00:00Z'),
+        promptPreview: 'Summarize the AI article focusing on key takeaways.',
+        steps: [
+          {
+            id: 'step-1',
+            label: 'Read source',
+            output: 'Captured main thesis.',
+          },
+          {
+            id: 'step-2',
+            label: 'Extract bullets',
+            output: 'Listed 5 bullets.',
+          },
+          {
+            id: 'step-3',
+            label: 'Draft summary',
+            output: 'Delivered 120-word executive summary.',
+          },
+        ],
+        status: 'active' as const,
+      },
+      {
+        id: 'branch-2',
+        title: 'Narrative version',
+        summary: 'Generates a story-driven explanation with examples.',
+        createdAt: new Date('2025-01-14T16:30:00Z'),
+        promptPreview: 'Explain the article using a narrative hook.',
+        steps: [
+          {
+            id: 'step-1',
+            label: 'Collect anecdotes',
+            output: 'Identified two real-world examples.',
+          },
+          {
+            id: 'step-2',
+            label: 'Draft narrative',
+            output: 'Wrote a story about a design team adopting AI.',
+          },
+        ],
+        status: 'archived' as const,
+      },
+    ],
+    []
+  )
+  const [selectedBranchTitle, setSelectedBranchTitle] = useState<string | null>(
+    () => governorBranches[0]?.title ?? null
+  )
+
+  const [controlSettings, setControlSettings] = useState([
+    {
+      id: 'auto-continue',
+      label: 'Auto-continue actions',
+      description: 'Allow the assistant to run follow-up tasks automatically.',
+      enabled: true,
+    },
+    {
+      id: 'sensitive',
+      label: 'Flag sensitive data',
+      description: 'Require confirmation before using confidential inputs.',
+      enabled: false,
+    },
+    {
+      id: 'notifications',
+      label: 'Send status updates',
+      description: 'Notify you when multi-step plans complete.',
+      enabled: true,
+    },
+  ])
+  const [assistantPaused, setAssistantPaused] = useState(false)
+
+  const governorCitations = [
+    {
+      id: 'c1',
+      title: 'Designing oversight loops',
+      summary:
+        'Research on how design teams incorporate review checkpoints into AI workflows.',
+      url: 'https://example.com/oversight',
+      confidence: 0.92,
+    },
+    {
+      id: 'c2',
+      title: 'Responsible AI field guide',
+      summary: 'Best practices for human-in-the-loop AI governance.',
+      url: 'https://example.com/responsible-ai',
+      confidence: 0.87,
+    },
+    {
+      id: 'c3',
+      title: 'Stakeholder feedback session notes',
+      summary: 'Highlights from the latest product review meeting.',
+      confidence: 0.75,
+    },
+  ]
+
+  const governorEstimates = [
+    {
+      id: 'estimate-1',
+      label: 'Draft plan generation',
+      tokens: 820,
+      costUsd: 0.0016,
+    },
+    {
+      id: 'estimate-2',
+      label: 'Outline review',
+      tokens: 410,
+      costUsd: 0.0008,
+    },
+    {
+      id: 'estimate-3',
+      label: 'Final summary',
+      tokens: 950,
+      costUsd: 0.0019,
+    },
+  ]
+
+  const [memoryItems, setMemoryItems] = useState([
+    {
+      id: 'memory-1',
+      title: 'Preferred format',
+      description: 'Summaries should include executive bullet points.',
+      isStored: true,
+    },
+    {
+      id: 'memory-2',
+      title: 'Team context',
+      description: 'Working with the research ops team this quarter.',
+      isStored: true,
+    },
+    {
+      id: 'memory-3',
+      title: 'Exclude details',
+      description: 'Avoid referencing unreleased roadmap milestones.',
+      isStored: false,
+    },
+  ])
+
+  const [referenceItems, setReferenceItems] = useState([
+    {
+      id: 'ref-1',
+      title: 'Q1 Strategy Doc',
+      description: 'North star outcomes for the AI research program.',
+      type: 'document' as const,
+      url: 'https://example.com/strategy',
+    },
+    {
+      id: 'ref-2',
+      title: 'Research Survey Results',
+      description: 'Latest customer insights to cite in summaries.',
+      type: 'dataset' as const,
+    },
+    {
+      id: 'ref-3',
+      title: 'Design principles',
+      description: 'Brand guidelines for tone and narrative style.',
+      type: 'note' as const,
+    },
+  ])
+
+  const [sampleFeedback, setSampleFeedback] = useState<string | null>(null)
+  const [draftPublished, setDraftPublished] = useState(false)
+  const [isReasoningVisible, setIsReasoningVisible] = useState(false)
+
+  const governorVariations = [
+    {
+      id: 'variation-1',
+      label: 'Executive brief',
+      content:
+        'AI adoption accelerates decision-making by surfacing insights faster, enabling leaders to align cross-functional teams around shared outcomes.',
+    },
+    {
+      id: 'variation-2',
+      label: 'Guided explainer',
+      content:
+        'Imagine a researcher asking for trend analysis. The assistant reviews sources, highlights top signals, and proposes next best actions while keeping you in control.',
+    },
+    {
+      id: 'variation-3',
+      label: 'Data-backed recap',
+      content:
+        'Across 42 feedback sessions, teams reported a 30% reduction in review loops when using human-in-the-loop oversight patterns.',
+    },
+  ]
+  const [selectedVariationLabel, setSelectedVariationLabel] = useState<
+    string | null
+  >(null)
+  const [variationFeedback, setVariationFeedback] = useState<string | null>(
+    null
+  )
+
+  const governorVerificationSteps = [
+    {
+      id: 'verify-1',
+      label: 'Confirm data sources',
+      description: 'Double-check that references are approved for sharing.',
+      required: true,
+    },
+    {
+      id: 'verify-2',
+      label: 'Validate tone',
+      description: 'Ensure language aligns with brand voice.',
+    },
+    {
+      id: 'verify-3',
+      label: 'Check next steps',
+      description: 'Verify follow-up actions and owners.',
+      required: true,
+    },
+  ]
+  const [verifiedSteps, setVerifiedSteps] = useState<string[]>([])
+  const [verificationStatus, setVerificationStatus] = useState<
+    'pending' | 'approved'
+  >('pending')
+
+  const sharedVisionMilestones = [
+    {
+      id: 'milestone-1',
+      title: 'Collect research artifacts',
+      owner: {
+        id: 'owner-1',
+        name: 'Avery Brooks',
+        role: 'Research Ops',
+      },
+      status: 'in-progress' as const,
+      nextAction: 'Upload interview insights by Friday',
+    },
+    {
+      id: 'milestone-2',
+      title: 'Synthesize findings',
+      owner: {
+        id: 'owner-2',
+        name: 'Luis Ortega',
+        role: 'Design Strategist',
+      },
+      status: 'not-started' as const,
+      nextAction: 'Review assistant draft once action plan is approved',
+    },
+    {
+      id: 'milestone-3',
+      title: 'Executive review',
+      owner: {
+        id: 'owner-3',
+        name: 'Priya Desai',
+        role: 'Product Lead',
+      },
+      status: 'done' as const,
+      nextAction: 'Share approved recap with leadership team',
+    },
+  ]
+
+  const reasoningTrace =
+    'Analyzed prior summaries, identified key metrics, and cross-referenced approved references before drafting this answer.'
 
   // Input components state
   const [autoFillFields, setAutoFillFields] = useState<
@@ -305,6 +614,86 @@ export default function PatternsDemoPage() {
     },
   ]
 
+  const caveatItems = [
+    {
+      id: 'caveat-1',
+      label: 'May include outdated statistics',
+      description:
+        'Some training data predates 2024; verify numbers before sharing externally.',
+    },
+    {
+      id: 'caveat-2',
+      label: 'Limited awareness of internal policies',
+      description:
+        'The assistant does not automatically apply your organization’s latest compliance rules.',
+    },
+    {
+      id: 'caveat-3',
+      label: 'Does not access private repositories',
+      description:
+        'Provide attachments or connectors for proprietary docs before requesting audits.',
+    },
+  ]
+
+  const consentRequests = [
+    {
+      id: 'consent-1',
+      label: 'Use customer excerpts',
+      description:
+        'Allow the assistant to reference anonymized customer quotes.',
+      required: true,
+      granted: true,
+    },
+    {
+      id: 'consent-2',
+      label: 'Share draft with product teams',
+      description: 'Let the assistant circulate drafts to subscribers.',
+      granted: false,
+    },
+    {
+      id: 'consent-3',
+      label: 'Store prompts for tuning',
+      description: 'Retain this conversation to improve future responses.',
+      granted: false,
+    },
+  ]
+  const [consentSummary, setConsentSummary] = useState<string | null>(null)
+
+  const dataOwnershipCategories = [
+    {
+      id: 'category-1',
+      name: 'Conversation history',
+      description: 'Previous prompts and responses stored for context.',
+      retained: true,
+    },
+    {
+      id: 'category-2',
+      name: 'Uploaded files',
+      description: 'Documents you or your teammates attached.',
+      retained: false,
+    },
+    {
+      id: 'category-3',
+      name: 'Personal preferences',
+      description: 'Voice, tone, and formatting instructions saved for reuse.',
+      retained: true,
+    },
+  ]
+  const [dataOwnershipNotice, setDataOwnershipNotice] = useState<string | null>(
+    null
+  )
+
+  const [incognitoEnabled, setIncognitoEnabled] = useState(false)
+  const [sessionCleared, setSessionCleared] = useState(false)
+
+  const disclosureMessage =
+    'Generated by the Atlas AI assistant. Review and edit before you share with clients.'
+
+  const watermarkPreview = `AI Summary:
+- Highlights last week's research sync
+- Includes sentiment metrics
+- Suggests next steps for prototype testing`
+
   const variationItems = [
     {
       id: '1',
@@ -438,11 +827,16 @@ export default function PatternsDemoPage() {
             <div className='space-y-6'>
               <Card>
                 <CardHeader>
-                  <CardTitle>Initial CTA</CardTitle>
-                  <CardDescription>
-                    Large, open-ended input inviting users to start their first
-                    interaction
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Initial CTA</CardTitle>
+                      <CardDescription>
+                        Large, open-ended input inviting users to start their
+                        first interaction
+                      </CardDescription>
+                    </div>
+                    <PatternLearnMore pattern='initial-cta' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <InitialCTA
@@ -455,21 +849,29 @@ export default function PatternsDemoPage() {
                         `You asked: "${value}". Here's a response about that topic...`
                       )
                     }}
+                    showLearnMore={false}
                   />
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Suggestions</CardTitle>
-                  <CardDescription>
-                    Solves the blank canvas dilemma with clues for how to prompt
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Suggestions</CardTitle>
+                      <CardDescription>
+                        Solves the blank canvas dilemma with clues for how to
+                        prompt
+                      </CardDescription>
+                    </div>
+                    <PatternLearnMore pattern='suggestions' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Suggestions
                     items={suggestionItems}
                     onPick={handleSuggestionPick}
+                    showLearnMore={false}
                   />
                   {selectedSuggestion && (
                     <p className='mt-4 text-sm text-muted-foreground'>
@@ -485,11 +887,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Example Gallery</CardTitle>
-                  <CardDescription>
-                    Sample generations, prompts, and parameters to educate and
-                    inspire
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Example Gallery</CardTitle>
+                      <CardDescription>
+                        Sample generations, prompts, and parameters to educate
+                        and inspire
+                      </CardDescription>
+                    </div>
+                    <PatternLearnMore pattern='example-gallery' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <ExampleGallery
@@ -498,78 +905,114 @@ export default function PatternsDemoPage() {
                       console.log('Example selected:', example)
                       setAnswer(example.result || example.prompt)
                     }}
+                    showLearnMore={false}
                   />
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Templates</CardTitle>
-                  <CardDescription>
-                    Structured templates that can be filled by the user or
-                    pre-filled by the AI
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Templates</CardTitle>
+                      <CardDescription>
+                        Structured templates that can be filled by the user or
+                        pre-filled by the AI
+                      </CardDescription>
+                    </div>
+                    <PatternLearnMore pattern='templates' />
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <Templates templates={templateItems} />
+                  <Templates templates={templateItems} showLearnMore={false} />
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Nudges</CardTitle>
-                  <CardDescription>
-                    Alerts users to actions they can take to use AI
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Nudges</CardTitle>
+                      <CardDescription>
+                        Alerts users to actions they can take to use AI
+                      </CardDescription>
+                    </div>
+                    <PatternLearnMore pattern='nudges' />
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <Nudges nudges={nudgeItems} />
+                  <Nudges nudges={nudgeItems} showLearnMore={false} />
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Follow-up</CardTitle>
-                  <CardDescription>
-                    Get more information when the initial prompt isn't
-                    sufficiently clear
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Follow-up</CardTitle>
+                      <CardDescription>
+                        Get more information when the initial prompt isn't
+                        sufficiently clear
+                      </CardDescription>
+                    </div>
+                    <PatternLearnMore pattern='follow-up-bar' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <FollowUpBar
                     items={followUpItems}
                     onPick={handleFollowUpPick}
+                    showLearnMore={false}
                   />
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Randomize</CardTitle>
-                  <CardDescription>
-                    Kickstart the prompting experience with a low bar and fun
-                    results
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Randomize</CardTitle>
+                      <CardDescription>
+                        Kickstart the prompting experience with a low bar and
+                        fun results
+                      </CardDescription>
+                    </div>
+                    <div className='flex flex-wrap gap-2 justify-end'>
+                      <PatternLearnMore pattern='randomize' />
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <div className='flex gap-2'>
-                    <Randomize onRandomize={handleRandomize} />
-                    <PromptDetails details={promptDetails} />
+                  <div className='flex flex-wrap gap-2'>
+                    <Randomize
+                      onRandomize={handleRandomize}
+                      showLearnMore={false}
+                    />
+                    <PromptDetails
+                      details={promptDetails}
+                      showLearnMore={false}
+                    />
                   </div>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Variations</CardTitle>
-                  <CardDescription>
-                    Alternative output cards users can select
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Variations</CardTitle>
+                      <CardDescription>
+                        Alternative output cards users can select
+                      </CardDescription>
+                    </div>
+                    <PatternLearnMore pattern='variation-cards' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <VariationCards
                     items={variationItems}
                     onSelect={handleVariationSelect}
+                    showLearnMore={false}
                   />
                 </CardContent>
               </Card>
@@ -586,11 +1029,16 @@ export default function PatternsDemoPage() {
             <div className='space-y-6'>
               <Card>
                 <CardHeader>
-                  <CardTitle>Open Input</CardTitle>
-                  <CardDescription>
-                    Open ended prompt inputs for AI conversations and natural
-                    language prompting
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Open Input</CardTitle>
+                      <CardDescription>
+                        Open ended prompt inputs for AI conversations and
+                        natural language prompting
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='open-input' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <OpenInput
@@ -605,10 +1053,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Auto-fill</CardTitle>
-                  <CardDescription>
-                    Extend a prompt to multiple fields or inputs at once
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Auto-fill</CardTitle>
+                      <CardDescription>
+                        Extend a prompt to multiple fields or inputs at once
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='auto-fill' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <AutoFill
@@ -624,10 +1077,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Chained Action</CardTitle>
-                  <CardDescription>
-                    Chain multiple AI actions together in sequence
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Chained Action</CardTitle>
+                      <CardDescription>
+                        Chain multiple AI actions together in sequence
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='chained-action' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <ChainedAction
@@ -649,11 +1107,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Describe</CardTitle>
-                  <CardDescription>
-                    Decompose content into fundamental tokens and suggested
-                    prompts
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Describe</CardTitle>
+                      <CardDescription>
+                        Decompose content into fundamental tokens and suggested
+                        prompts
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='describe' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Describe
@@ -683,10 +1146,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Expand</CardTitle>
-                  <CardDescription>
-                    Lengthen content or add depth and details
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Expand</CardTitle>
+                      <CardDescription>
+                        Lengthen content or add depth and details
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='expand' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Expand
@@ -700,10 +1168,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Inline Action</CardTitle>
-                  <CardDescription>
-                    Ask or interact with AI contextually based on page content
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Inline Action</CardTitle>
+                      <CardDescription>
+                        Ask or interact with AI contextually based on page
+                        content
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='inline-action' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className='p-4 border rounded-lg'>
@@ -724,10 +1198,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Inpainting</CardTitle>
-                  <CardDescription>
-                    Target specific areas to regenerate or remix
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Inpainting</CardTitle>
+                      <CardDescription>
+                        Target specific areas to regenerate or remix
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='inpainting' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Inpainting
@@ -756,11 +1235,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Madlibs</CardTitle>
-                  <CardDescription>
-                    Repeatedly run generative tasks without compromising format
-                    or accuracy
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Madlibs</CardTitle>
+                      <CardDescription>
+                        Repeatedly run generative tasks without compromising
+                        format or accuracy
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='madlibs' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Madlibs
@@ -789,10 +1273,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Regenerate</CardTitle>
-                  <CardDescription>
-                    Reproduce AI response without additional input
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Regenerate</CardTitle>
+                      <CardDescription>
+                        Reproduce AI response without additional input
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='regenerate' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className='space-y-4'>
@@ -811,10 +1300,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Restructure</CardTitle>
-                  <CardDescription>
-                    Use existing content as the starting point for prompting
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Restructure</CardTitle>
+                      <CardDescription>
+                        Use existing content as the starting point for prompting
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='restructure' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Restructure
@@ -845,10 +1339,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Restyle</CardTitle>
-                  <CardDescription>
-                    Transfer styles without changing the underlying structure
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Restyle</CardTitle>
+                      <CardDescription>
+                        Transfer styles without changing the underlying
+                        structure
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='restyle' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Restyle
@@ -879,10 +1379,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Summary</CardTitle>
-                  <CardDescription>
-                    Distill a topic or resource down to its essence
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Summary</CardTitle>
+                      <CardDescription>
+                        Distill a topic or resource down to its essence
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='summary' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Summary
@@ -896,11 +1401,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Synthesis</CardTitle>
-                  <CardDescription>
-                    Distill or reorganize complicated information into simple
-                    structure
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Synthesis</CardTitle>
+                      <CardDescription>
+                        Distill or reorganize complicated information into
+                        simple structure
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='synthesis' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Synthesis
@@ -914,10 +1424,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Transform</CardTitle>
-                  <CardDescription>
-                    Change the modality of content using AI
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Transform</CardTitle>
+                      <CardDescription>
+                        Change the modality of content using AI
+                      </CardDescription>
+                    </div>
+                    <InputPatternLearnMore pattern='transform' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Transform
@@ -965,10 +1480,15 @@ export default function PatternsDemoPage() {
             <div className='space-y-6'>
               <Card>
                 <CardHeader>
-                  <CardTitle>Attachments</CardTitle>
-                  <CardDescription>
-                    Give the AI a specific reference to anchor its response
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Attachments</CardTitle>
+                      <CardDescription>
+                        Give the AI a specific reference to anchor its response
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='attachments' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Attachments
@@ -991,10 +1511,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Connectors</CardTitle>
-                  <CardDescription>
-                    Allow AI to reference external data and context
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Connectors</CardTitle>
+                      <CardDescription>
+                        Allow AI to reference external data and context
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='connectors' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Connectors
@@ -1021,10 +1546,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Filters</CardTitle>
-                  <CardDescription>
-                    Constrain inputs or outputs by source, type, modality, etc.
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Filters</CardTitle>
+                      <CardDescription>
+                        Constrain inputs or outputs by source, type, modality,
+                        etc.
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='filters' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Filters
@@ -1092,10 +1623,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Model Management</CardTitle>
-                  <CardDescription>
-                    Let users specify what model to use for their prompts
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Model Management</CardTitle>
+                      <CardDescription>
+                        Let users specify what model to use for their prompts
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='model-management' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <ModelManagement
@@ -1135,11 +1671,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Modes</CardTitle>
-                  <CardDescription>
-                    Adjust training, constraints, and persona for specific
-                    contexts
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Modes</CardTitle>
+                      <CardDescription>
+                        Adjust training, constraints, and persona for specific
+                        contexts
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='modes' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Modes
@@ -1174,10 +1715,16 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Parameters</CardTitle>
-                  <CardDescription>
-                    Include constraints with your prompt for the AI to reference
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Parameters</CardTitle>
+                      <CardDescription>
+                        Include constraints with your prompt for the AI to
+                        reference
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='parameters' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Parameters
@@ -1203,10 +1750,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Preset Styles</CardTitle>
-                  <CardDescription>
-                    Default options to change texture, aesthetic, or tone
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Preset Styles</CardTitle>
+                      <CardDescription>
+                        Default options to change texture, aesthetic, or tone
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='preset-styles' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <PresetStyles
@@ -1256,10 +1808,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Prompt Enhancer</CardTitle>
-                  <CardDescription>
-                    Enhance and improve prompts for better AI responses
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Prompt Enhancer</CardTitle>
+                      <CardDescription>
+                        Enhance and improve prompts for better AI responses
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='prompt-enhancer' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <PromptEnhancer
@@ -1275,10 +1832,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Saved Styles</CardTitle>
-                  <CardDescription>
-                    Define your own style presets for reuse
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Saved Styles</CardTitle>
+                      <CardDescription>
+                        Define your own style presets for reuse
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='saved-styles' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <SavedStyles
@@ -1301,10 +1863,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Voice & Tone</CardTitle>
-                  <CardDescription>
-                    Ensure outputs match your voice, tone, and preferences
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Voice & Tone</CardTitle>
+                      <CardDescription>
+                        Ensure outputs match your voice, tone, and preferences
+                      </CardDescription>
+                    </div>
+                    <TunerPatternLearnMore pattern='voice-and-tone' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <VoiceAndTone
@@ -1365,20 +1932,387 @@ export default function PatternsDemoPage() {
           </div>
         </TabsContent>
 
-        <TabsContent value='governors' className='mt-6'>
-          <Card>
-            <CardHeader>
-              <CardTitle>Governors</CardTitle>
-              <CardDescription>
-                Human-in-the-loop features to maintain user oversight and agency
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className='text-sm text-muted-foreground'>
-                Governor components coming soon...
-              </p>
-            </CardContent>
-          </Card>
+        <TabsContent value='governors' className='mt-6 space-y-6'>
+          <div>
+            <p className='text-sm text-muted-foreground mb-6'>
+              Human-in-the-loop features that give people clarity and oversight
+              while collaborating with AI.
+            </p>
+
+            <div className='space-y-6'>
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Action Plan</CardTitle>
+                      <CardDescription>
+                        Preview the steps the assistant will take before
+                        approving.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='action-plan' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <ActionPlan
+                    steps={actionPlanSteps}
+                    onApprove={(stepIds) => {
+                      setApprovedPlanSteps(stepIds)
+                      console.log('Action plan approved:', stepIds)
+                    }}
+                    onCancel={() => setApprovedPlanSteps(null)}
+                  />
+                  {approvedPlanSteps && (
+                    <p className='text-sm text-muted-foreground'>
+                      Approved {approvedPlanSteps.length} steps for execution.
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Verification</CardTitle>
+                      <CardDescription>
+                        Confirm required checkpoints before allowing the
+                        assistant to proceed.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='verification' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <Verification
+                    steps={governorVerificationSteps}
+                    onVerify={(steps) => {
+                      setVerificationStatus('approved')
+                      setVerifiedSteps(steps)
+                      console.log('Verification complete:', steps)
+                    }}
+                  />
+                  <p className='text-sm text-muted-foreground'>
+                    Status:{' '}
+                    <span className='font-medium text-foreground'>
+                      {verificationStatus === 'approved'
+                        ? 'Approved'
+                        : 'Awaiting review'}
+                    </span>
+                    {verifiedSteps.length > 0 && (
+                      <> · {verifiedSteps.length} checks completed</>
+                    )}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Controls</CardTitle>
+                      <CardDescription>
+                        Adjust autonomy settings or pause the assistant
+                        mid-session.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='controls' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <Controls
+                    settings={controlSettings}
+                    onChange={(updated) => setControlSettings(updated)}
+                    onPause={() => setAssistantPaused((prev) => !prev)}
+                    isPaused={assistantPaused}
+                  />
+                  <p className='text-sm text-muted-foreground'>
+                    Assistant is currently{' '}
+                    <span className='font-medium text-foreground'>
+                      {assistantPaused ? 'paused' : 'active'}
+                    </span>
+                    .
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Cost Estimates</CardTitle>
+                      <CardDescription>
+                        Review token and cost projections before moving forward.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='cost-estimates' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <CostEstimates estimates={governorEstimates} />
+                  <p className='text-sm text-muted-foreground'>
+                    Estimates help modulate compute usage ahead of time.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Sample Response</CardTitle>
+                      <CardDescription>
+                        Validate the AI&apos;s understanding before it runs the
+                        full task.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='sample-response' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <SampleResponse
+                    prompt='Create a recap of our weekly research sync.'
+                    sample='Here is a concise recap with highlights, key metrics, and agreed next steps.'
+                    onConfirm={(feedback) => {
+                      setSampleFeedback(
+                        feedback.trim().length > 0 ? feedback : 'Approved as-is'
+                      )
+                      console.log('Sample response feedback:', feedback)
+                    }}
+                  />
+                  {sampleFeedback && (
+                    <p className='text-sm text-muted-foreground'>
+                      Feedback recorded: {sampleFeedback}
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Draft Mode</CardTitle>
+                      <CardDescription>
+                        Explore in a sandbox before publishing to teammates.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='draft-mode' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <DraftMode
+                    initialDraft={answer}
+                    onPublish={(finalDraft) => {
+                      setAnswer(finalDraft)
+                      setDraftPublished(true)
+                      console.log('Draft published:', finalDraft)
+                    }}
+                  />
+                  {draftPublished && (
+                    <p className='text-sm text-muted-foreground'>
+                      Draft published to the shared workspace.
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Stream of Thought</CardTitle>
+                      <CardDescription>
+                        Reveal the model&apos;s reasoning when you need
+                        additional transparency.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='stream-of-thought' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <StreamOfThought
+                    reasoning={reasoningTrace}
+                    answer={answer}
+                    onToggleVisibility={(visible) => {
+                      setIsReasoningVisible(visible)
+                      console.log('Reasoning visibility:', visible)
+                    }}
+                  />
+                  <p className='text-sm text-muted-foreground'>
+                    Reasoning is {isReasoningVisible ? 'visible' : 'hidden'} to
+                    collaborators.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Citations</CardTitle>
+                      <CardDescription>
+                        Inspect the sources backing the assistant&apos;s
+                        response.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='citations' />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Citations
+                    response={answer}
+                    citations={governorCitations}
+                    onOpenSource={(citation) =>
+                      console.log('Open citation:', citation)
+                    }
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Variations</CardTitle>
+                      <CardDescription>
+                        Compare alternative drafts while preserving the original
+                        path.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='variations' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <Variations
+                    variations={governorVariations}
+                    onSelect={(variation) => {
+                      setSelectedVariationLabel(variation.label)
+                      setVariationFeedback(null)
+                      console.log('Variation selected:', variation)
+                    }}
+                    onFeedback={(variation, feedback) => {
+                      setSelectedVariationLabel(variation.label)
+                      setVariationFeedback(
+                        feedback.trim().length > 0 ? feedback : null
+                      )
+                      console.log('Variation feedback:', variation, feedback)
+                    }}
+                  />
+                  <p className='text-sm text-muted-foreground'>
+                    {selectedVariationLabel ? (
+                      <>
+                        Selected: {selectedVariationLabel}
+                        {variationFeedback && (
+                          <> · Feedback: {variationFeedback}</>
+                        )}
+                      </>
+                    ) : (
+                      'Select a variation to refine further.'
+                    )}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Branches</CardTitle>
+                      <CardDescription>
+                        Track divergent paths and keep visibility into their
+                        history.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='branches' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <Branches
+                    branches={governorBranches}
+                    onSelectBranch={(branch) => {
+                      setSelectedBranchTitle(branch.title)
+                      console.log('Branch selected:', branch)
+                    }}
+                  />
+                  {selectedBranchTitle && (
+                    <p className='text-sm text-muted-foreground'>
+                      Viewing branch: {selectedBranchTitle}
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>References</CardTitle>
+                      <CardDescription>
+                        Manage external materials that influence the assistant.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='references' />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <References
+                    references={referenceItems}
+                    onOpenReference={(reference) =>
+                      console.log('Open reference:', reference)
+                    }
+                    onRemoveReference={(reference) => {
+                      setReferenceItems((prev) =>
+                        prev.filter((item) => item.id !== reference.id)
+                      )
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Memory Controls</CardTitle>
+                      <CardDescription>
+                        Decide what the assistant keeps or forgets for next
+                        time.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='memory' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <Memory
+                    items={memoryItems}
+                    onUpdate={(items) => setMemoryItems(items)}
+                  />
+                  <p className='text-sm text-muted-foreground'>
+                    {memoryItems.filter((item) => item.isStored).length} of{' '}
+                    {memoryItems.length} memories stored.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Shared Vision</CardTitle>
+                      <CardDescription>
+                        Maintain alignment across teammates and the assistant.
+                      </CardDescription>
+                    </div>
+                    <GovernorPatternLearnMore pattern='shared-vision' />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <SharedVision milestones={sharedVisionMilestones} />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value='trust-builders' className='mt-6 space-y-6'>
@@ -1391,10 +2325,195 @@ export default function PatternsDemoPage() {
             <div className='space-y-6'>
               <Card>
                 <CardHeader>
-                  <CardTitle>AI Response with Citations</CardTitle>
-                  <CardDescription>
-                    Generated answer with inline citation marks
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Caveats</CardTitle>
+                      <CardDescription>
+                        Surface limitations so users understand risks before
+                        acting.
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='caveat' />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Caveat caveats={caveatItems} severity='medium' />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Consent Manager</CardTitle>
+                      <CardDescription>
+                        Collect explicit permission before the assistant shares
+                        or stores information.
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='consent-manager' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <ConsentManager
+                    items={consentRequests}
+                    onSubmit={(items) => {
+                      const grantedCount = items.filter(
+                        (item) => item.granted
+                      ).length
+                      setConsentSummary(
+                        `${grantedCount} of ${items.length} permissions granted`
+                      )
+                      console.log('Consent submitted:', items)
+                    }}
+                    onCancel={() => {
+                      setConsentSummary('Consent request canceled.')
+                      console.log('Consent canceled')
+                    }}
+                  />
+                  {consentSummary && (
+                    <p className='text-sm text-muted-foreground'>
+                      {consentSummary}
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Data Ownership</CardTitle>
+                      <CardDescription>
+                        Let people decide what data the assistant may retain.
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='data-ownership' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <DataOwnership
+                    categories={dataOwnershipCategories}
+                    onToggleCategory={(categoryId, retained) => {
+                      const status = retained ? 'retained' : 'forgotten'
+                      const category = dataOwnershipCategories.find(
+                        (item) => item.id === categoryId
+                      )
+                      setDataOwnershipNotice(
+                        `${category?.name ?? 'Category'} will be ${status}.`
+                      )
+                    }}
+                    onDownload={() => {
+                      setDataOwnershipNotice('Preparing data export…')
+                      console.log('Download data requested')
+                    }}
+                    onDelete={() => {
+                      setDataOwnershipNotice('Data deletion initiated.')
+                      console.log('Delete data requested')
+                    }}
+                  />
+                  {dataOwnershipNotice && (
+                    <p className='text-sm text-muted-foreground'>
+                      {dataOwnershipNotice}
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Disclosure</CardTitle>
+                      <CardDescription>
+                        Clearly indicate when content is AI-generated.
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='disclosure' />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Disclosure message={disclosureMessage} />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Incognito Mode</CardTitle>
+                      <CardDescription>
+                        Offer a privacy-first session that leaves no memory
+                        behind.
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='incognito-mode' />
+                  </div>
+                </CardHeader>
+                <CardContent className='space-y-3'>
+                  <IncognitoMode
+                    enabled={incognitoEnabled}
+                    onToggle={(enabled) => {
+                      setIncognitoEnabled(enabled)
+                      if (enabled) {
+                        setSessionCleared(false)
+                      }
+                      console.log('Incognito toggled:', enabled)
+                    }}
+                    onClearHistory={() => {
+                      setSessionCleared(true)
+                      console.log('Session history cleared')
+                    }}
+                  />
+                  <p className='text-sm text-muted-foreground'>
+                    Incognito is currently{' '}
+                    <span className='font-medium text-foreground'>
+                      {incognitoEnabled ? 'enabled' : 'disabled'}
+                    </span>
+                    .
+                    {sessionCleared && ' Session history cleared for this run.'}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Watermark</CardTitle>
+                      <CardDescription>
+                        Embed an unobtrusive label that automated tools can
+                        detect.
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='watermark' />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Watermark>
+                    <div className='space-y-2 p-4 text-sm'>
+                      <h4 className='text-base font-semibold'>
+                        Weekly research recap
+                      </h4>
+                      <p className='whitespace-pre-line text-muted-foreground'>
+                        {watermarkPreview}
+                      </p>
+                    </div>
+                  </Watermark>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>AI Response with Citations</CardTitle>
+                      <CardDescription>
+                        Generated answer with inline citation marks
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='citation-marks' />
+                  </div>
                 </CardHeader>
                 <CardContent className='space-y-4'>
                   <p className='text-base leading-relaxed'>
@@ -1405,10 +2524,15 @@ export default function PatternsDemoPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Footprints</CardTitle>
-                  <CardDescription>
-                    View metadata and audit information
-                  </CardDescription>
+                  <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between'>
+                    <div>
+                      <CardTitle>Footprints</CardTitle>
+                      <CardDescription>
+                        View metadata and audit information
+                      </CardDescription>
+                    </div>
+                    <TrustPatternLearnMore pattern='footprints' />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <FootprintsButton data={footprintsData} />

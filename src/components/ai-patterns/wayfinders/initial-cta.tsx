@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import { Send } from 'lucide-react'
 import { useState } from 'react'
+import { PatternLearnMore } from './pattern-learn-more'
 
 /**
  * InitialCTA - Large, open-ended input inviting the user to start their first interaction with the AI.
@@ -16,6 +17,7 @@ export interface InitialCTAProps {
   className?: string
   label?: string
   helperText?: string
+  showLearnMore?: boolean
 }
 
 export function InitialCTA({
@@ -24,6 +26,7 @@ export function InitialCTA({
   className,
   label = 'Get started',
   helperText,
+  showLearnMore = true,
 }: InitialCTAProps) {
   const [value, setValue] = useState('')
 
@@ -38,10 +41,13 @@ export function InitialCTA({
   return (
     <form onSubmit={handleSubmit} className={cn('space-y-4', className)}>
       {label && (
-        <div>
-          <h2 className='text-2xl font-semibold mb-2'>{label}</h2>
+        <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
+          <h2 className='text-2xl font-semibold'>{label}</h2>
           {helperText && (
             <p className='text-sm text-muted-foreground'>{helperText}</p>
+          )}
+          {showLearnMore && (
+            <PatternLearnMore pattern='initial-cta' className='sm:ml-4' />
           )}
         </div>
       )}

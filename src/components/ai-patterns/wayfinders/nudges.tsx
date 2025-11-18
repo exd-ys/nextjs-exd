@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { AlertCircle, X } from 'lucide-react'
 import { useState } from 'react'
+import { PatternLearnMore } from './pattern-learn-more'
 
 /**
  * Nudges - Alerts users to actions they can take to use AI, especially if they are just getting started.
@@ -24,9 +25,15 @@ export interface NudgesProps {
   nudges: Nudge[]
   onDismiss?: (nudgeId: string) => void
   className?: string
+  showLearnMore?: boolean
 }
 
-export function Nudges({ nudges, onDismiss, className }: NudgesProps) {
+export function Nudges({
+  nudges,
+  onDismiss,
+  className,
+  showLearnMore = true,
+}: NudgesProps) {
   const [dismissed, setDismissed] = useState<Set<string>>(new Set())
 
   const handleDismiss = (id: string) => {
@@ -40,6 +47,11 @@ export function Nudges({ nudges, onDismiss, className }: NudgesProps) {
 
   return (
     <div className={cn('space-y-2', className)}>
+      {showLearnMore && (
+        <div className='text-right'>
+          <PatternLearnMore pattern='nudges' />
+        </div>
+      )}
       {visibleNudges.map((nudge) => (
         <div
           key={nudge.id}

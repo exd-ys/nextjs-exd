@@ -44,3 +44,6 @@ export type { SynthesisProps } from './synthesis'
 
 export { Transform } from './transform'
 export type { ModalityOption, TransformProps } from './transform'
+
+export { InputPatternLearnMore } from './pattern-learn-more'
+export type { InputPatternLearnMoreProps } from './pattern-learn-more'
