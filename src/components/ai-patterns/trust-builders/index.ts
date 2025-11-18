@@ -31,3 +31,6 @@ export type { IncognitoModeProps } from './incognito-mode'
 
 export { Watermark } from './watermark'
 export type { WatermarkProps } from './watermark'
+
+export { TrustPatternLearnMore } from './pattern-learn-more'
+export type { TrustPatternLearnMoreProps } from './pattern-learn-more'

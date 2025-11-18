@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
+import { PatternLearnMore } from './pattern-learn-more'
 
 /**
  * Templates - Structured templates that can be filled by the user or pre-filled by the AI.
@@ -39,9 +40,15 @@ export interface TemplatesProps {
   templates: Template[]
   onSelect?: (template: Template) => void
   className?: string
+  showLearnMore?: boolean
 }
 
-export function Templates({ templates, onSelect, className }: TemplatesProps) {
+export function Templates({
+  templates,
+  onSelect,
+  className,
+  showLearnMore = true,
+}: TemplatesProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
     null
   )
@@ -76,7 +83,7 @@ export function Templates({ templates, onSelect, className }: TemplatesProps) {
     return (
       <Card className={cn('w-full', className)}>
         <CardHeader>
-          <div className='flex items-start justify-between'>
+          <div className='flex flex-wrap items-start justify-between gap-3'>
             <div>
               <CardTitle>{selectedTemplate.title}</CardTitle>
               {selectedTemplate.description && (
@@ -85,13 +92,18 @@ export function Templates({ templates, onSelect, className }: TemplatesProps) {
                 </CardDescription>
               )}
             </div>
-            <Button
-              variant='ghost'
-              size='sm'
-              onClick={() => setSelectedTemplate(null)}
-            >
-              Back
-            </Button>
+            <div className='flex items-center gap-2'>
+              {showLearnMore && (
+                <PatternLearnMore pattern='templates' className='shrink-0' />
+              )}
+              <Button
+                variant='ghost'
+                size='sm'
+                onClick={() => setSelectedTemplate(null)}
+              >
+                Back
+              </Button>
+            </div>
           </div>
         </CardHeader>
         <CardContent>
@@ -158,32 +170,39 @@ export function Templates({ templates, onSelect, className }: TemplatesProps) {
   }
 
   return (
-    <div
-      className={cn(
-        'grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3',
-        className
+    <div className='space-y-3'>
+      {showLearnMore && (
+        <div className='flex justify-end'>
+          <PatternLearnMore pattern='templates' />
+        </div>
       )}
-    >
-      {templates.map((template) => (
-        <Card
-          key={template.id}
-          className='cursor-pointer transition-all hover:shadow-md hover:border-primary'
-          onClick={() => handleTemplateSelect(template)}
-        >
-          <CardHeader>
-            <CardTitle className='text-base'>{template.title}</CardTitle>
-            {template.description && (
-              <CardDescription>{template.description}</CardDescription>
-            )}
-          </CardHeader>
-          <CardContent>
-            <p className='text-xs text-muted-foreground'>
-              {template.fields.length} field
-              {template.fields.length !== 1 ? 's' : ''}
-            </p>
-          </CardContent>
-        </Card>
-      ))}
+      <div
+        className={cn(
+          'grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3',
+          className
+        )}
+      >
+        {templates.map((template) => (
+          <Card
+            key={template.id}
+            className='cursor-pointer transition-all hover:shadow-md hover:border-primary'
+            onClick={() => handleTemplateSelect(template)}
+          >
+            <CardHeader>
+              <CardTitle className='text-base'>{template.title}</CardTitle>
+              {template.description && (
+                <CardDescription>{template.description}</CardDescription>
+              )}
+            </CardHeader>
+            <CardContent>
+              <p className='text-xs text-muted-foreground'>
+                {template.fields.length} field
+                {template.fields.length !== 1 ? 's' : ''}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }

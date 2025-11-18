@@ -45,3 +45,6 @@ export type { Variation, VariationsProps } from './variations'
 
 export { Verification } from './verification'
 export type { VerificationProps, VerificationStep } from './verification'
+
+export { GovernorPatternLearnMore } from './pattern-learn-more'
+export type { GovernorPatternLearnMoreProps } from './pattern-learn-more'

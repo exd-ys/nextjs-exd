@@ -33,3 +33,6 @@ export type { SavedStyle, SavedStylesProps } from './saved-styles'
 
 export { VoiceAndTone } from './voice-and-tone'
 export type { VoiceAndToneProps, VoiceToneOption } from './voice-and-tone'
+
+export { TunerPatternLearnMore } from './pattern-learn-more'
+export type { TunerPatternLearnMoreProps } from './pattern-learn-more'

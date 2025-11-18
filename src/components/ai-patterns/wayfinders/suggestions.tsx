@@ -2,6 +2,7 @@
 
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import { PatternLearnMore } from './pattern-learn-more'
 
 /**
  * Suggestions - Solves the blank canvas dilemma with clues for how to prompt.
@@ -18,11 +19,22 @@ export interface SuggestionsProps {
   items: SuggestionItem[]
   onPick: (item: SuggestionItem) => void
   className?: string
+  showLearnMore?: boolean
 }
 
-export function Suggestions({ items, onPick, className }: SuggestionsProps) {
+export function Suggestions({
+  items,
+  onPick,
+  className,
+  showLearnMore = true,
+}: SuggestionsProps) {
   return (
     <div className={cn('flex flex-wrap gap-2', className)}>
+      {showLearnMore && (
+        <div className='ml-auto w-full text-right'>
+          <PatternLearnMore pattern='suggestions' />
+        </div>
+      )}
       {items.map((item) => (
         <Badge
           key={item.id}
