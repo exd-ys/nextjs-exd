@@ -126,7 +126,6 @@ const Login: NextPage<Props> = ({}) => {
       }
     } catch (error) {
       setIsLoading(false)
-      console.error('Login error:', error)
       showAlert('error', 'An unexpected error occurred. Please try again.')
     }
   }
@@ -136,12 +135,10 @@ const Login: NextPage<Props> = ({}) => {
   }
 
   const handleGoogleLogin = () => {
-    console.log('Google login clicked')
     // Implement Google OAuth here
   }
 
   const handleAppleLogin = () => {
-    console.log('Apple login clicked')
     // Implement Apple OAuth here
   }
 

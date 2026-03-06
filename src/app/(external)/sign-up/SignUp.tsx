@@ -88,6 +88,7 @@ const SignUp: NextPage<Props> = () => {
   }
 
   const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [isError, setIsError] = useState(false)
   const [alertType, setAlertType] = useState<
     'default' | 'success' | 'warning' | 'error'
@@ -185,7 +186,6 @@ const SignUp: NextPage<Props> = () => {
                 handleBlur,
                 setFieldValue,
               }) => {
-                const [showPassword, setShowPassword] = useState(false)
                 // Password requirements
                 const passwordChecks = [
                   {
