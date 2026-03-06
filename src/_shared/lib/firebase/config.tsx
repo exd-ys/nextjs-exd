@@ -25,7 +25,7 @@ if (typeof window !== 'undefined' && envConfig.FIREBASE_API_KEY) {
       getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
     db = getFirestore(firebase_app)
   } catch (error) {
-    console.warn('Firebase initialization failed:', error)
+    // Firebase initialization failed silently
   }
 }
 

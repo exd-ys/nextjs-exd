@@ -39,7 +39,6 @@ export default function Page() {
       // Cleanup subscription on unmount
       return () => unsubscribe()
     } catch (error) {
-      console.warn('Firebase auth not available:', error)
       // Show dashboard anyway for demo purposes
       setIsLoading(false)
     }

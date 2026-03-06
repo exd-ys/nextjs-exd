@@ -1,5 +1,4 @@
-
-"use client";
+'use client'
 import MainLayout from '../(main-layout)/layout'
 
 export default function ProfileLayout({
