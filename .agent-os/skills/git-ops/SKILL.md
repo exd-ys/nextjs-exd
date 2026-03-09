@@ -1,6 +1,6 @@
 ---
 name: git-ops
-description: Use when the user wants to stage changes, commit with a message, and push to the remote. Handles the full git workflow: git status → git add → git commit → git push. Also use when the user says "commit my changes", "push this", "save my work to git", or asks to create a git commit.
+description: Use when the user wants to stage changes, commit with a message, and push to the remote. Handles the full git workflow: git status → create branch → git add → git commit → git push branch → open GitHub PR. Also use when the user says "commit my changes", "push this", "save my work to git", or asks to create a git commit. NEVER merges directly into main — always creates a branch and opens a Pull Request.
 ---
 
 # Git Operations Skill
@@ -10,9 +10,11 @@ description: Use when the user wants to stage changes, commit with a message, an
 Run steps in order. Do not skip steps.
 
 1. **Check status** — understand what changed before touching anything
-2. **Stage changes** — add files intentionally (not blindly)
-3. **Commit** — write a clear, conventional commit message
-4. **Push** — push to the correct remote branch
+2. **Create branch** — always work on a feature branch, never directly on `main`
+3. **Stage changes** — add files intentionally (not blindly)
+4. **Commit** — write a clear, conventional commit message
+5. **Push branch** — push the feature branch to remote
+6. **Open PR** — create a Pull Request targeting `main`
 
 ---
 
@@ -30,11 +32,26 @@ Report back:
 - Modified files
 - Staged files
 
-**Stop and ask** if the branch is `main` or `master` — confirm the user intends to push directly to that branch.
+**If already on `main`/`master`** — do not commit here. Proceed to Step 2 to create a branch first.
 
 ---
 
-## Step 2 — Stage Changes
+## Step 2 — Create Branch
+
+Always commit on a feature branch, never directly on `main` or `master`.
+
+If the user provided a branch name → use it exactly.
+If not → infer a short kebab-case name from the work being done (e.g. `feat/add-auth`, `fix/button-hover`, `chore/update-skills`).
+
+```bash
+git checkout -b <branch-name>
+```
+
+If already on a feature branch (not `main`/`master`) → skip this step.
+
+---
+
+## Step 3 — Stage Changes
 
 **Option A — Stage everything:**
 
@@ -52,7 +69,7 @@ Default to Option A unless the user specifies files or a partial commit.
 
 ---
 
-## Step 3 — Commit
+## Step 4 — Commit
 
 ```bash
 git commit -m "<type>(<scope>): <short description>"
@@ -86,13 +103,13 @@ If no message is given → infer from `git diff --stat` and staged files, then c
 
 ---
 
-## Step 4 — Push
+## Step 5 — Push Branch
 
 ```bash
 git push origin <current-branch>
 ```
 
-- Always push to the **current branch** by default.
+- Always push the **feature branch** — never push directly to `main`.
 - If the branch has no upstream yet:
   ```bash
   git push --set-upstream origin <current-branch>
@@ -101,10 +118,37 @@ git push origin <current-branch>
 
 ---
 
+## Step 6 — Open Pull Request
+
+After pushing the branch, open a PR targeting `main`.
+
+**Option A — GitHub CLI (preferred if available):**
+
+```bash
+gh pr create --base main --head <branch-name> --title "<commit message summary>" --body ""
+```
+
+**Option B — Output the GitHub PR URL for the user to open manually:**
+
+```
+https://github.com/<owner>/<repo>/compare/main...<branch-name>
+```
+
+Always report the PR URL so the user can review and merge on GitHub.
+
+**NEVER:**
+
+- Merge locally with `git merge`
+- Push directly to `main`
+- Skip the PR step
+
+---
+
 ## Safety Rules
 
 - Do not run `git reset`, `git rebase`, or `git stash` unless explicitly asked.
-- Do not push to `main`/`master` without confirming with the user.
+- **Never merge directly into `main`/`master`** — always go through a PR.
+- **Never push to `main`/`master` directly** — branch first, PR always.
 - Do not amend published commits.
 - If `git push` is rejected (non-fast-forward), report the error and ask how to proceed — do not auto-pull.
 
@@ -119,6 +163,7 @@ After completing the workflow, report:
 Branch:   <branch-name>
 Files:    <number> file(s) changed
 Commit:   <commit hash (short)> — <commit message>
-Pushed:   <remote/branch>
-Status:   DONE
+Pushed:   origin/<branch-name>
+PR:       <GitHub PR URL>
+Status:   AWAITING REVIEW
 ```

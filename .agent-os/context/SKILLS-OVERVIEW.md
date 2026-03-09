@@ -233,25 +233,6 @@ Load this skill, then define: (1) YAML frontmatter (`name`, `description`), (2) 
 **File:** `.agent-os/skills/skill-updater/SKILL.md`
 
 **What it does:**  
-Guides the creation and updating of effective skills. Defines skill anatomy (YAML frontmatter + Markdown instructions + optional bundled resources), best practices (concise, right level of freedom, no redundant explanations), and how to structure skills for different task types.
-
-**When to use:**
-
-- Creating a new skill for a reusable pattern
-- Updating an existing skill
-- Extracting ad-hoc logic into a reusable skill (self-annealing)
-- Validating whether a skill is well-formed
-
-**How to use:**  
-Load this skill, then define: (1) YAML frontmatter (`name`, `description`), (2) purpose and when-to-use, (3) instructions at the right freedom level (high/medium/low), (4) optional bundled resources. Keep it concise — only add what Claude doesn't already know.
-
----
-
-## 14. `skill-updater`
-
-**File:** `.agent-os/skills/skill-updater/SKILL.md`
-
-**What it does:**  
 Patches an existing skill to align with the current project's specifications, conventions, and live codebase. Reads the target skill and `PROFILE.md`, diffs them, and applies minimal in-place edits — fixing version mismatches, wrong component paths, outdated patterns, missing guardrails, and stale framework assumptions.
 
 **When to use:**
@@ -327,37 +308,37 @@ Load `PROFILE.md` and `DESIGN.md` (if present) first. Follow the three architect
 **File:** `.agent-os/skills/git-ops/SKILL.md`
 
 **What it does:**  
-Handles the full git workflow in a single skill: status check → stage changes → commit with a conventional commit message → push to remote. Enforces branch safety (warns before pushing to `main`/`master`), Conventional Commits format, and never force-pushes without explicit user confirmation.
+Handles the full git workflow: status check → create branch → stage changes → commit → push branch → open a GitHub Pull Request targeting `main`. Enforces that changes are **never merged directly into `main`** — always goes through a PR. Uses Conventional Commits format and never force-pushes without explicit confirmation.
 
 **When to use:**
 
 - User says "commit my changes", "push this", or "save my work to git"
 - After completing a feature, fix, or any meaningful set of changes
-- Any time you need to run `git add` → `git commit` → `git push`
+- Any time you need to run `git add` → `git commit` → `git push` → open PR
 
 **How to use:**  
-The skill runs 4 steps in order: (1) `git status` + `git diff --stat` to inspect changes, (2) `git add .` or specific files, (3) `git commit -m` using Conventional Commits format (`feat`, `fix`, `chore`, `refactor`, etc.), (4) `git push origin <branch>`. If no commit message is provided, the skill infers one from staged changes and confirms before committing.
+The skill runs 6 steps: (1) `git status` + `git diff --stat`, (2) create a feature branch (`git checkout -b <branch>`), (3) `git add .`, (4) `git commit -m` using Conventional Commits, (5) `git push origin <branch>`, (6) open a PR via `gh pr create` or output the GitHub compare URL. Never merges locally or pushes directly to `main`.
 
 ---
 
 ## Quick Reference Table
 
-| Skill                                                   | Domain        | Key Trigger                                      |
-| ------------------------------------------------------- | ------------- | ------------------------------------------------ |
-| `create-project-profile`                                | Governance    | PROFILE.md missing or invalid                    |
-| `design-md`                                             | Design        | Need DESIGN.md from Stitch project               |
-| `find-skills`                                           | Discovery     | Looking for community skills                     |
-| `frontend-QA-skill`                                     | QA            | Before shipping any frontend work                |
-| `frontend-skill`                                        | Frontend/UI   | Building any UI page or component                |
-| `git-ops`                                               | Git           | Commit and push changes                          |
-| `inspiration_audit_to_design_spec`                      | Design        | Have inspiration URL/screenshot                  |
-| `interaction-skill`                                     | UX/Behavior   | Defining interaction logic and states            |
-| `martinholovsky-gsap`                                   | Animation     | Adding GSAP animations                           |
-| `orchestration`                                         | Meta          | Determining which skills to apply                |
-| `reference_layout_to_original_system`                   | Design/Layout | Extracting layout from reference site            |
-| `shadcn-ui`                                             | Components    | Installing/discovering shadcn components         |
-| `skill-creator`                                         | Governance    | Creating or updating a skill                     |
-| `skill-updater`                                         | Governance    | Patching a skill to match project specs          |
-| `use-shadcn`                                            | Components    | Using shadcn as UI primitive source              |
-| `nextjs_project_profile_instantiation`                  | Setup         | Scaffolding Next.js App Router project           |
-| `SKILL_instantiate_nextjs_tailwind_shadcn_gsap_project` | Setup         | Bootstrapping Next.js + Tailwind + shadcn + GSAP |
+| Skill                                                   | Domain        | Key Trigger                                       |
+| ------------------------------------------------------- | ------------- | ------------------------------------------------- |
+| `create-project-profile`                                | Governance    | PROFILE.md missing or invalid                     |
+| `design-md`                                             | Design        | Need DESIGN.md from Stitch project                |
+| `find-skills`                                           | Discovery     | Looking for community skills                      |
+| `frontend-QA-skill`                                     | QA            | Before shipping any frontend work                 |
+| `frontend-skill`                                        | Frontend/UI   | Building any UI page or component                 |
+| `git-ops`                                               | Git           | Commit, push branch, open PR (never push to main) |
+| `inspiration_audit_to_design_spec`                      | Design        | Have inspiration URL/screenshot                   |
+| `interaction-skill`                                     | UX/Behavior   | Defining interaction logic and states             |
+| `martinholovsky-gsap`                                   | Animation     | Adding GSAP animations                            |
+| `orchestration`                                         | Meta          | Determining which skills to apply                 |
+| `reference_layout_to_original_system`                   | Design/Layout | Extracting layout from reference site             |
+| `shadcn-ui`                                             | Components    | Installing/discovering shadcn components          |
+| `skill-creator`                                         | Governance    | Creating or updating a skill                      |
+| `skill-updater`                                         | Governance    | Patching a skill to match project specs           |
+| `use-shadcn`                                            | Components    | Using shadcn as UI primitive source               |
+| `nextjs_project_profile_instantiation`                  | Setup         | Scaffolding Next.js App Router project            |
+| `SKILL_instantiate_nextjs_tailwind_shadcn_gsap_project` | Setup         | Bootstrapping Next.js + Tailwind + shadcn + GSAP  |
