@@ -1,5 +1,5 @@
 ---
-name: interaction-architecture-skill
+name: interaction-skill
 description: Use when defining state management, user flows, component boundaries, and interaction behaviors. Governs how UI behaves and signals interactivity (hover, cursor, feedback, states, accessibility) — not how it looks.
 ---
 
@@ -19,6 +19,15 @@ This skill governs:
 - Accessibility and keyboard interaction
 
 It prevents "looks fine but feels broken" UI.
+
+## Project Stack Constraints
+
+- Framework: Next.js 15 (App Router), React 19
+- UI components: shadcn/ui + Radix UI — live in `src/components/ui/`
+- Styling: Tailwind CSS v4 utility classes
+- Language: TypeScript strict mode
+- State: React hooks (`useState`, `useReducer`) — no global state library by default
+- Forms: formik + yup or zod
 
 ---
 

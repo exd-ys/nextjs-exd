@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provide a repeatable, deterministic way to scaffold a Next.js App Router project aligned with `/context/PROJECT_PROFILE.md`.
+Provide a repeatable, deterministic way to scaffold a Next.js App Router project aligned with `.agent-os/context/PROFILE.md`.
 
 ---
 
@@ -124,12 +124,10 @@ export default function HomePage() {
 
 ### 3. Tailwind Assumptions
 
-Ensure `app/globals.css` contains:
+Ensure `app/globals.css` contains the Tailwind v4 CSS-first import:
 
-```
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+```css
+@import 'tailwindcss';
 ```
 
 Do not overwrite if already configured correctly.
@@ -138,7 +136,7 @@ Do not overwrite if already configured correctly.
 
 ### 4. shadcn Rules
 
-- Primitives live in `components/ui/`
+- Primitives live in `src/components/ui/`
 - Do not modify generated primitives
 - Wrap instead of editing
 - No emoji icons

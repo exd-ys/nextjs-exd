@@ -3,6 +3,8 @@
 Reference index of all available skills under `.agent-os/skills/`.  
 Use this file to quickly identify the right skill before executing any task.
 
+> **Maintenance rule:** Whenever a new skill is created or an existing skill is significantly changed, update this file immediately — add or update the numbered entry and the Quick Reference Table row.
+
 ---
 
 ## 1. `create-project-profile`
@@ -226,7 +228,45 @@ Load this skill, then define: (1) YAML frontmatter (`name`, `description`), (2) 
 
 ---
 
-## 13. `use-shadcn`
+## 13. `skill-updater`
+
+**File:** `.agent-os/skills/skill-updater/SKILL.md`
+
+**What it does:**  
+Guides the creation and updating of effective skills. Defines skill anatomy (YAML frontmatter + Markdown instructions + optional bundled resources), best practices (concise, right level of freedom, no redundant explanations), and how to structure skills for different task types.
+
+**When to use:**
+
+- Creating a new skill for a reusable pattern
+- Updating an existing skill
+- Extracting ad-hoc logic into a reusable skill (self-annealing)
+- Validating whether a skill is well-formed
+
+**How to use:**  
+Load this skill, then define: (1) YAML frontmatter (`name`, `description`), (2) purpose and when-to-use, (3) instructions at the right freedom level (high/medium/low), (4) optional bundled resources. Keep it concise — only add what Claude doesn't already know.
+
+---
+
+## 14. `skill-updater`
+
+**File:** `.agent-os/skills/skill-updater/SKILL.md`
+
+**What it does:**  
+Patches an existing skill to align with the current project's specifications, conventions, and live codebase. Reads the target skill and `PROFILE.md`, diffs them, and applies minimal in-place edits — fixing version mismatches, wrong component paths, outdated patterns, missing guardrails, and stale framework assumptions.
+
+**When to use:**
+
+- A skill has generic guidance that contradicts how this project actually works
+- Stack versions, component paths, or import patterns in a skill are outdated
+- A new project convention was established and skills need to reflect it
+- User says "update the X skill", "sync X to the project", or "X skill is outdated"
+
+**How to use:**  
+Identify the target skill and the reason for the update. The skill loads `PROFILE.md` + the target skill in parallel, diffs every category (framework versions, paths, patterns, guardrails), plans minimal patches, applies them in-place, and reports exactly what changed.
+
+---
+
+## 14. `use-shadcn`
 
 **File:** `.agent-os/skills/use-shadcn/SKILL_use_shadcn_components.md`
 
@@ -245,7 +285,7 @@ Always start from the corresponding shadcn primitive (Button, Card, Input, Dialo
 
 ---
 
-## 14. `nextjs_project_profile_instantiation`
+## 15. `nextjs_project_profile_instantiation`
 
 **File:** `.agent-os/skills/nextjs_project_profile_instantiation.md`
 
@@ -263,7 +303,7 @@ Load `PROFILE.md` first. Then enforce `.agent-os/` directory structure, create b
 
 ---
 
-## 15. `SKILL_instantiate_nextjs_tailwind_shadcn_gsap_project`
+## 16. `SKILL_instantiate_nextjs_tailwind_shadcn_gsap_project`
 
 **File:** `.agent-os/skills/SKILL_instantiate_nextjs_tailwind_shadcn_gsap_project.md`
 
@@ -282,7 +322,7 @@ Load `PROFILE.md` and `DESIGN.md` (if present) first. Follow the three architect
 
 ---
 
-## 16. `git-ops`
+## 17. `git-ops`
 
 **File:** `.agent-os/skills/git-ops/SKILL.md`
 
@@ -317,6 +357,7 @@ The skill runs 4 steps in order: (1) `git status` + `git diff --stat` to inspect
 | `reference_layout_to_original_system`                   | Design/Layout | Extracting layout from reference site            |
 | `shadcn-ui`                                             | Components    | Installing/discovering shadcn components         |
 | `skill-creator`                                         | Governance    | Creating or updating a skill                     |
+| `skill-updater`                                         | Governance    | Patching a skill to match project specs          |
 | `use-shadcn`                                            | Components    | Using shadcn as UI primitive source              |
 | `nextjs_project_profile_instantiation`                  | Setup         | Scaffolding Next.js App Router project           |
 | `SKILL_instantiate_nextjs_tailwind_shadcn_gsap_project` | Setup         | Bootstrapping Next.js + Tailwind + shadcn + GSAP |

@@ -1,16 +1,20 @@
 ---
 name: shadcn-ui
 description: Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.
-allowed-tools:
-  - 'shadcn*:*'
-  - 'mcp_shadcn*'
-  - 'Read'
-  - 'Write'
-  - 'Bash'
-  - 'web_fetch'
 ---
 
 # shadcn/ui Component Integration
+
+## Project Stack Constraints
+
+- Components live in: `src/components/ui/`
+- Shared utility (`cn()`): `src/lib/utils.ts`
+- Framework: Next.js 15 (App Router), React 19
+- Styling: Tailwind CSS v4 (CSS-first config)
+- Language: TypeScript strict mode
+- Package manager: npm (use `npx shadcn@latest add`)
+
+---
 
 You are a frontend engineer specialized in building applications with shadcn/ui—a collection of beautifully designed, accessible, and customizable components built with Radix UI or Base UI and Tailwind CSS. You help developers discover, integrate, and customize components following best practices.
 
@@ -47,13 +51,13 @@ This command:
 
 - Downloads the component source code (adapting to your config: Radix vs Base UI)
 - Installs required dependencies
-- Places files in `components/ui/`
+- Places files in `src/components/ui/`
 - Updates your `components.json` config
 
 **B. Manual Integration**
 
 1. Use `get_component` to retrieve the source code
-2. Create the file in `components/ui/[component-name].tsx`
+2. Create the file in `src/components/ui/[component-name].tsx`
 3. Install peer dependencies manually
 4. Adjust imports if needed
 
@@ -96,8 +100,8 @@ This creates `components.json` with your configuration:
 
 shadcn/ui components require:
 
-- **React** (18+)
-- **Tailwind CSS** (3.0+)
+- **React** (19)
+- **Tailwind CSS** (v4)
 - **Primitives**: Radix UI OR Base UI (depending on your choice)
 - **class-variance-authority** (for variant styling)
 - **clsx** and **tailwind-merge** (for class composition)

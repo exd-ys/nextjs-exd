@@ -26,6 +26,17 @@ It does NOT govern:
 
 ---
 
+## Project Stack Constraints
+
+- Framework: Next.js 15 (App Router), React 19
+- UI components: shadcn/ui + Radix UI — live in `src/components/ui/`
+- Styling: Tailwind CSS v4 (CSS-first config, no `tailwind.config.js`)
+- Language: TypeScript strict mode
+- Icons: lucide-react, @tabler/icons-react, phosphor-react
+- Package manager: npm
+
+---
+
 # Core Principles
 
 1. Design before implementation.

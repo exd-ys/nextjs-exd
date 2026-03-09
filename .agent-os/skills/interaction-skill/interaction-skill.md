@@ -1,5 +1,5 @@
 ---
-name: interaction-architecture-skill
+name: interaction-skill
 description: Use when defining state management, user flows, component boundaries, and interaction behaviors. Governs how UI behaves and signals interactivity (hover, cursor, feedback, states, accessibility) — not how it looks.
 ---
 
@@ -23,7 +23,7 @@ It prevents "looks fine but feels broken" UI.
 This skill must operate together with:
 
 - `.agent-os/policy/POLICY_interaction_integrity.md`
-- `.agent-os/skills/frontend-ship-gate.md` (when shipping UI)
+- `.agent-os/skills/frontend-QA-skill/frontend-ship-gate.md` (when shipping UI)
 
 The policy enforces global rules.  
 This skill defines interaction design logic.  
@@ -78,7 +78,7 @@ If any item fails:
 
 If the task involves frontend implementation (not just planning or modeling), you MUST also run:
 
-.agent-os/skills/frontend-ship-gate.md
+.agent-os/skills/frontend-QA-skill/frontend-ship-gate.md
 
 This ensures:
 

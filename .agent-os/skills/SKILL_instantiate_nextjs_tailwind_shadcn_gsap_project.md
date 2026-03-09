@@ -52,9 +52,9 @@ If PROFILE.md does not reflect Next.js App Router structure, stop and request cl
 
 ### 2. shadcn Structure (Required)
 
-- Primitives live in: `components/ui/`
+- Primitives live in: `src/components/ui/`
 - Wrappers/composed components live outside primitives
-- Shared utilities (e.g., `cn()`) live in `lib/`
+- Shared utilities (e.g., `cn()`) live in `src/lib/`
 - Do not scatter primitive copies
 - Prefer wrapping over editing primitives
 

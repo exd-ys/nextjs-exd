@@ -17,6 +17,14 @@ This skill governs _how_ shadcn is used, not how it is installed.
 
 ---
 
+## Project Stack Constraints
+
+- Components live in: `src/components/ui/`
+- Framework: Next.js 15 (App Router), React 19
+- Styling: Tailwind CSS v4 utility classes
+- Language: TypeScript strict mode
+- Shared utility: `src/lib/utils.ts` (`cn()` helper)
+
 ## When To Use
 
 - Building UI components for pages
